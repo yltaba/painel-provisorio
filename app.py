@@ -534,6 +534,6 @@ def atualizar_grafico_caged_media_idade(filtro_cnae):
 
     return fig
 
-
+server = app.server
 if __name__ == "__main__":
     app.run_server(debug=False, host="0.0.0.0", port=8080)

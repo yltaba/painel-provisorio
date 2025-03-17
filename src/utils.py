@@ -18,8 +18,8 @@ def calcular_pib_atual(pib_por_categoria):
         .round()
         .astype(int)
     )
-    pib_corrente = locale.format_string("%.0f", pib_corrente_int, grouping=True)
-    return pib_corrente
+    # pib_corrente = locale.format_string("%.0f", pib_corrente_int, grouping=True)
+    return pib_corrente_int
 
 
 def calcular_variacao_pib(pib_por_categoria):
@@ -44,7 +44,7 @@ def calcular_variacao_pib(pib_por_categoria):
     )
 
     variacao_pib = ((pib_ano - pib_ano_anterior) / pib_ano_anterior) * 100
-    variacao_pib = locale.format_string("%.1f%%", variacao_pib, grouping=True)
+    # variacao_pib = locale.format_string("%.1f%%", variacao_pib, grouping=True)
     return variacao_pib
 
 

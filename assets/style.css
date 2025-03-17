@@ -1,3 +1,47 @@
-html, body {
-    scroll-behavior: smooth;
+.custom-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    padding: 2px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 1px;
+    height: 110px; 
+}
+
+.custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+    font-weight: bold;
+    color: #213953 !important;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.card-value-container {
+    text-align: center;
+}
+
+.currency-symbol {
+    font-size: 0.8rem;
+}
+
+.card-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2980b9;
+}
+
+.cards-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+
+.main-content-row {
+    margin-top: 20px;
 }

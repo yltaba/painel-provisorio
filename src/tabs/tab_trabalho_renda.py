@@ -1,6 +1,5 @@
 from dash import dcc, html
 import dash_bootstrap_components as dbc
-import locale
 
 from src.utils import create_card_valor
 from src.load_data import load_data

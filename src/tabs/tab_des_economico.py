@@ -1,6 +1,5 @@
 from dash import dcc, html
 import dash_bootstrap_components as dbc
-import locale
 import plotly.express as px
 
 from src.utils import create_card_valor, calcular_pib_atual, calcular_variacao_pib

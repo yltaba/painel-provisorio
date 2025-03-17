@@ -1,6 +1,5 @@
 from dash import Input, Output, html
 import plotly.express as px
-import locale
 
 from src.config import TEMPLATE
 from src.tabs.tab_des_economico import tab_economia
@@ -81,7 +80,6 @@ def init_callbacks(app, all_data):
             .agg({"quantidade_vinculos_ativos": "sum"})
             .values[0]
         )
-        estoque_atual = locale.format_string("%d", estoque_atual, grouping=True)
 
         # Calcular variação
         estoque_anterior = (
@@ -90,7 +88,6 @@ def init_callbacks(app, all_data):
             .values[0]
         )
         variacao_estoque = ((estoque_atual - estoque_anterior) / estoque_anterior) * 100
-        variacao_estoque = locale.format_string("%.1f%%", variacao_estoque, grouping=True)
 
         return estoque_atual, variacao_estoque
 

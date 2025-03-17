@@ -12,19 +12,6 @@
 
 
 from pathlib import Path
-import locale
-
-# Global settings
-try:
-    locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
-except locale.Error:
-    try:
-        locale.setlocale(locale.LC_ALL, "Portuguese_Brazil.1252")
-    except locale.Error:
-        try:
-            locale.setlocale(locale.LC_ALL, "C.UTF-8")
-        except locale.Error:
-            locale.setlocale(locale.LC_ALL, "")  # Fallback to system default
 
 # Add a function to format numbers consistently
 def format_number(value, currency=False, decimals=2):

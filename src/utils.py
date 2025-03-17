@@ -1,6 +1,6 @@
 from dash import html
 import dash_bootstrap_components as dbc
-
+from babel.numbers import format_decimal, format_currency
 
 def get_options_dropdown(all_data, table, column):
     return [{"label": x, "value": x} for x in all_data[table][column].dropna().unique()]
@@ -17,8 +17,8 @@ def calcular_pib_atual(pib_por_categoria):
         .round()
         .astype(int)
     )
-    # pib_corrente = locale.format_string("%.0f", pib_corrente_int, grouping=True)
-    return pib_corrente_int
+    pib_corrente = format_currency(pib_corrente_int, 'BRL', locale='pt_BR')
+    return pib_corrente
 
 
 def calcular_variacao_pib(pib_por_categoria):
@@ -43,7 +43,8 @@ def calcular_variacao_pib(pib_por_categoria):
     )
 
     variacao_pib = ((pib_ano - pib_ano_anterior) / pib_ano_anterior) * 100
-    # variacao_pib = locale.format_string("%.1f%%", variacao_pib, grouping=True)
+    variacao_pib = format_decimal(variacao_pib, locale='pt_BR')
+
     return variacao_pib
 
 
@@ -80,7 +81,6 @@ def create_card_valor(title, value, currency=False):
     else:
         value_display = html.Div(
             [
-                (html.Span("R$ ", className="currency-symbol") if currency else None),
                 html.Span(value, className="card-value"),
             ],
             style={

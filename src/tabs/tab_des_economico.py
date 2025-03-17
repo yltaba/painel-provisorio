@@ -114,7 +114,7 @@ vl_pib_per_capita = all_data["pib_per_capita"].loc[
 # vl_pib_per_capita = locale.format_string("%.1f", vl_pib_per_capita, grouping=True)
 
 card_pib_per_capita = create_card_valor(
-    f"PIB per capita {all_data["pib_per_capita"]['ano'].max()}", vl_pib_per_capita, currency=True
+    f"PIB per capita {all_data['pib_per_capita']['ano'].max()}", vl_pib_per_capita, currency=True
 )
 
 # VALORES POPULAÇÃO PARA CARD LATERAL

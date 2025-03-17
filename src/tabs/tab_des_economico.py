@@ -112,7 +112,7 @@ cartoes_pib_categorias = dbc.Row(
 vl_pib_per_capita = all_data["pib_per_capita"].loc[
     all_data["pib_per_capita"]["ano"] == all_data["pib_per_capita"]["ano"].max()
 ]["pib_per_capita"].values[0]
-vl_pib_per_capita = locale.format_string("%.1f", vl_pib_per_capita, grouping=True)
+# vl_pib_per_capita = locale.format_string("%.1f", vl_pib_per_capita, grouping=True)
 
 card_pib_per_capita = create_card_valor(
     f"PIB per capita {all_data["pib_per_capita"]['ano'].max()}", vl_pib_per_capita, currency=True
@@ -122,7 +122,7 @@ card_pib_per_capita = create_card_valor(
 vl_populacao = all_data["pib_per_capita"].loc[
     all_data["pib_per_capita"]["ano"] == all_data["pib_per_capita"]["ano"].max()
 ]["populacao"].values[0]
-vl_populacao = locale.format_string("%.0f", vl_populacao, grouping=True)
+# vl_populacao = locale.format_string("%.0f", vl_populacao, grouping=True)
 
 card_populacao = create_card_valor(
     f"População {all_data['pib_per_capita']['ano'].max()}", vl_populacao

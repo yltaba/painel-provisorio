@@ -43,7 +43,7 @@ estoque_atual = (
     .agg({"quantidade_vinculos_ativos": "sum"})
     .values[0]
 )
-estoque_atual = locale.format_string("%d", estoque_atual, grouping=True)
+# estoque_atual = locale.format_string("%d", estoque_atual, grouping=True)
 card_estoque_atual = create_card_valor("Total de postos de trabalho", estoque_atual)
 
 
@@ -60,7 +60,7 @@ def calcular_variacao_estoque(rais_anual):
     )
 
     variacao_estoque = ((estoque_atual - estoque_anterior) / estoque_anterior) * 100
-    variacao_estoque = locale.format_string("%.1f%%", variacao_estoque, grouping=True)
+    # variacao_estoque = locale.format_string("%.1f%%", variacao_estoque, grouping=True)
     return variacao_estoque
 
 

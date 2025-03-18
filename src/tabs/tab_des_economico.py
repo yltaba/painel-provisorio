@@ -90,11 +90,21 @@ card_pib_corrente = html.Div([
     ], className="card-content")
 ], className="custom-card")
 
+arrow_symbol = "▲" if float(variacao_pib.strip('%').replace(',','.')) >= 0 else "▼"
+arrow_style = {
+    "color": "#28a745" if float(variacao_pib.strip('%').replace(',','.')) >= 0 else "#dc3545",
+    "fontSize": "24px",
+    "marginLeft": "8px"
+}
+
 card_variacao_pib = html.Div([
     html.Div([ 
         html.H5("Crescimento %", className="card-title"),
         html.Div([
-            html.Div(variacao_pib, className="card-value")
+            html.Div([
+                html.Div(variacao_pib, className="card-value"),
+                html.Span(arrow_symbol, style=arrow_style)
+            ], style={"display": "flex", "alignItems": "center", "justifyContent": "center"})
         ], className="card-value-container")
     ], className="card-content")
 ], className="custom-card")

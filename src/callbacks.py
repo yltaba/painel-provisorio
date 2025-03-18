@@ -7,6 +7,8 @@ from src.tabs.tab_des_economico import tab_economia
 from src.tabs.tab_trabalho_renda import tab_trabalho_renda
 from src.tabs.tab_des_urbano import tab_desenvolvimento_urbano
 from src.tabs.tab_home import tab_home
+
+
 def init_callbacks(app, all_data):
 
     @app.callback(Output("tabs-content", "children"), Input("tabs", "value"))
@@ -66,7 +68,9 @@ def init_callbacks(app, all_data):
     @app.callback(
         [
             Output("card-estoque-atual-value", "children"),
-            Output("card-variacao-estoque-value", "children")
+            Output("card-variacao-estoque-value", "children"),
+            Output("card-variacao-arrow", "children"),
+            Output("card-variacao-arrow", "style"),
         ],
         Input("filtro-cnae-rais-saldo", "value")
     )
@@ -78,17 +82,14 @@ def init_callbacks(app, all_data):
                 all_data["rais_anual"]["descricao_secao_cnae"] == filtro_cnae
             ]
 
-        # Calcular estoque atual
+        # Existing calculations
         estoque_atual = (
             df_filtrado.loc[df_filtrado["ano"] == df_filtrado["ano"].max()]
             .agg({"quantidade_vinculos_ativos": "sum"})
             .values[0]
         )
-        
-        # Format estoque_atual
         estoque_atual_formatted = format_decimal(estoque_atual, format='#,##0', locale='pt_BR')
 
-        # Calcular variação
         estoque_anterior = (
             df_filtrado.loc[df_filtrado["ano"] == df_filtrado["ano"].max() - 1]
             .agg({"quantidade_vinculos_ativos": "sum"})
@@ -97,9 +98,17 @@ def init_callbacks(app, all_data):
         variacao_estoque = ((estoque_atual - estoque_anterior) / estoque_anterior)
         variacao_estoque_formatted = format_percent(variacao_estoque, format='#,##0.0%', locale='pt_BR')
         
-        # Return only the values (they will inherit the card-value class from their containers)
-        return estoque_atual_formatted, variacao_estoque_formatted
-
+        # Define arrow properties based on variation
+        arrow_symbol = "▲" if variacao_estoque >= 0 else "▼"
+        arrow_style = {
+            "color": "#28a745" if variacao_estoque >= 0 else "#dc3545",
+            "fontSize": "24px",
+            "marginLeft": "8px"
+        }
+        
+        return estoque_atual_formatted, variacao_estoque_formatted, arrow_symbol, arrow_style
+        
+    
     @app.callback(
         Output("fig-saldo-anual", "figure"), Input("filtro-cnae-caged-saldo", "value")
     )

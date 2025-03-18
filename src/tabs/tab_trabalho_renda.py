@@ -50,7 +50,10 @@ card_variacao_estoque = html.Div([
     html.Div([  # Add a container div for vertical centering
         html.H5("Variação %", className="card-title"),
         html.Div([
-            html.Div(id="card-variacao-estoque-value", className="card-value")
+            html.Div([
+                html.Div(id="card-variacao-estoque-value", className="card-value"),
+                html.Span(id="card-variacao-arrow", style={"fontSize": "24px", "marginLeft": "8px"})
+            ], style={"display": "flex", "alignItems": "center", "justifyContent": "center"})
         ], className="card-value-container")
     ], className="card-content")
 ], className="custom-card")

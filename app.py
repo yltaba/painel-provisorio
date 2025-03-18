@@ -24,7 +24,9 @@ all_tabs = dcc.Tabs(
 
 
 # APP LAYOUT
-external_stylesheets = [dbc.themes.SANDSTONE]
+external_stylesheets = [
+    dbc.themes.SANDSTONE
+]
 app = Dash(
     external_stylesheets=external_stylesheets, suppress_callback_exceptions=True
 )

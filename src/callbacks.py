@@ -2,7 +2,6 @@ from dash import Input, Output, html
 import plotly.express as px
 from babel.numbers import format_decimal, format_percent
 
-from src.utils import create_card_valor
 from src.config import TEMPLATE
 from src.tabs.tab_des_economico import tab_economia
 from src.tabs.tab_trabalho_renda import tab_trabalho_renda
@@ -64,43 +63,43 @@ def init_callbacks(app, all_data):
         fig.update_xaxes(tickmode="linear", dtick="M1", tickangle=45)
         return fig
 
-    # @app.callback(
-    #     [
-    #         Output("card-estoque-atual", "children"),
-    #         Output("card-variacao-estoque", "children")
-    #     ],
-    #     Input("filtro-cnae-rais-saldo", "value")
-    # )
-    # def atualizar_cards_estoque(filtro_cnae):
-    #     if filtro_cnae == "Todos":
-    #         df_filtrado = all_data["rais_anual"]
-    #     else:
-    #         df_filtrado = all_data["rais_anual"][
-    #             all_data["rais_anual"]["descricao_secao_cnae"] == filtro_cnae
-    #         ]
 
-    #     # Calcular estoque atual
-    #     estoque_atual = (
-    #         df_filtrado.loc[df_filtrado["ano"] == df_filtrado["ano"].max()]
-    #         .agg({"quantidade_vinculos_ativos": "sum"})
-    #         .values[0]
-    #     )
+    @app.callback(
+        [
+            Output("card-estoque-atual-value", "children"),
+            Output("card-variacao-estoque-value", "children")
+        ],
+        Input("filtro-cnae-rais-saldo", "value")
+    )
+    def atualizar_cards_estoque(filtro_cnae):
+        if filtro_cnae == "Todos":
+            df_filtrado = all_data["rais_anual"]
+        else:
+            df_filtrado = all_data["rais_anual"][
+                all_data["rais_anual"]["descricao_secao_cnae"] == filtro_cnae
+            ]
+
+        # Calcular estoque atual
+        estoque_atual = (
+            df_filtrado.loc[df_filtrado["ano"] == df_filtrado["ano"].max()]
+            .agg({"quantidade_vinculos_ativos": "sum"})
+            .values[0]
+        )
         
-    #     # Format estoque_atual
-    #     estoque_atual_formatted = format_decimal(estoque_atual, format='#,##0', locale='pt_BR')
-    #     card_estoque_atual = create_card_valor("Total de postos de trabalho", estoque_atual_formatted)
+        # Format estoque_atual
+        estoque_atual_formatted = format_decimal(estoque_atual, format='#,##0', locale='pt_BR')
 
-    #     # Calcular variação
-    #     estoque_anterior = (
-    #         df_filtrado.loc[df_filtrado["ano"] == df_filtrado["ano"].max() - 1]
-    #         .agg({"quantidade_vinculos_ativos": "sum"})
-    #         .values[0]
-    #     )
-    #     variacao_estoque = ((estoque_atual - estoque_anterior) / estoque_anterior)
-    #     variacao_estoque_formatted = format_percent(variacao_estoque, format='#,##0.0%', locale='pt_BR')
-    #     card_variacao_estoque = create_card_valor("Variação %", variacao_estoque_formatted)
-
-    #     return card_estoque_atual, card_variacao_estoque
+        # Calcular variação
+        estoque_anterior = (
+            df_filtrado.loc[df_filtrado["ano"] == df_filtrado["ano"].max() - 1]
+            .agg({"quantidade_vinculos_ativos": "sum"})
+            .values[0]
+        )
+        variacao_estoque = ((estoque_atual - estoque_anterior) / estoque_anterior)
+        variacao_estoque_formatted = format_percent(variacao_estoque, format='#,##0.0%', locale='pt_BR')
+        
+        # Return only the values (they will inherit the card-value class from their containers)
+        return estoque_atual_formatted, variacao_estoque_formatted
 
     @app.callback(
         Output("fig-saldo-anual", "figure"), Input("filtro-cnae-caged-saldo", "value")

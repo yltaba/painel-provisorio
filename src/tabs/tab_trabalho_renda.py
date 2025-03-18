@@ -1,8 +1,7 @@
 from dash import dcc, html
 import dash_bootstrap_components as dbc
-from babel.numbers import format_decimal, format_currency, format_percent
+from babel.numbers import format_percent
 
-from src.utils import create_card_valor
 from src.load_data import load_data
 from src.utils import get_options_dropdown
 ################################ TRABALHO E RENDA #################################
@@ -36,36 +35,25 @@ fig_estoque_ano = dbc.Col(
     ),
     width=9,
 )
-estoque_atual = (
-    all_data["rais_anual"].loc[
-        all_data["rais_anual"]["ano"] == all_data["rais_anual"]["ano"].max()
-    ]
-    .agg({"quantidade_vinculos_ativos": "sum"})
-    .values[0]
-)
-estoque_atual = format_decimal(estoque_atual, format='#,##0', locale='pt_BR')
-card_estoque_atual = create_card_valor("Total de postos de trabalho", estoque_atual)
 
+# Create cards with static titles and dynamic value containers
+card_estoque_atual = html.Div([
+    html.Div([  # Add a container div for vertical centering
+        html.H5("Total de postos de trabalho", className="card-title"),
+        html.Div([
+            html.Div(id="card-estoque-atual-value", className="card-value")
+        ], className="card-value-container")
+    ], className="card-content")
+], className="custom-card")
 
-def calcular_variacao_estoque(rais_anual):
-    estoque_atual = (
-        rais_anual.loc[rais_anual["ano"] == rais_anual["ano"].max()]
-        .agg({"quantidade_vinculos_ativos": "sum"})
-        .values[0]
-    )
-    estoque_anterior = (
-        rais_anual.loc[rais_anual["ano"] == rais_anual["ano"].max() - 1]
-        .agg({"quantidade_vinculos_ativos": "sum"})
-        .values[0]
-    )
-
-    variacao_estoque = ((estoque_atual - estoque_anterior) / estoque_anterior)
-    variacao_estoque = format_percent(variacao_estoque, format='#,##0.0%', locale='pt_BR')
-    return variacao_estoque
-
-
-variacao_estoque = calcular_variacao_estoque(all_data["rais_anual"])
-card_variacao_estoque = create_card_valor("Variação %", variacao_estoque)
+card_variacao_estoque = html.Div([
+    html.Div([  # Add a container div for vertical centering
+        html.H5("Variação %", className="card-title"),
+        html.Div([
+            html.Div(id="card-variacao-estoque-value", className="card-value")
+        ], className="card-value-container")
+    ], className="card-content")
+], className="custom-card")
 
 coluna_fig_estoque_ano = dbc.Col(
     [

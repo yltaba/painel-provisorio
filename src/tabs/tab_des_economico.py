@@ -3,7 +3,7 @@ import dash_bootstrap_components as dbc
 import plotly.express as px
 from babel.numbers import format_decimal, format_currency, format_compact_currency
 
-from src.utils import create_card_valor, calcular_pib_atual, calcular_variacao_pib
+from src.utils import calcular_pib_atual, calcular_variacao_pib
 from src.config import TEMPLATE
 from src.load_data import load_data
 
@@ -81,10 +81,24 @@ fig_pib_sp, fig_pib_per_capita, fig_pib_categorias = get_pib_plots(all_data)
 pib_corrente = calcular_pib_atual(all_data["pib_por_categoria"])
 variacao_pib = calcular_variacao_pib(all_data["pib_por_categoria"])
 
-card_pib_corrente = create_card_valor(
-    f"PIB {all_data['pib_por_categoria']['ano'].max()}", pib_corrente, currency=True
-)
-card_variacao_pib = create_card_valor("Crescimento %", variacao_pib)
+card_pib_corrente = html.Div([
+    html.Div([ 
+        html.H5(f"PIB {all_data['pib_por_categoria']['ano'].max()}", className="card-title"),
+        html.Div([
+            html.Div(pib_corrente, className="card-value")
+        ], className="card-value-container")
+    ], className="card-content")
+], className="custom-card")
+
+card_variacao_pib = html.Div([
+    html.Div([ 
+        html.H5("Crescimento %", className="card-title"),
+        html.Div([
+            html.Div(variacao_pib, className="card-value")
+        ], className="card-value-container")
+    ], className="card-content")
+], className="custom-card")
+
 
 coluna_cartao_pib_categorias = dbc.Col(
     [
@@ -118,9 +132,14 @@ vl_pib_per_capita = all_data["pib_per_capita"].loc[
 
 vl_pib_per_capita = format_currency(vl_pib_per_capita, 'BRL', locale='pt_BR', currency_digits=False)
 
-card_pib_per_capita = create_card_valor(
-    f"PIB per capita {all_data['pib_per_capita']['ano'].max()}", vl_pib_per_capita, currency=True
-)
+card_pib_per_capita = html.Div([
+    html.Div([ 
+        html.H5(f"PIB per capita {all_data['pib_por_categoria']['ano'].max()}", className="card-title"),
+        html.Div([
+            html.Div(vl_pib_per_capita, className="card-value")
+        ], className="card-value-container")
+    ], className="card-content")
+], className="custom-card")
 
 # VALORES POPULAÇÃO PARA CARD LATERAL
 vl_populacao = all_data["pib_per_capita"].loc[
@@ -129,10 +148,14 @@ vl_populacao = all_data["pib_per_capita"].loc[
 
 vl_populacao = format_decimal(vl_populacao, format='#,##0', locale='pt_BR')
 
-
-card_populacao = create_card_valor(
-    f"População {all_data['pib_per_capita']['ano'].max()}", vl_populacao
-)
+card_populacao = html.Div([
+    html.Div([ 
+        html.H5(f"População {all_data['pib_per_capita']['ano'].max()}", className="card-title"),
+        html.Div([
+            html.Div(vl_populacao, className="card-value")
+        ], className="card-value-container")
+    ], className="card-content")
+], className="custom-card")
 
 coluna_cartao_pib_per_capita = dbc.Col(
     [

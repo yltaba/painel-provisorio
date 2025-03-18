@@ -6,7 +6,7 @@ from src.config import TEMPLATE
 from src.tabs.tab_des_economico import tab_economia
 from src.tabs.tab_trabalho_renda import tab_trabalho_renda
 from src.tabs.tab_des_urbano import tab_desenvolvimento_urbano
-
+from src.tabs.tab_home import tab_home
 def init_callbacks(app, all_data):
 
     @app.callback(Output("tabs-content", "children"), Input("tabs", "value"))
@@ -19,9 +19,8 @@ def init_callbacks(app, all_data):
 
         elif tab == "urbano":
             return tab_desenvolvimento_urbano
-        return html.Div(
-            [html.Br(), html.H4("Bem-vindo ao Painel de Governo da Prefeitura de Osasco")]
-        )
+        
+        return tab_home
 
 
     # CALLBACKS DE FILTRO - GRÁFICOS

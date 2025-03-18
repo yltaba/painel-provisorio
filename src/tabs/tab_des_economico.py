@@ -1,7 +1,7 @@
 from dash import dcc, html
 import dash_bootstrap_components as dbc
 import plotly.express as px
-from babel.numbers import format_decimal, format_currency
+from babel.numbers import format_decimal, format_currency, format_compact_currency
 
 from src.utils import create_card_valor, calcular_pib_atual, calcular_variacao_pib
 from src.config import TEMPLATE
@@ -61,6 +61,9 @@ def get_pib_plots(all_data):
         yaxis_tickformat=".1%",
     )
     for fig in [fig_pib_sp, fig_pib_per_capita, fig_pib_categorias]:
+        fig.update_layout(
+            margin=dict(t=0),
+        )
         fig.add_annotation(
             text="Fonte: IBGE",
             xref="paper",
@@ -113,7 +116,7 @@ vl_pib_per_capita = all_data["pib_per_capita"].loc[
     all_data["pib_per_capita"]["ano"] == all_data["pib_per_capita"]["ano"].max()
 ]["pib_per_capita"].values[0]
 
-vl_pib_per_capita = format_currency(vl_pib_per_capita, 'BRL', locale='pt_BR')
+vl_pib_per_capita = format_currency(vl_pib_per_capita, 'BRL', locale='pt_BR', currency_digits=False)
 
 card_pib_per_capita = create_card_valor(
     f"PIB per capita {all_data['pib_per_capita']['ano'].max()}", vl_pib_per_capita, currency=True
@@ -124,7 +127,7 @@ vl_populacao = all_data["pib_per_capita"].loc[
     all_data["pib_per_capita"]["ano"] == all_data["pib_per_capita"]["ano"].max()
 ]["populacao"].values[0]
 
-vl_populacao = format_decimal(vl_populacao, locale='pt_BR')
+vl_populacao = format_decimal(vl_populacao, format='#,##0', locale='pt_BR')
 
 
 card_populacao = create_card_valor(

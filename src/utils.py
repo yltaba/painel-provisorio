@@ -1,10 +1,10 @@
 from dash import html
 import dash_bootstrap_components as dbc
-from babel.numbers import format_decimal, format_currency
+from babel.numbers import format_currency, format_percent, format_compact_currency
 
 def get_options_dropdown(all_data, table, column):
-    return [{"label": x, "value": x} for x in all_data[table][column].dropna().unique()]
-
+    sorted_values = sorted(all_data[table][column].dropna().unique())
+    return [{"label": x, "value": x} for x in sorted_values]
 
 def calcular_pib_atual(pib_por_categoria):
     ano_max = pib_por_categoria["ano"].max()
@@ -17,7 +17,7 @@ def calcular_pib_atual(pib_por_categoria):
         .round()
         .astype(int)
     )
-    pib_corrente = format_currency(pib_corrente_int, 'BRL', locale='pt_BR')
+    pib_corrente = format_compact_currency(pib_corrente_int, 'BRL', locale='pt_BR', fraction_digits=2)
     return pib_corrente
 
 
@@ -42,8 +42,8 @@ def calcular_variacao_pib(pib_por_categoria):
         .astype(int)
     )
 
-    variacao_pib = ((pib_ano - pib_ano_anterior) / pib_ano_anterior) * 100
-    variacao_pib = format_decimal(variacao_pib, locale='pt_BR')
+    variacao_pib = ((pib_ano - pib_ano_anterior) / pib_ano_anterior)
+    variacao_pib = format_percent(variacao_pib, format='#,##0.0%', locale='pt_BR')
 
     return variacao_pib
 

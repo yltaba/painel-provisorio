@@ -1,5 +1,6 @@
 from dash import dcc, html
 import dash_bootstrap_components as dbc
+from babel.numbers import format_decimal, format_currency, format_percent
 
 from src.utils import create_card_valor
 from src.load_data import load_data
@@ -42,7 +43,7 @@ estoque_atual = (
     .agg({"quantidade_vinculos_ativos": "sum"})
     .values[0]
 )
-# estoque_atual = locale.format_string("%d", estoque_atual, grouping=True)
+estoque_atual = format_decimal(estoque_atual, format='#,##0', locale='pt_BR')
 card_estoque_atual = create_card_valor("Total de postos de trabalho", estoque_atual)
 
 
@@ -58,8 +59,8 @@ def calcular_variacao_estoque(rais_anual):
         .values[0]
     )
 
-    variacao_estoque = ((estoque_atual - estoque_anterior) / estoque_anterior) * 100
-    # variacao_estoque = locale.format_string("%.1f%%", variacao_estoque, grouping=True)
+    variacao_estoque = ((estoque_atual - estoque_anterior) / estoque_anterior)
+    variacao_estoque = format_percent(variacao_estoque, format='#,##0.0%', locale='pt_BR')
     return variacao_estoque
 
 
@@ -108,7 +109,7 @@ fig_saldo_mov_secao = html.Div(
         dcc.Dropdown(
             id="filtro-ano-caged-secao",
             options=[{"label": "Todos", "value": "Todos"}] + opcoes_caged_ano,
-            value="Todos",
+            value=2024,
             clearable=False,
             className="mb-3",
         ),
@@ -123,7 +124,7 @@ fig_saldo_mov_idade = html.Div(
         dcc.Dropdown(
             id="filtro-ano-caged-idade",
             options=[{"label": "Todos", "value": "Todos"}] + opcoes_caged_ano_idade,
-            value="Todos",
+            value=2024,
             clearable=False,
             className="mb-3",
         ),

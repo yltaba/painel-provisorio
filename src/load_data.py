@@ -24,9 +24,9 @@ def load_data():
             DATA_PATH / "pib_por_categoria.csv", sep=";", encoding="latin1"
         ),
         "pib_participacao_sp": pd.read_csv(
-            DATA_PATH / "pib_participacao_sp.csv", sep=";", encoding="latin1"
+            DATA_PATH / "pib_participacao_sp_munic_selecionados.csv", sep=";", encoding="latin1"
         ),
         "pib_per_capita": pd.read_csv(
-            DATA_PATH / "pib_per_capita.csv", sep=";", encoding="latin1"
+            DATA_PATH / "pib_per_capita_munic_selecionados.csv", sep=";", encoding="latin1"
         ),
     }

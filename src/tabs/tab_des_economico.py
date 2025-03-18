@@ -32,26 +32,30 @@ def get_pib_plots(all_data):
     )
     fig_pib_categorias.update_xaxes(tickmode="linear", tickangle=45)
 
-    fig_pib_per_capita = px.area(
+    fig_pib_per_capita = px.line(
         all_data["pib_per_capita"],
         x="ano",
         y="pib_per_capita",
+        color="municipio",
         labels={
             "ano": "Ano",
             "pib_per_capita": "PIB per capita",
+            "municipio": "Município",
         },
         markers=True,
         template=TEMPLATE,
     )
     fig_pib_per_capita.update_xaxes(tickmode="linear", tickangle=45)
 
-    fig_pib_sp = px.area(
+    fig_pib_sp = px.line(
         all_data['pib_participacao_sp'],
         x="ano",
         y="participacao_pib_sp",
+        color="municipio",
         labels={
             "ano": "Ano",
             "participacao_pib_sp": "Participação % de Osasco no PIB de SP",
+            "municipio": "Município",
         },
         markers=True,
         template=TEMPLATE,

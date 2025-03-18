@@ -77,22 +77,83 @@ cartoes_estoque_ano = dbc.Row(
     className="main-content-row",
 )
 
-fig_saldo_mov_ano = html.Div(
+# Gráfico do saldo de movimentações por ano
+# fig_saldo_mov_ano = html.Div(
+#     [
+#         html.H4("Saldo de movimentações por ano"),
+#         html.Label("Selecione uma Seção da CNAE:", style={"fontWeight": "light"}),
+#         dcc.Dropdown(
+#             id="filtro-cnae-caged-saldo",
+#             options=[{"label": "Todos", "value": "Todos"}] + opcoes_cnae,
+#             value="Todos",
+#             clearable=False,
+#             className="mb-3",
+#         ),
+#         dcc.Graph(id="fig-saldo-anual"),
+#     ]
+# )
+
+fig_saldo_mov_ano = dbc.Col(
+    html.Div(
+        [
+            html.Label("Selecione uma Seção da CNAE:"),
+            dcc.Dropdown(
+                id="filtro-cnae-caged-saldo",
+                options=[{"label": "Todos", "value": "Todos"}] + opcoes_cnae,
+                value="Todos",
+                clearable=False,
+                className="mb-3",
+            ),
+            dcc.Graph(id="fig-saldo-anual", config={"displayModeBar": False}),
+        ]
+    ),
+    width=9,
+)
+
+# cards de movimentações por ano
+card_saldo_atual = html.Div([
+    html.Div([  # Add a container div for vertical centering
+        html.H5("Saldo de movimentações", className="card-title"),
+        html.Div([
+            html.Div(id="card-saldo-atual-value", className="card-value")
+        ], className="card-value-container")
+    ], className="card-content")
+], className="custom-card")
+
+card_variacao_saldo = html.Div([
+    html.Div([  # Add a container div for vertical centering
+        html.H5("Variação %", className="card-title"),
+        html.Div([
+            html.Div([
+                html.Div(id="card-variacao-saldo-value", className="card-value"),
+                html.Span(id="card-variacao-saldo-arrow", style={"fontSize": "24px", "marginLeft": "8px"})
+            ], style={"display": "flex", "alignItems": "center", "justifyContent": "center"})
+        ], className="card-value-container")
+    ], className="card-content")
+], className="custom-card")
+
+coluna_fig_saldo_ano = dbc.Col(
+    [
+        html.Br(),
+        card_saldo_atual,
+        html.Div(style={"height": "20px"}),
+        card_variacao_saldo,
+    ],
+    width=3,
+    className="cards-container",
+)
+cartoes_saldo_ano = dbc.Row(
     [
         html.H4("Saldo de movimentações por ano"),
-        html.Label("Selecione uma Seção da CNAE:", style={"fontWeight": "light"}),
-        dcc.Dropdown(
-            id="filtro-cnae-caged-saldo",
-            options=[{"label": "Todos", "value": "Todos"}] + opcoes_cnae,
-            value="Todos",
-            clearable=False,
-            className="mb-3",
-        ),
-        dcc.Graph(id="fig-saldo-anual"),
-    ]
+        fig_saldo_mov_ano,
+        coluna_fig_saldo_ano,
+
+    ],
+    className="main-content-row",
 )
 
 
+# Gráfico de mov por seção da cnae
 fig_saldo_mov_secao = html.Div(
     [
         html.H4("Saldo de postos de trabalho por Seção da CNAE"),
@@ -158,7 +219,7 @@ tab_trabalho_renda = html.Div(
     [
         cartoes_estoque_ano,
         html.Br(),
-        fig_saldo_mov_ano,
+        cartoes_saldo_ano,
         html.Br(),
         fig_saldo_mov_secao,
         html.Br(),

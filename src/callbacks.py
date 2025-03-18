@@ -148,6 +148,47 @@ def init_callbacks(app, all_data):
 
 
     @app.callback(
+        [
+            Output("card-saldo-atual-value", "children"),
+            Output("card-variacao-saldo-value", "children"),
+            Output("card-variacao-saldo-arrow", "children"),
+            Output("card-variacao-saldo-arrow", "style"),
+        ],
+        Input("filtro-cnae-caged-saldo", "value")
+    )
+    def atualizar_cards_estoque(filtro_cnae):
+        if filtro_cnae == "Todos":
+            df_filtrado = all_data['caged_saldo_anual']
+        else:
+            df_filtrado = all_data['caged_saldo_anual'][
+                all_data['caged_saldo_anual']["cnae_2_descricao_secao"] == filtro_cnae
+            ]
+        saldo_ano_max = (
+            df_filtrado.loc[df_filtrado["ano"] == df_filtrado["ano"].max()]
+            .agg({"saldo_movimentacao": "sum"})
+            .values[0]
+        )
+        saldo_ano_max_formatted = format_decimal(saldo_ano_max, format='#,##0', locale='pt_BR')
+
+        saldo_ano_max_lag1 = (
+            df_filtrado.loc[df_filtrado["ano"] == df_filtrado["ano"].max() - 1]
+            .agg({"saldo_movimentacao": "sum"})
+            .values[0]
+        )
+        variacao_mov = ((saldo_ano_max - saldo_ano_max_lag1) / saldo_ano_max_lag1)
+        variacao_mov_formatted = format_percent(variacao_mov, format='#,##0.0%', locale='pt_BR')
+        
+        # Define arrow properties based on variation
+        arrow_symbol = "▲" if variacao_mov >= 0 else "▼"
+        arrow_style = {
+            "color": "#28a745" if variacao_mov >= 0 else "#dc3545",
+            "fontSize": "24px",
+            "marginLeft": "8px"
+        }
+        
+        return saldo_ano_max_formatted, variacao_mov_formatted, arrow_symbol, arrow_style
+
+    @app.callback(
         Output("fig-caged-saldo-secao", "figure"), Input("filtro-ano-caged-secao", "value")
     )
     def atualizar_grafico_caged_saldo_secao(filtro_ano):

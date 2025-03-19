@@ -30,6 +30,7 @@ external_stylesheets = [
 app = Dash(
     external_stylesheets=external_stylesheets, suppress_callback_exceptions=True
 )
+app.title = "Painel de Governo PMO"
 # Logo Osasco
 imagem_cabecalho = html.Img(
     src="https://osasco.sp.gov.br/wp-content/uploads/2024/12/logo-pmo-2025-2028-horizontal.png",

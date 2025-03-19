@@ -9,7 +9,7 @@ tab_desenvolvimento_urbano = html.Div(
             src="https://ozmundi.osasco.sp.gov.br/misc/base_zoneamento/",
             style={
                 "width": "100%",
-                "height": "500px",
+                "height": "1000px",
                 "border": "none",
             },
         ),

@@ -272,9 +272,12 @@ def init_callbacks(app, all_data):
 
     @app.callback(
         Output("fig-caged-salario-medio", "figure"),
-        Input("filtro-ano-caged-salario-medio", "value"),
+        [
+            Input("filtro-ano-caged-salario-medio", "value"),
+            Input("salario-stat-type", "value")
+        ]
     )
-    def atualizar_grafico_caged_media_salario(filtro_cnae):
+    def atualizar_grafico_caged_media_salario(filtro_cnae, stat_type):
         # Filtrar por CNAE, se aplicável
         df_filtrado = (
             all_data["caged_media_salario"]
@@ -284,11 +287,15 @@ def init_callbacks(app, all_data):
             ]
         )
 
+        # Choose aggregation function based on radio button selection
+        agg_func = 'mean' if stat_type == 'mean' else 'median'
+        stat_label = "Média" if stat_type == "mean" else "Mediana"
+
         # Agrupar corretamente
         caged_media_salario_grp = (
             df_filtrado.groupby(["ano", "variable"], as_index=False)
-            .agg(salario_medio=("salario_medio", "mean"))  # Evita dicionário dentro do agg
-            .sort_values("ano")  # Garante ordenação correta para o gráfico
+            .agg({"salario_medio": agg_func})
+            .sort_values("ano")
         )
 
         # Criar gráfico de linha
@@ -298,7 +305,7 @@ def init_callbacks(app, all_data):
             x="ano",
             labels={
                 "ano": "Ano",
-                "salario_medio": "Média Salarial",
+                "salario_medio": f"{stat_label} Salarial",
                 "variable": "Tipo de movimentação",
             },
             color="variable",
@@ -323,9 +330,12 @@ def init_callbacks(app, all_data):
 
     @app.callback(
         Output("fig-caged-media-idade", "figure"),
-        Input("filtro-ano-caged-media-idade", "value"),
+        [
+            Input("filtro-ano-caged-media-idade", "value"),
+            Input("media-idade-stat-type", "value")
+        ]
     )
-    def atualizar_grafico_caged_media_idade(filtro_cnae):
+    def atualizar_grafico_caged_media_idade(filtro_cnae, stat_type):
         # Filtrar por CNAE, se aplicável
         df_filtrado = (
             all_data["caged_media_idade"]
@@ -335,11 +345,15 @@ def init_callbacks(app, all_data):
             ]
         )
 
+        # Choose aggregation function based on radio button selection
+        agg_func = 'mean' if stat_type == 'mean' else 'median'
+        stat_label = "Média" if stat_type == "mean" else "Mediana"
+
         # Agrupar corretamente
         caged_media_idade_grp = (
             df_filtrado.groupby(["ano", "variable"], as_index=False)
-            .agg(media_idade=("media_idade", "mean"))  # Evita dicionário dentro do agg
-            .sort_values("ano")  # Garante ordenação correta para o gráfico
+            .agg({"media_idade": agg_func})  # Fixed the aggregation syntax
+            .sort_values("ano")
         )
 
         # Criar gráfico de linha
@@ -349,7 +363,7 @@ def init_callbacks(app, all_data):
             x="ano",
             labels={
                 "ano": "Ano",
-                "media_idade": "Média de Idade",
+                "media_idade": f"{stat_label} de Idade",
                 "variable": "Tipo de movimentação",
             },
             color="variable",

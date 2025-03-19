@@ -187,14 +187,37 @@ fig_saldo_mov_idade = html.Div(
 fig_media_salario_mov = html.Div(
     [
         html.H4("Evolução da média salarial de admissões e demissões"),
-        html.Label("Selecione uma Seção da CNAE:", style={"fontWeight": "light"}),
-        dcc.Dropdown(
-            id="filtro-ano-caged-salario-medio",
-            options=[{"label": "Todos", "value": "Todos"}] + opcoes_cnae_caged_salario,
-            value="Todos",
-            clearable=False,
-            className="mb-3",
-        ),
+        dbc.Row([
+            dbc.Col([
+                html.Label("Selecione uma Seção da CNAE:", style={"fontWeight": "light"}),
+                dcc.Dropdown(
+                    id="filtro-ano-caged-salario-medio",
+                    options=[{"label": "Todos", "value": "Todos"}] + opcoes_cnae_caged_salario,
+                    value="Todos",
+                    clearable=False,
+                    className="mb-3",
+                ),
+            ], width=6),
+            dbc.Col([
+                html.Label("Métrica:", style={"fontWeight": "light", "textAlign": "center", "width": "100%"}),
+                dcc.RadioItems(
+                    id='salario-stat-type',
+                    options=[
+                        {'label': ' Média', 'value': 'mean'},
+                        {'label': ' Mediana', 'value': 'median'}
+                    ],
+                    value='mean',
+                    inline=True,
+                    className="mb-3",
+                    style={
+                        "marginTop": "8px",
+                        "display": "flex",
+                        "justifyContent": "center",
+                        "gap": "20px"
+                    }
+                ),
+            ], width=6, style={"paddingLeft": "20px"}),
+        ]),
         dcc.Graph(id="fig-caged-salario-medio"),
     ]
 )
@@ -202,15 +225,37 @@ fig_media_salario_mov = html.Div(
 fig_media_idade_mov = html.Div(
     [
         html.H4("Evolução da média de idade das admissões e demissões"),
-        html.Label("Selecione uma Seção da CNAE:", style={"fontWeight": "light"}),
-        dcc.Dropdown(
-            id="filtro-ano-caged-media-idade",
-            options=[{"label": "Todos", "value": "Todos"}]
-            + opcoes_cnae_caged_media_idade,
-            value="Todos",
-            clearable=False,
-            className="mb-3",
-        ),
+        dbc.Row([
+            dbc.Col([
+                html.Label("Selecione uma Seção da CNAE:", style={"fontWeight": "light"}),
+                dcc.Dropdown(
+                    id="filtro-ano-caged-media-idade",
+                    options=[{"label": "Todos", "value": "Todos"}] + opcoes_cnae_caged_media_idade,
+                    value="Todos",
+                    clearable=False,
+                    className="mb-3",
+                ),
+            ], width=6),
+            dbc.Col([
+                html.Label("Métrica:", style={"fontWeight": "light", "textAlign": "center", "width": "100%"}),
+                dcc.RadioItems(
+                    id='media-idade-stat-type',
+                    options=[
+                        {'label': ' Média', 'value': 'mean'},
+                        {'label': ' Mediana', 'value': 'median'}
+                    ],
+                    value='mean',
+                    inline=True,
+                    className="mb-3",
+                    style={
+                        "marginTop": "8px",
+                        "display": "flex",
+                        "justifyContent": "center",
+                        "gap": "20px"  # Adds space between radio options
+                    }
+                ),
+            ], width=6, style={"paddingLeft": "20px"}), 
+        ]),
         dcc.Graph(id="fig-caged-media-idade"),
     ]
 )

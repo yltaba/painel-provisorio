@@ -22,15 +22,17 @@ def get_pib_plots(all_data):
 
     # COMPONENTES APP
     # Gráficos PIB (estáticos)
-    df_pib_categorias = all_data["pib_por_categoria"].loc[
-        all_data["pib_por_categoria"]["variavel_dash"] != "Total"
-    ].copy()
+    df_pib_categorias = (
+        all_data["pib_por_categoria"]
+        .loc[all_data["pib_por_categoria"]["variavel_dash"] != "Total"]
+        .copy()
+    )
     fig_pib_categorias = px.bar(
         df_pib_categorias,
         x="ano",
         y="pib_deflacionado",
         color="variavel_dash",
-        color_discrete_sequence=['#99B2C9', '#093A3E', '#64E9EE', '#97C8EB', '#3AAFB9'],
+        color_discrete_sequence=["#99B2C9", "#093A3E", "#64E9EE", "#97C8EB", "#3AAFB9"],
         labels={
             "ano": "Ano",
             "pib_deflacionado": "PIB (deflacionado)",
@@ -59,7 +61,7 @@ def get_pib_plots(all_data):
                 width=2 if trace.name == "Osasco (SP)" else 1.5,
                 dash="solid" if trace.name == "Osasco (SP)" else "dot",
             ),
-            opacity=1 if trace.name == "Osasco (SP)" else 0.7
+            opacity=1 if trace.name == "Osasco (SP)" else 0.7,
         )
     )
 
@@ -84,7 +86,7 @@ def get_pib_plots(all_data):
                 width=2 if trace.name == "Osasco (SP)" else 1.5,
                 dash="solid" if trace.name == "Osasco (SP)" else "dot",
             ),
-            opacity=1 if trace.name == "Osasco (SP)" else 0.7
+            opacity=1 if trace.name == "Osasco (SP)" else 0.7,
         )
     )
     fig_pib_sp.update_xaxes(tickmode="linear", tickangle=45)
@@ -285,6 +287,29 @@ cartoes_pib_per_capita = dbc.Row(
     className="main-content-row",
 )
 
+
+def create_info_popover(id_referencia, texto):
+    return html.Div(
+        [
+            dbc.Button(
+                html.I(className="material-icons", children="info"),
+                id=id_referencia,
+                color="link",
+                size="sm",
+                className="p-0 ms-2",
+                style={"color": "#213953"},
+            ),
+            dbc.Popover(
+                dbc.PopoverBody(texto),
+                target=id_referencia,
+                trigger="hover",
+                placement="right",
+            ),
+        ],
+        style={"display": "inline-block"},
+    )
+
+
 # TAB ECONOMIA
 layout = html.Div(
     [
@@ -298,7 +323,8 @@ layout = html.Div(
                             style={"display": "inline-flex", "verticalAlign": "middle"},
                         ),
                         html.Span(
-                            "Voltar para página inicial", style={"verticalAlign": "middle"}
+                            "Voltar para página inicial",
+                            style={"verticalAlign": "middle"},
                         ),
                     ],
                     href="/",
@@ -314,18 +340,30 @@ layout = html.Div(
                         "textTransform": "none",
                     },
                 ),
-                className="d-flex justify-content-end",  # This aligns the content to the right
+                className="d-flex justify-content-end",
             )
         ),
         # PIB
         html.Br(),
         html.H4("PIB (em R$ de 2021)"),
+        create_info_popover(
+            "info-pib",
+            "O PIB é o valor total de todos os bens e serviços produzidos em um determinado período de tempo, geralmente um ano. Ele é uma das principais medidas da atividade econômica de um país ou região.",
+        ),
         cartoes_pib_categorias,
         html.Br(),
         html.H4("PIB per capita (em R$ de 2021)"),
+        create_info_popover(
+            "info-pib-per-capita",
+            "O PIB per capita é uma medida da renda média de cada indivíduo na economia. Ele é calculado dividindo o PIB total pelo número de habitantes.",
+        ),
         cartoes_pib_per_capita,
         html.Br(),
         html.H4("Participação do PIB de Osasco no Estado de São Paulo"),
+        create_info_popover(
+            "info-pib-sp",
+            "A participação do PIB de Osasco no Estado de São Paulo é uma medida da proporção do PIB de Osasco em relação ao PIB total do Estado de São Paulo. Ela é calculada dividindo o PIB de Osasco pelo PIB total do Estado de São Paulo.",
+        ),
         dcc.Graph(id="fig-pib-sp", figure=fig_pib_sp, config={"displayModeBar": False}),
     ]
 )

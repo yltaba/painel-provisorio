@@ -30,12 +30,12 @@ def get_pib_plots(all_data):
         x="ano",
         y="pib_deflacionado",
         color="variavel_dash",
+        color_discrete_sequence=['#99B2C9', '#093A3E', '#64E9EE', '#97C8EB', '#3AAFB9'],
         labels={
             "ano": "Ano",
             "pib_deflacionado": "PIB (deflacionado)",
             "variavel_dash": "Categoria",
         },
-        # markers=True,
         template=TEMPLATE,
     )
     fig_pib_categorias.update_xaxes(tickmode="linear", tickangle=45)
@@ -45,14 +45,24 @@ def get_pib_plots(all_data):
         x="ano",
         y="pib_per_capita",
         color="municipio",
+        line_shape="spline",
         labels={
             "ano": "Ano",
             "pib_per_capita": "PIB per capita",
             "municipio": "Município",
         },
-        markers=True,
         template=TEMPLATE,
     )
+    fig_pib_per_capita.for_each_trace(
+        lambda trace: trace.update(
+            line=dict(
+                width=2 if trace.name == "Osasco (SP)" else 1.5,
+                dash="solid" if trace.name == "Osasco (SP)" else "dot",
+            ),
+            opacity=1 if trace.name == "Osasco (SP)" else 0.7
+        )
+    )
+
     fig_pib_per_capita.update_xaxes(tickmode="linear", tickangle=45)
 
     fig_pib_sp = px.line(
@@ -60,13 +70,22 @@ def get_pib_plots(all_data):
         x="ano",
         y="participacao_pib_sp",
         color="municipio",
+        line_shape="spline",
         labels={
             "ano": "Ano",
             "participacao_pib_sp": "Participação % de Osasco no PIB de SP",
             "municipio": "Município",
         },
-        markers=True,
         template=TEMPLATE,
+    )
+    fig_pib_sp.for_each_trace(
+        lambda trace: trace.update(
+            line=dict(
+                width=2 if trace.name == "Osasco (SP)" else 1.5,
+                dash="solid" if trace.name == "Osasco (SP)" else "dot",
+            ),
+            opacity=1 if trace.name == "Osasco (SP)" else 0.7
+        )
     )
     fig_pib_sp.update_xaxes(tickmode="linear", tickangle=45)
     fig_pib_sp.update_layout(

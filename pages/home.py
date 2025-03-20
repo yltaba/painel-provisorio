@@ -1,7 +1,7 @@
 from dash import html, register_page
 import dash_bootstrap_components as dbc
 
-register_page(__name__, path='/', name='Home')
+register_page(__name__, path='/', name='Painel de Governo PMO')
 
 nav_buttons = dbc.Row([
     dbc.Col(

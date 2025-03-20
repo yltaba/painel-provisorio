@@ -3,27 +3,9 @@ import plotly.express as px
 from babel.numbers import format_decimal, format_percent
 
 from src.config import TEMPLATE
-from src.tabs.tab_des_economico import tab_economia
-from src.tabs.tab_trabalho_renda import tab_trabalho_renda
-from src.tabs.tab_des_urbano import tab_desenvolvimento_urbano
-from src.tabs.tab_home import tab_home
 
 
 def init_callbacks(app, all_data):
-
-    @app.callback(Output("tabs-content", "children"), Input("tabs", "value"))
-    def render_content(tab):
-        if tab == "economia":
-            return tab_economia
-
-        elif tab == "trabalho":
-            return tab_trabalho_renda
-
-        elif tab == "urbano":
-            return tab_desenvolvimento_urbano
-        
-        return tab_home
-
 
     # CALLBACKS DE FILTRO - GRÁFICOS
     @app.callback(

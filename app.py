@@ -1,36 +1,28 @@
 from dash import Dash, dcc, html
 import dash_bootstrap_components as dbc
+import dash
 
 from src.config import DATA_PATH
 from src.load_data import load_data
-from src.callbacks import init_callbacks
 
+external_stylesheets = [
+    dbc.themes.SANDSTONE,
+    "https://fonts.googleapis.com/icon?family=Material+Icons",  # Add this line
+]
+app = Dash(
+    use_pages=True,
+    external_stylesheets=external_stylesheets,
+    suppress_callback_exceptions=True,
+)
+app.title = "Painel de Governo PMO"
 
 # DADOS
 data_path = DATA_PATH
 all_data = load_data()
 
-# Consolidação Tabs
-all_tabs = dcc.Tabs(
-    id="tabs",
-    value="home",
-    children=[
-        dcc.Tab(label="Home", value="home"),
-        dcc.Tab(label="Desenvolvimento Econômico", value="economia"),
-        dcc.Tab(label="Trabalho e Renda", value="trabalho"),
-        dcc.Tab(label="Desenvolvimento Urbano", value="urbano"),
-    ],
-)
+# Now import callbacks after app initialization
+from src.callbacks import init_callbacks
 
-
-# APP LAYOUT
-external_stylesheets = [
-    dbc.themes.SANDSTONE
-]
-app = Dash(
-    external_stylesheets=external_stylesheets, suppress_callback_exceptions=True
-)
-app.title = "Painel de Governo PMO"
 # Logo Osasco
 imagem_cabecalho = html.Img(
     src="https://osasco.sp.gov.br/wp-content/uploads/2024/12/logo-pmo-2025-2028-horizontal.png",
@@ -43,14 +35,29 @@ imagem_cabecalho = html.Img(
     },
 )
 
+navbar = dbc.Nav(
+    [
+        dbc.NavLink(
+            [html.Div(page["name"])],
+            href=page["path"],
+            active="exact",
+        )
+        for page in dash.page_registry.values()
+    ],
+    pills=True,
+    className="mb-3",
+)
+
+
 app.layout = dbc.Container(
     [
         imagem_cabecalho,
         html.Br(),
-        all_tabs,
-        html.Div(id="tabs-content"),
+        dash.page_container,  # This will show your home page with nav cards
     ]
 )
+
+
 init_callbacks(app, all_data)
 
 server = app.server

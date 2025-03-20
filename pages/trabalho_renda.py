@@ -1,10 +1,11 @@
-from dash import dcc, html
+from dash import dcc, html, register_page
 import dash_bootstrap_components as dbc
-from babel.numbers import format_percent
 
 from src.load_data import load_data
 from src.utils import get_options_dropdown
 ################################ TRABALHO E RENDA #################################
+
+register_page(__name__, path='/trabalho_renda', name='Trabalho e Renda')
 
 # CARREGAR DADOS
 all_data = load_data()
@@ -260,8 +261,33 @@ fig_media_idade_mov = html.Div(
     ]
 )
 
-tab_trabalho_renda = html.Div(
+layout = html.Div(
     [
+    dbc.Row(
+            dbc.Col(
+                dbc.Button(
+                    [
+                        html.Span("home", className="material-icons me-2", 
+                            style={"display": "inline-flex", "verticalAlign": "middle"}),
+                        html.Span("Voltar para Home", 
+                            style={"verticalAlign": "middle"})
+                    ],
+                    href="/",
+                    color="light",
+                    className="mb-3",
+                    style={
+                        "textDecoration": "none",
+                        "color": "#213953",
+                        "boxShadow": "0px 4px 12px rgba(0, 0, 0, 0.1)",
+                        "display": "inline-flex",
+                        "alignItems": "center",
+                        "gap": "4px",
+                        "textTransform": "none"
+                    }
+                ),
+                className="d-flex justify-content-end"  # This aligns the content to the right
+            )
+        ),
         cartoes_estoque_ano,
         html.Br(),
         cartoes_saldo_ano,

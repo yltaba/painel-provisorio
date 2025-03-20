@@ -149,7 +149,7 @@ layout = html.Div(
     [
         html.Br(),
         html.H3(
-            "Bem-vindo ao Painel de Governo da Prefeitura de Osasco",
+            "Bem-vindo ao Painel de Governo da Prefeitura de Osasco!",
             style={"color": "#213953", "fontWeight": "bold"},
             className="text-center mb-4",
         ),

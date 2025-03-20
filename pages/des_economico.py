@@ -22,8 +22,11 @@ def get_pib_plots(all_data):
 
     # COMPONENTES APP
     # Gráficos PIB (estáticos)
-    fig_pib_categorias = px.line(
-        all_data["pib_por_categoria"],
+    df_pib_categorias = all_data["pib_por_categoria"].loc[
+        all_data["pib_por_categoria"]["variavel_dash"] != "Total"
+    ].copy()
+    fig_pib_categorias = px.bar(
+        df_pib_categorias,
         x="ano",
         y="pib_deflacionado",
         color="variavel_dash",
@@ -32,7 +35,7 @@ def get_pib_plots(all_data):
             "pib_deflacionado": "PIB (deflacionado)",
             "variavel_dash": "Categoria",
         },
-        markers=True,
+        # markers=True,
         template=TEMPLATE,
     )
     fig_pib_categorias.update_xaxes(tickmode="linear", tickangle=45)
@@ -270,10 +273,14 @@ layout = html.Div(
             dbc.Col(
                 dbc.Button(
                     [
-                        html.Span("home", className="material-icons me-2", 
-                            style={"display": "inline-flex", "verticalAlign": "middle"}),
-                        html.Span("Voltar para Home", 
-                            style={"verticalAlign": "middle"})
+                        html.Span(
+                            "home",
+                            className="material-icons me-2",
+                            style={"display": "inline-flex", "verticalAlign": "middle"},
+                        ),
+                        html.Span(
+                            "Voltar para Home", style={"verticalAlign": "middle"}
+                        ),
                     ],
                     href="/",
                     color="light",
@@ -285,10 +292,10 @@ layout = html.Div(
                         "display": "inline-flex",
                         "alignItems": "center",
                         "gap": "4px",
-                        "textTransform": "none"
-                    }
+                        "textTransform": "none",
+                    },
                 ),
-                className="d-flex justify-content-end"  # This aligns the content to the right
+                className="d-flex justify-content-end",  # This aligns the content to the right
             )
         ),
         # PIB

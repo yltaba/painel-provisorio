@@ -298,7 +298,7 @@ layout = html.Div(
                             style={"display": "inline-flex", "verticalAlign": "middle"},
                         ),
                         html.Span(
-                            "Voltar para Home", style={"verticalAlign": "middle"}
+                            "Voltar para página inicial", style={"verticalAlign": "middle"}
                         ),
                     ],
                     href="/",

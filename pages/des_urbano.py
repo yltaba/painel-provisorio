@@ -11,7 +11,7 @@ layout = html.Div(
                     [
                         html.Span("home", className="material-icons me-2", 
                             style={"display": "inline-flex", "verticalAlign": "middle"}),
-                        html.Span("Voltar para Home", 
+                        html.Span("Voltar para página inicial", 
                             style={"verticalAlign": "middle"})
                     ],
                     href="/",

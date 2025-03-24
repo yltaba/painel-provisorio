@@ -2,7 +2,7 @@ from dash import dcc, html, register_page
 import dash_bootstrap_components as dbc
 
 from src.load_data import load_data
-from src.utils import get_options_dropdown
+from src.utils import get_options_dropdown, create_info_popover
 
 ################################ TRABALHO E RENDA #################################
 
@@ -17,9 +17,9 @@ all_data["rais_anual"]["descricao_secao_cnae"] = all_data["rais_anual"][
 all_data["caged_media_idade"]["cnae_2_descricao_secao"] = all_data["caged_media_idade"][
     "cnae_2_descricao_secao"
 ].str.capitalize()
-all_data["caged_media_salario"]["cnae_2_descricao_secao"] = all_data["caged_media_salario"][
-    "cnae_2_descricao_secao"
-].str.capitalize()
+all_data["caged_media_salario"]["cnae_2_descricao_secao"] = all_data[
+    "caged_media_salario"
+]["cnae_2_descricao_secao"].str.capitalize()
 all_data["caged_saldo_anual"]["cnae_2_descricao_secao"] = all_data["caged_saldo_anual"][
     "cnae_2_descricao_secao"
 ].str.capitalize()
@@ -56,11 +56,10 @@ fig_estoque_ano = dbc.Col(
     width=9,
 )
 
-# Create cards with static titles and dynamic value containers
 card_estoque_atual = html.Div(
     [
         html.Div(
-            [  # Add a container div for vertical centering
+            [
                 html.H5("Total de postos de trabalho", className="card-title"),
                 html.Div(
                     [html.Div(id="card-estoque-atual-value", className="card-value")],
@@ -76,7 +75,7 @@ card_estoque_atual = html.Div(
 card_variacao_estoque = html.Div(
     [
         html.Div(
-            [  # Add a container div for vertical centering
+            [
                 html.H5("Variação %", className="card-title"),
                 html.Div(
                     [
@@ -120,6 +119,10 @@ coluna_fig_estoque_ano = dbc.Col(
 cartoes_estoque_ano = dbc.Row(
     [
         html.H4("Estoque de postos de trabalho por ano"),
+        create_info_popover(
+            "info-estoque-ano",
+            "O estoque de postos de trabalho por ano é uma métrica que mostra o estoque de postos de trabalho por ano em um determinado período.",
+        ),
         coluna_fig_estoque_ano,
         fig_estoque_ano,
     ],
@@ -148,7 +151,7 @@ fig_saldo_mov_ano = dbc.Col(
 card_saldo_atual = html.Div(
     [
         html.Div(
-            [  # Add a container div for vertical centering
+            [
                 html.H5("Saldo de movimentações", className="card-title"),
                 html.Div(
                     [html.Div(id="card-saldo-atual-value", className="card-value")],
@@ -164,7 +167,7 @@ card_saldo_atual = html.Div(
 card_variacao_saldo = html.Div(
     [
         html.Div(
-            [  # Add a container div for vertical centering
+            [
                 html.H5("Variação %", className="card-title"),
                 html.Div(
                     [
@@ -208,6 +211,10 @@ coluna_fig_saldo_ano = dbc.Col(
 cartoes_saldo_ano = dbc.Row(
     [
         html.H4("Saldo de movimentações por ano"),
+        create_info_popover(
+            "info-saldo-ano",
+            "O saldo de movimentações por ano é uma métrica que mostra o saldo de movimentações por ano em um determinado período.",
+        ),
         fig_saldo_mov_ano,
         coluna_fig_saldo_ano,
     ],
@@ -219,36 +226,88 @@ cartoes_saldo_ano = dbc.Row(
 fig_saldo_mov_secao = html.Div(
     [
         html.H4("Saldo de postos de trabalho por Seção da CNAE"),
-        html.Label("Selecione um ano:", style={"fontWeight": "light"}),
-        dcc.Dropdown(
-            id="filtro-ano-caged-secao",
-            options=[{"label": "Todos", "value": "Todos"}] + opcoes_caged_ano,
-            value=2024,
-            clearable=False,
-            className="mb-3",
+        create_info_popover(
+            "info-saldo-secao",
+            "O saldo de postos de trabalho por seção da CNAE é uma métrica que mostra o saldo de postos de trabalho por seção da CNAE em um determinado período.",
         ),
-        dcc.Graph(id="fig-caged-saldo-secao"),
+        # html.Div(
+        #     [
+        #         html.Label("Selecione um ano:", style={"fontWeight": "light"}),
+        #         dcc.Dropdown(
+        #             id="filtro-ano-caged-secao",
+        #             options=[{"label": "Todos", "value": "Todos"}] + opcoes_caged_ano,
+        #             value=2024,
+        #             clearable=False,
+        #             className="mb-3",
+        #         ),
+        #         dcc.Graph(id="fig-caged-saldo-secao"),
+        #     ]
+        # ),
+
+        html.Div(
+            [
+                html.Label("Selecione um ano:", style={"fontWeight": "light"}),
+                dcc.Slider( 
+                    id="filtro-ano-caged-secao",
+                    min=min(all_data["caged_saldo_secao"]["ano"]),
+                    max=max(all_data["caged_saldo_secao"]["ano"]),
+                    value=2024,
+                    marks={str(year): str(year) for year in all_data["caged_saldo_secao"]["ano"].unique()},
+                    step=None,
+                    className="mb-3",
+                ),
+                dcc.Graph(id="fig-caged-saldo-secao"),
+            ]
+        ),
     ]
 )
 
 fig_saldo_mov_idade = html.Div(
     [
         html.H4("Saldo de postos de trabalho por idade"),
-        html.Label("Selecione um ano:", style={"fontWeight": "light"}),
-        dcc.Dropdown(
-            id="filtro-ano-caged-idade",
-            options=[{"label": "Todos", "value": "Todos"}] + opcoes_caged_ano_idade,
-            value=2024,
-            clearable=False,
-            className="mb-3",
+        create_info_popover(
+            "info-saldo-idade",
+            "O saldo de postos de trabalho por idade é uma métrica que mostra o saldo de postos de trabalho por idade em um determinado período.",
         ),
-        dcc.Graph(id="fig-caged-saldo-idade"),
+        # html.Div(
+        #     [
+        #         html.Label("Selecione um ano:", style={"fontWeight": "light"}),
+        #         dcc.Dropdown(
+        #             id="filtro-ano-caged-idade",
+        #             options=[{"label": "Todos", "value": "Todos"}]
+        #             + opcoes_caged_ano_idade,
+        #             value=2024,
+        #             clearable=False,
+        #             className="mb-3",
+        #         ),
+        #         dcc.Graph(id="fig-caged-saldo-idade"),
+        #     ]
+        # ),
+        html.Div(
+            [
+                html.Label("Selecione um ano:", style={"fontWeight": "light"}),
+                dcc.Slider(
+                    id="filtro-ano-caged-idade",
+                    min=min(all_data["caged_saldo_idade"]["ano"]),
+                    max=max(all_data["caged_saldo_idade"]["ano"]),
+                    value=2024,
+                    marks={str(year): str(year) for year in all_data["caged_saldo_idade"]["ano"].unique()},
+                    step=None,
+                    className="mb-3",
+                ),
+                dcc.Graph(id="fig-caged-saldo-idade"),
+            ]
+        ),
     ]
 )
 
 fig_media_salario_mov = html.Div(
     [
         html.H4("Evolução da média salarial de admissões e demissões"),
+        create_info_popover(
+            "info-media-salario",
+            "A média salarial de admissões e demissões é uma métrica que mostra a média salarial dos funcionários que foram admitidos e demitidos.",
+        ),
         dbc.Row(
             [
                 dbc.Col(
@@ -307,6 +366,10 @@ fig_media_salario_mov = html.Div(
 fig_media_idade_mov = html.Div(
     [
         html.H4("Evolução da média de idade das admissões e demissões"),
+        create_info_popover(
+            "info-media-idade",
+            "A média de idade das admissões e demissões é uma métrica que mostra a idade média dos funcionários que foram admitidos e demitidos.",
+        ),
         dbc.Row(
             [
                 dbc.Col(
@@ -349,7 +412,7 @@ fig_media_idade_mov = html.Div(
                                 "marginTop": "8px",
                                 "display": "flex",
                                 "justifyContent": "center",
-                                "gap": "20px",  # Adds space between radio options
+                                "gap": "20px",
                             },
                         ),
                     ],
@@ -374,7 +437,8 @@ layout = html.Div(
                             style={"display": "inline-flex", "verticalAlign": "middle"},
                         ),
                         html.Span(
-                            "Voltar para página inicial", style={"verticalAlign": "middle"}
+                            "Voltar para página inicial",
+                            style={"verticalAlign": "middle"},
                         ),
                     ],
                     href="/",
@@ -390,7 +454,7 @@ layout = html.Div(
                         "textTransform": "none",
                     },
                 ),
-                className="d-flex justify-content-end",  # This aligns the content to the right
+                className="d-flex justify-content-end",
             )
         ),
         cartoes_estoque_ano,

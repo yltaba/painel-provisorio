@@ -1,9 +1,9 @@
 from dash import dcc, html, register_page
 import dash_bootstrap_components as dbc
 import plotly.express as px
-from babel.numbers import format_decimal, format_currency, format_compact_currency
+from babel.numbers import format_decimal, format_currency
 
-from src.utils import calcular_pib_atual, calcular_variacao_pib
+from src.utils import calcular_pib_atual, calcular_variacao_pib, create_info_popover
 from src.config import TEMPLATE
 from src.load_data import load_data
 
@@ -150,7 +150,7 @@ card_variacao_pib = html.Div(
     [
         html.Div(
             [
-                html.H5("Crescimento %", className="card-title"),
+                html.H5("Variação % (2020, 2021)", className="card-title"),
                 html.Div(
                     [
                         html.Div(
@@ -288,26 +288,7 @@ cartoes_pib_per_capita = dbc.Row(
 )
 
 
-def create_info_popover(id_referencia, texto):
-    return html.Div(
-        [
-            dbc.Button(
-                html.I(className="material-icons", children="info"),
-                id=id_referencia,
-                color="link",
-                size="sm",
-                className="p-0 ms-2",
-                style={"color": "#213953"},
-            ),
-            dbc.Popover(
-                dbc.PopoverBody(texto),
-                target=id_referencia,
-                trigger="hover",
-                placement="right",
-            ),
-        ],
-        style={"display": "inline-block"},
-    )
+
 
 
 # TAB ECONOMIA

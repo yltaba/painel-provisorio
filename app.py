@@ -4,10 +4,12 @@ import dash
 
 from src.config import DATA_PATH
 from src.load_data import load_data
+from src.callbacks import init_callbacks
+
 
 external_stylesheets = [
     dbc.themes.SANDSTONE,
-    "https://fonts.googleapis.com/icon?family=Material+Icons",  # Add this line
+    "https://fonts.googleapis.com/icon?family=Material+Icons", 
 ]
 app = Dash(
     use_pages=True,
@@ -20,8 +22,6 @@ app.title = "Painel de Governo PMO"
 data_path = DATA_PATH
 all_data = load_data()
 
-# Now import callbacks after app initialization
-from src.callbacks import init_callbacks
 
 # Logo Osasco
 imagem_cabecalho = html.Img(
@@ -53,7 +53,7 @@ app.layout = dbc.Container(
     [
         imagem_cabecalho,
         html.Br(),
-        dash.page_container,  # This will show your home page with nav cards
+        dash.page_container,
     ]
 )
 

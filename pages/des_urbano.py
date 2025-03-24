@@ -1,5 +1,6 @@
 from dash import html, register_page
 import dash_bootstrap_components as dbc
+from src.utils import create_info_popover
 
 register_page(__name__, path='/desenvolvimento_urbano', name='Desenvolvimento Urbano')
 
@@ -32,6 +33,10 @@ layout = html.Div(
         ),
         html.Br(),
         html.H4("Zoneamento de Osasco"),
+        create_info_popover(
+            "info-zoneamento",
+            "O zoneamento de Osasco é um plano de uso do solo que define as áreas destinadas a diferentes atividades econômicas e de ocupação do solo.",
+        ),
         html.Iframe(
             src="https://ozmundi.osasco.sp.gov.br/misc/base_zoneamento/",
             style={

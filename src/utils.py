@@ -46,3 +46,25 @@ def calcular_variacao_pib(pib_por_categoria):
     variacao_pib = format_percent(variacao_pib, format='#,##0.0%', locale='pt_BR')
 
     return variacao_pib
+
+
+def create_info_popover(id_referencia, texto):
+    return html.Div(
+        [
+            dbc.Button(
+                html.I(className="material-icons", children="info"),
+                id=id_referencia,
+                color="link",
+                size="sm",
+                className="p-0 ms-2",
+                style={"color": "#213953"},
+            ),
+            dbc.Popover(
+                dbc.PopoverBody(texto),
+                target=id_referencia,
+                trigger="hover",
+                placement="right",
+            ),
+        ],
+        style={"display": "inline-block"},
+    )

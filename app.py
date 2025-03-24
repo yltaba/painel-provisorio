@@ -11,6 +11,7 @@ external_stylesheets = [
     dbc.themes.SANDSTONE,
     "https://fonts.googleapis.com/icon?family=Material+Icons", 
 ]
+
 app = Dash(
     use_pages=True,
     external_stylesheets=external_stylesheets,

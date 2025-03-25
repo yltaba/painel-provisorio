@@ -41,6 +41,19 @@ def get_pib_plots(all_data):
         template=TEMPLATE,
     )
     fig_pib_categorias.update_xaxes(tickmode="linear", tickangle=45)
+    fig_pib_categorias.update_layout(
+        legend=dict(
+            yanchor="top",
+            y=0.99,
+            xanchor="left",
+            x=0.01,
+            bgcolor="white",
+            bordercolor="lightgray",
+        ),
+    )
+    fig_pib_categorias.update_traces(
+        hovertemplate="<b>%{fullData.name}</b><br>Ano: %{x}<br>PIB: R$ %{y:,.2f}<extra></extra>"
+    )
 
     fig_pib_per_capita = px.line(
         all_data["pib_per_capita"],
@@ -50,21 +63,34 @@ def get_pib_plots(all_data):
         line_shape="spline",
         labels={
             "ano": "Ano",
-            "pib_per_capita": "PIB per capita",
+            "pib_per_capita": "PIB per capita (R$)",
             "municipio": "Município",
         },
-        template=TEMPLATE,
+        template="none",
     )
+
+    fig_pib_per_capita.update_layout(
+        plot_bgcolor="white",
+        paper_bgcolor="white",
+        yaxis=dict(tickformat=",.0f", gridcolor="lightgray", zeroline=False),
+        xaxis=dict(gridcolor="white", zeroline=False),
+        legend_title_text="Município",
+        legend=dict(orientation="h", yanchor="bottom", y=-0.35, xanchor="center", x=0.5),
+    )
+
     fig_pib_per_capita.for_each_trace(
         lambda trace: trace.update(
             line=dict(
-                width=2 if trace.name == "Osasco (SP)" else 1.5,
-                dash="solid" if trace.name == "Osasco (SP)" else "dot",
+                width=2.5 if trace.name == "Osasco (SP)" else 1.5,
+                dash="solid" if trace.name == "Osasco (SP)" else "dash",
             ),
-            opacity=1 if trace.name == "Osasco (SP)" else 0.7,
+            marker=dict(size=8 if trace.name == "Osasco (SP)" else 6),
+            opacity=1 if trace.name == "Osasco (SP)" else 0.75,
         )
     )
-
+    fig_pib_per_capita.update_traces(
+        hovertemplate="<b>%{fullData.name}</b><br>Ano: %{x}<br>PIB per capita: R$ %{y:,.2f}<extra></extra>"
+    )
     fig_pib_per_capita.update_xaxes(tickmode="linear", tickangle=45)
 
     fig_pib_sp = px.line(
@@ -75,10 +101,10 @@ def get_pib_plots(all_data):
         line_shape="spline",
         labels={
             "ano": "Ano",
-            "participacao_pib_sp": "Participação % de Osasco no PIB de SP",
+            "participacao_pib_sp": "Participação % PIB de SP",
             "municipio": "Município",
         },
-        template=TEMPLATE,
+        template="none",
     )
     fig_pib_sp.for_each_trace(
         lambda trace: trace.update(
@@ -90,9 +116,20 @@ def get_pib_plots(all_data):
         )
     )
     fig_pib_sp.update_xaxes(tickmode="linear", tickangle=45)
+
     fig_pib_sp.update_layout(
-        yaxis_tickformat=".1%",
+        yaxis_tickformat=".%",
+        plot_bgcolor="white",
+        paper_bgcolor="white",
+        yaxis=dict(tickformat=",.1%", gridcolor="lightgray", zeroline=False, title_standoff=30),
+        xaxis=dict(gridcolor="white", zeroline=False),
+        legend_title_text="Município",
+        legend=dict(orientation="h", yanchor="bottom", y=-0.35, xanchor="center", x=0.5),
     )
+    fig_pib_sp.update_traces(
+        hovertemplate="<b>%{fullData.name}</b><br>Ano: %{x}<br>Participação: %{y:,.2%}<extra></extra>"
+    )
+
     for fig in [fig_pib_sp, fig_pib_per_capita, fig_pib_categorias]:
         fig.update_layout(
             margin=dict(t=0),
@@ -274,6 +311,7 @@ coluna_cartao_pib_per_capita = dbc.Col(
 
 cartoes_pib_per_capita = dbc.Row(
     [
+        coluna_cartao_pib_per_capita,
         dbc.Col(
             dcc.Graph(
                 id="pib-per-capita-graph",
@@ -282,13 +320,9 @@ cartoes_pib_per_capita = dbc.Row(
             ),
             width=9,
         ),
-        coluna_cartao_pib_per_capita,
     ],
     className="main-content-row",
 )
-
-
-
 
 
 # TAB ECONOMIA
@@ -340,11 +374,12 @@ layout = html.Div(
         ),
         cartoes_pib_per_capita,
         html.Br(),
-        html.H4("Participação do PIB de Osasco no Estado de São Paulo"),
+        html.H4("Participação do PIB municipal no Estado de São Paulo"),
         create_info_popover(
             "info-pib-sp",
             "A participação do PIB de Osasco no Estado de São Paulo é uma medida da proporção do PIB de Osasco em relação ao PIB total do Estado de São Paulo. Ela é calculada dividindo o PIB de Osasco pelo PIB total do Estado de São Paulo.",
         ),
         dcc.Graph(id="fig-pib-sp", figure=fig_pib_sp, config={"displayModeBar": False}),
+        html.Br(),
     ]
 )

@@ -215,8 +215,8 @@ cartoes_saldo_ano = dbc.Row(
             "info-saldo-ano",
             "O saldo de movimentações por ano é uma métrica que mostra o saldo de movimentações por ano em um determinado período.",
         ),
-        fig_saldo_mov_ano,
         coluna_fig_saldo_ano,
+        fig_saldo_mov_ano,
     ],
     className="main-content-row",
 )

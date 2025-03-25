@@ -20,8 +20,7 @@ all_data = load_data()
 # GRÁFICOS PIB
 def get_pib_plots(all_data):
 
-    # COMPONENTES APP
-    # Gráficos PIB (estáticos)
+    # GRÁFICO PIB POR CATEGORIA
     df_pib_categorias = (
         all_data["pib_por_categoria"]
         .loc[all_data["pib_por_categoria"]["variavel_dash"] != "Total"]
@@ -55,6 +54,8 @@ def get_pib_plots(all_data):
         hovertemplate="<b>%{fullData.name}</b><br>Ano: %{x}<br>PIB: R$ %{y:,.2f}<extra></extra>"
     )
 
+
+    # GRÁFICO PIB PER CAPITA
     fig_pib_per_capita = px.line(
         all_data["pib_per_capita"],
         x="ano",
@@ -93,6 +94,8 @@ def get_pib_plots(all_data):
     )
     fig_pib_per_capita.update_xaxes(tickmode="linear", tickangle=45)
 
+
+    # GRÁFICO PARTICIPAÇÃO DO PIB MUNICIPAL NO PIB DE SÃO PAULO
     fig_pib_sp = px.line(
         all_data["pib_participacao_sp"],
         x="ano",
@@ -130,6 +133,7 @@ def get_pib_plots(all_data):
         hovertemplate="<b>%{fullData.name}</b><br>Ano: %{x}<br>Participação: %{y:,.2%}<extra></extra>"
     )
 
+    # ATRIBUIR MARGEM E ANOTAÇÃO DE FONTE A TODOS OS GRÁFICOS
     for fig in [fig_pib_sp, fig_pib_per_capita, fig_pib_categorias]:
         fig.update_layout(
             margin=dict(t=0),

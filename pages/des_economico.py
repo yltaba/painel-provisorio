@@ -31,7 +31,7 @@ def get_pib_plots(all_data):
         x="ano",
         y="pib_deflacionado",
         color="variavel_dash",
-        color_discrete_sequence=["#99B2C9", "#093A3E", "#64E9EE", "#97C8EB", "#3AAFB9"],
+        color_discrete_sequence=['#C7F9CC', '#80ED99', '#57CC99', '#38A3A5', '#22577A'],
         labels={
             "ano": "Ano",
             "pib_deflacionado": "PIB (deflacionado)",

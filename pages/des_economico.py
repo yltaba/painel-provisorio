@@ -31,7 +31,7 @@ def get_pib_plots(all_data):
         x="ano",
         y="pib_deflacionado",
         color="variavel_dash",
-        color_discrete_sequence=['#C7F9CC', '#80ED99', '#57CC99', '#38A3A5', '#22577A'],
+        color_discrete_sequence=['#1666ba',  '#368ce7',  '#7ab3ef', '#bedaf7', '#deecfb'], # escalas de verde-azul ['#C7F9CC', '#80ED99', '#57CC99', '#38A3A5', '#22577A']
         labels={
             "ano": "Ano",
             "pib_deflacionado": "PIB (deflacionado)",
@@ -371,12 +371,14 @@ layout = html.Div(
         ),
         cartoes_pib_categorias,
         html.Br(),
+        html.Br(),
         html.H4("PIB per capita (em R$ de 2021)"),
         create_info_popover(
             "info-pib-per-capita",
             "O PIB per capita é uma medida da renda média de cada indivíduo na economia. Ele é calculado dividindo o PIB total pelo número de habitantes.",
         ),
         cartoes_pib_per_capita,
+        html.Br(),
         html.Br(),
         html.H4("Participação do PIB municipal no Estado de São Paulo"),
         create_info_popover(

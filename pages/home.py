@@ -1,8 +1,10 @@
 from dash import html, register_page
 import dash_bootstrap_components as dbc
+from src.config import footer
 
 register_page(__name__, path="/", name="Painel de Governo PMO")
 
+# BOTÕES DE NAVEGAÇÃO
 nav_buttons = dbc.Row(
     [
         dbc.Col(
@@ -145,29 +147,40 @@ nav_buttons = dbc.Row(
     justify="center",
 )
 
+
 layout = html.Div(
     [
-        html.Br(),
-        html.H3(
-            "Bem-vindo ao Painel de Governo da Prefeitura de Osasco!",
-            style={"color": "#213953", "fontWeight": "bold"},
-            className="text-center mb-4",
-        ),
-        dbc.Container(
+        html.Div(
             [
-                html.P(
-                    "Navegue pelas páginas abaixo:",
-                    className="text-center",
-                    style={"color": "#213953", "fontSize": "16px"},
+                html.H3(
+                    "Bem-vindo ao Painel de Governo da Prefeitura de Osasco!",
+                    style={"color": "#213953", "fontWeight": "bold"},
+                    className="text-center mb-4",
                 ),
-            ]
+                dbc.Container(
+                    [
+                        html.P(
+                            "Navegue pelas páginas abaixo:",
+                            className="text-center",
+                            style={"color": "#213953", "fontSize": "16px"},
+                        ),
+                    ]
+                ),
+                dbc.Container(nav_buttons, style={"maxWidth": "750px"}),
+            ],
+            style={
+                "marginTop": "2rem",
+                "marginBottom": "2rem",
+            },
         ),
-        dbc.Container(nav_buttons, style={"maxWidth": "750px"}),
-        html.Hr(),
-        html.H6(
-            "Painel desenvolvido pela SETIDE em parceria com a InMov.",
-            className="text-center",
+        html.Div(
+            footer,
+            style={
+                "position": "fixed",
+                "bottom": 0,
+                "width": "100%",
+                "left": 0,
+            }
         ),
     ],
-    className="container",
 )

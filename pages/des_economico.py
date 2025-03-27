@@ -31,7 +31,13 @@ def get_pib_plots(all_data):
         x="ano",
         y="pib_deflacionado",
         color="variavel_dash",
-        color_discrete_sequence=['#1666ba',  '#368ce7',  '#7ab3ef', '#bedaf7', '#deecfb'], # escalas de verde-azul ['#C7F9CC', '#80ED99', '#57CC99', '#38A3A5', '#22577A']
+        color_discrete_sequence=[
+            "#1666ba",
+            "#368ce7",
+            "#7ab3ef",
+            "#bedaf7",
+            "#deecfb",
+        ],  # escalas de verde-azul ['#C7F9CC', '#80ED99', '#57CC99', '#38A3A5', '#22577A']
         labels={
             "ano": "Ano",
             "pib_deflacionado": "PIB (deflacionado)",
@@ -54,7 +60,6 @@ def get_pib_plots(all_data):
         hovertemplate="<b>%{fullData.name}</b><br>Ano: %{x}<br>PIB: R$ %{y:,.2f}<extra></extra>"
     )
 
-
     # GRÁFICO PIB PER CAPITA
     fig_pib_per_capita = px.line(
         all_data["pib_per_capita"],
@@ -76,7 +81,9 @@ def get_pib_plots(all_data):
         yaxis=dict(tickformat=",.0f", gridcolor="lightgray", zeroline=False),
         xaxis=dict(gridcolor="white", zeroline=False),
         legend_title_text="Município",
-        legend=dict(orientation="h", yanchor="bottom", y=-0.35, xanchor="center", x=0.5),
+        legend=dict(
+            orientation="h", yanchor="bottom", y=-0.35, xanchor="center", x=0.5
+        ),
     )
 
     fig_pib_per_capita.for_each_trace(
@@ -93,7 +100,6 @@ def get_pib_plots(all_data):
         hovertemplate="<b>%{fullData.name}</b><br>Ano: %{x}<br>PIB per capita: R$ %{y:,.2f}<extra></extra>"
     )
     fig_pib_per_capita.update_xaxes(tickmode="linear", tickangle=45)
-
 
     # GRÁFICO PARTICIPAÇÃO DO PIB MUNICIPAL NO PIB DE SÃO PAULO
     fig_pib_sp = px.line(
@@ -124,10 +130,14 @@ def get_pib_plots(all_data):
         yaxis_tickformat=".%",
         plot_bgcolor="white",
         paper_bgcolor="white",
-        yaxis=dict(tickformat=",.1%", gridcolor="lightgray", zeroline=False, title_standoff=30),
+        yaxis=dict(
+            tickformat=",.1%", gridcolor="lightgray", zeroline=False, title_standoff=30
+        ),
         xaxis=dict(gridcolor="white", zeroline=False),
         legend_title_text="Município",
-        legend=dict(orientation="h", yanchor="bottom", y=-0.35, xanchor="center", x=0.5),
+        legend=dict(
+            orientation="h", yanchor="bottom", y=-0.35, xanchor="center", x=0.5
+        ),
     )
     fig_pib_sp.update_traces(
         hovertemplate="<b>%{fullData.name}</b><br>Ano: %{x}<br>Participação: %{y:,.2%}<extra></extra>"
@@ -328,64 +338,89 @@ cartoes_pib_per_capita = dbc.Row(
     className="main-content-row",
 )
 
-
-# TAB ECONOMIA
+# LAYOUT DA PÁGINA
 layout = html.Div(
     [
-        dbc.Row(
-            dbc.Col(
-                dbc.Button(
-                    [
-                        html.Span(
-                            "home",
-                            className="material-icons me-2",
-                            style={"display": "inline-flex", "verticalAlign": "middle"},
+        # BOTÃO VOLTAR PARA PÁGINA INICIAL
+        html.Div(
+            [
+                dbc.Row(
+                    dbc.Col(
+                        dbc.Button(
+                            [
+                                html.Span(
+                                    "home",
+                                    className="material-icons me-2",
+                                    style={
+                                        "display": "inline-flex",
+                                        "verticalAlign": "middle",
+                                    },
+                                ),
+                                html.Span(
+                                    "Voltar para página inicial",
+                                    style={"verticalAlign": "middle"},
+                                ),
+                            ],
+                            href="/",
+                            color="light",
+                            className="mb-3",
+                            style={
+                                "textDecoration": "none",
+                                "color": "#213953",
+                                "boxShadow": "0px 4px 12px rgba(0, 0, 0, 0.1)",
+                                "display": "inline-flex",
+                                "alignItems": "center",
+                                "gap": "4px",
+                                "textTransform": "none",
+                            },
                         ),
-                        html.Span(
-                            "Voltar para página inicial",
-                            style={"verticalAlign": "middle"},
-                        ),
-                    ],
-                    href="/",
-                    color="light",
-                    className="mb-3",
-                    style={
-                        "textDecoration": "none",
-                        "color": "#213953",
-                        "boxShadow": "0px 4px 12px rgba(0, 0, 0, 0.1)",
-                        "display": "inline-flex",
-                        "alignItems": "center",
-                        "gap": "4px",
-                        "textTransform": "none",
-                    },
+                        className="d-flex justify-content-end",
+                    )
+                )
+            ],
+            className="section-container",
+            style={"marginBottom": "1rem"},
+        ),
+        # PIB CATEGORIAS
+        html.Div(
+            [
+                html.H4("PIB (em R$ de 2021)"),
+                create_info_popover(
+                    "info-pib",
+                    "O PIB é o valor total de todos os bens e serviços produzidos em um determinado período de tempo, geralmente um ano. Ele é uma das principais medidas da atividade econômica de um país ou região.",
                 ),
-                className="d-flex justify-content-end",
-            )
+                cartoes_pib_categorias,
+            ],
+            className="section-container",
+            style={"marginBottom": "3rem"},
         ),
-        # PIB
-        html.Br(),
-        html.H4("PIB (em R$ de 2021)"),
-        create_info_popover(
-            "info-pib",
-            "O PIB é o valor total de todos os bens e serviços produzidos em um determinado período de tempo, geralmente um ano. Ele é uma das principais medidas da atividade econômica de um país ou região.",
+        # PIB PER CAPITA
+        html.Div(
+            [
+                html.H4("PIB per capita (em R$ de 2021)"),
+                create_info_popover(
+                    "info-pib-per-capita",
+                    "O PIB per capita é uma medida da renda média de cada indivíduo na economia. Ele é calculado dividindo o PIB total pelo número de habitantes.",
+                ),
+                cartoes_pib_per_capita,
+            ],
+            className="section-container",
+            style={"marginBottom": "3rem"},
         ),
-        cartoes_pib_categorias,
-        html.Br(),
-        html.Br(),
-        html.H4("PIB per capita (em R$ de 2021)"),
-        create_info_popover(
-            "info-pib-per-capita",
-            "O PIB per capita é uma medida da renda média de cada indivíduo na economia. Ele é calculado dividindo o PIB total pelo número de habitantes.",
-        ),
-        cartoes_pib_per_capita,
-        html.Br(),
-        html.Br(),
-        html.H4("Participação do PIB municipal no Estado de São Paulo"),
-        create_info_popover(
-            "info-pib-sp",
-            "A participação do PIB de Osasco no Estado de São Paulo é uma medida da proporção do PIB de Osasco em relação ao PIB total do Estado de São Paulo. Ela é calculada dividindo o PIB de Osasco pelo PIB total do Estado de São Paulo.",
-        ),
-        dcc.Graph(id="fig-pib-sp", figure=fig_pib_sp, config={"displayModeBar": False}),
-        html.Br(),
+        # PARTICIPAÇÃO DO PIB MUNICIPAL NO PIB DE SÃO PAULO
+        html.Div(
+            [
+                html.H4("Participação do PIB municipal no Estado de São Paulo"),
+                create_info_popover(
+                    "info-pib-sp",
+                    "A participação do PIB de Osasco no Estado de São Paulo é uma medida da proporção do PIB de Osasco em relação ao PIB total do Estado de São Paulo. Ela é calculada dividindo o PIB de Osasco pelo PIB total do Estado de São Paulo.",
+                ),
+                dcc.Graph(
+                    id="fig-pib-sp", figure=fig_pib_sp, config={"displayModeBar": False}
+                ),
+            ],
+            className="section-container",
+            style={"marginBottom": "3rem"},
+        )
     ]
 )

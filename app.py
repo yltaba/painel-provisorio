@@ -28,11 +28,11 @@ all_data = load_data()
 imagem_cabecalho = html.Img(
     src="https://osasco.sp.gov.br/wp-content/uploads/2024/12/logo-pmo-2025-2028-horizontal.png",
     style={
-        "width": "50%",
-        "height": "50%",
+        "width": "40%",
+        "height": "40%",
         "display": "block",
         "margin": "auto",
-        "margin-top": "30px",
+        "margin-top": "15px",
     },
 )
 

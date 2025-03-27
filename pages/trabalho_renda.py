@@ -116,18 +116,25 @@ coluna_fig_estoque_ano = dbc.Col(
     width=3,
     className="cards-container",
 )
-cartoes_estoque_ano = dbc.Row(
+cartoes_estoque_ano = html.Div(
     [
-        html.H4("Estoque de postos de trabalho por ano"),
-        create_info_popover(
-            "info-estoque-ano",
-            "O estoque de postos de trabalho por ano é uma métrica que mostra o estoque de postos de trabalho por ano em um determinado período.",
-        ),
-        coluna_fig_estoque_ano,
-        fig_estoque_ano,
+        dbc.Row(
+            [
+                html.H4("Estoque de postos de trabalho por ano"),
+                create_info_popover(
+                    "info-estoque-ano",
+                    "O estoque de postos de trabalho por ano é uma métrica que mostra o estoque de postos de trabalho por ano em um determinado período.",
+                ),
+                coluna_fig_estoque_ano,
+                fig_estoque_ano,
+            ],
+            className="main-content-row",
+        )
     ],
-    className="main-content-row",
+    className="section-container",
+    style={"marginBottom": "3rem"},
 )
+
 
 # Gráfico do saldo de movimentações por ano
 fig_saldo_mov_ano = dbc.Col(
@@ -208,18 +215,25 @@ coluna_fig_saldo_ano = dbc.Col(
     width=3,
     className="cards-container",
 )
-cartoes_saldo_ano = dbc.Row(
+cartoes_saldo_ano = html.Div(
     [
-        html.H4("Saldo de movimentações por ano"),
-        create_info_popover(
-            "info-saldo-ano",
-            "O saldo de movimentações por ano é uma métrica que mostra o saldo de movimentações por ano em um determinado período.",
-        ),
-        coluna_fig_saldo_ano,
-        fig_saldo_mov_ano,
+        dbc.Row(
+            [
+                html.H4("Saldo de movimentações por ano"),
+                create_info_popover(
+                    "info-saldo-ano",
+                    "O saldo de movimentações por ano é uma métrica que mostra o saldo de movimentações por ano em um determinado período.",
+                ),
+                coluna_fig_saldo_ano,
+                fig_saldo_mov_ano,
+            ],
+            className="main-content-row",
+        )
     ],
-    className="main-content-row",
+    className="section-container",
+    style={"marginBottom": "3rem"},
 )
+
 
 
 # Gráfico de mov por seção da cnae
@@ -230,19 +244,6 @@ fig_saldo_mov_secao = html.Div(
             "info-saldo-secao",
             "O saldo de postos de trabalho por seção da CNAE é uma métrica que mostra o saldo de postos de trabalho por seção da CNAE em um determinado período.",
         ),
-        # html.Div(
-        #     [
-        #         html.Label("Selecione um ano:", style={"fontWeight": "light"}),
-        #         dcc.Dropdown(
-        #             id="filtro-ano-caged-secao",
-        #             options=[{"label": "Todos", "value": "Todos"}] + opcoes_caged_ano,
-        #             value=2024,
-        #             clearable=False,
-        #             className="mb-3",
-        #         ),
-        #         dcc.Graph(id="fig-caged-saldo-secao"),
-        #     ]
-        # ),
 
         html.Div(
             [
@@ -259,7 +260,9 @@ fig_saldo_mov_secao = html.Div(
                 dcc.Graph(id="fig-caged-saldo-secao"),
             ]
         ),
-    ]
+    ],
+    className="section-container",
+    style={"marginBottom": "3rem"},
 )
 
 fig_saldo_mov_idade = html.Div(
@@ -269,20 +272,6 @@ fig_saldo_mov_idade = html.Div(
             "info-saldo-idade",
             "O saldo de postos de trabalho por idade é uma métrica que mostra o saldo de postos de trabalho por idade em um determinado período.",
         ),
-        # html.Div(
-        #     [
-        #         html.Label("Selecione um ano:", style={"fontWeight": "light"}),
-        #         dcc.Dropdown(
-        #             id="filtro-ano-caged-idade",
-        #             options=[{"label": "Todos", "value": "Todos"}]
-        #             + opcoes_caged_ano_idade,
-        #             value=2024,
-        #             clearable=False,
-        #             className="mb-3",
-        #         ),
-        #         dcc.Graph(id="fig-caged-saldo-idade"),
-        #     ]
-        # ),
         html.Div(
             [
                 html.Label("Selecione um ano:", style={"fontWeight": "light"}),
@@ -298,7 +287,9 @@ fig_saldo_mov_idade = html.Div(
                 dcc.Graph(id="fig-caged-saldo-idade"),
             ]
         ),
-    ]
+    ],
+    className="section-container",
+    style={"marginBottom": "3rem"},
 )
 
 fig_media_salario_mov = html.Div(
@@ -360,7 +351,9 @@ fig_media_salario_mov = html.Div(
             ]
         ),
         dcc.Graph(id="fig-caged-salario-medio"),
-    ]
+    ],
+    className="section-container",
+    style={"marginBottom": "3rem"},
 )
 
 fig_media_idade_mov = html.Div(
@@ -422,52 +415,54 @@ fig_media_idade_mov = html.Div(
             ]
         ),
         dcc.Graph(id="fig-caged-media-idade"),
-    ]
+    ],
+    className="section-container",
+    style={"marginBottom": "3rem"},
 )
 
 layout = html.Div(
+    # BOTÃO VOLTAR PARA PÁGINA INICIAL
     [
-        dbc.Row(
-            dbc.Col(
-                dbc.Button(
-                    [
-                        html.Span(
-                            "home",
-                            className="material-icons me-2",
-                            style={"display": "inline-flex", "verticalAlign": "middle"},
+        html.Div(
+            [
+                dbc.Row(
+                    dbc.Col(
+                        dbc.Button(
+                            [
+                                html.Span(
+                                    "home",
+                                    className="material-icons me-2",
+                                    style={"display": "inline-flex", "verticalAlign": "middle"},
+                                ),
+                                html.Span(
+                                    "Voltar para página inicial",
+                                    style={"verticalAlign": "middle"},
+                                ),
+                            ],
+                            href="/",
+                            color="light",
+                            className="mb-3",
+                            style={
+                                "textDecoration": "none",
+                                "color": "#213953",
+                                "boxShadow": "0px 4px 12px rgba(0, 0, 0, 0.1)",
+                                "display": "inline-flex",
+                                "alignItems": "center",
+                                "gap": "4px",
+                                "textTransform": "none",
+                            },
                         ),
-                        html.Span(
-                            "Voltar para página inicial",
-                            style={"verticalAlign": "middle"},
-                        ),
-                    ],
-                    href="/",
-                    color="light",
-                    className="mb-3",
-                    style={
-                        "textDecoration": "none",
-                        "color": "#213953",
-                        "boxShadow": "0px 4px 12px rgba(0, 0, 0, 0.1)",
-                        "display": "inline-flex",
-                        "alignItems": "center",
-                        "gap": "4px",
-                        "textTransform": "none",
-                    },
+                        className="d-flex justify-content-end",
+                    )
                 ),
-                className="d-flex justify-content-end",
-            )
+            ],
         ),
+        # CARTÕES E GRÁFICOS
         cartoes_estoque_ano,
-        html.Br(),
         cartoes_saldo_ano,
-        html.Br(),
         fig_saldo_mov_secao,
-        html.Br(),
         fig_saldo_mov_idade,
-        html.Br(),
         fig_media_salario_mov,
-        html.Br(),
         fig_media_idade_mov,
-        html.Br(),
     ]
 )

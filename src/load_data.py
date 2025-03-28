@@ -29,4 +29,7 @@ def load_data():
         "pib_per_capita": pd.read_csv(
             DATA_PATH / "pib_per_capita_munic_selecionados.csv", sep=";", encoding="latin1"
         ),
+        "pbf_munic_selecionados": pd.read_csv(
+            DATA_PATH / "pbf_munic_selecionados.csv", sep=";", encoding="latin1"
+        ),
     }

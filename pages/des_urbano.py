@@ -53,7 +53,7 @@ layout = html.Div(
                     "O zoneamento de Osasco é um plano de uso do solo que define as áreas destinadas a diferentes atividades econômicas e de ocupação do solo.",
                 ),
                 html.Iframe(
-                    src="https://ozmundi.osasco.sp.gov.br/misc/base_zoneamento/",
+                    src="https://ozmundi.osasco.sp.gov.br/misc/base_zoneamento_2024/", # https://ozmundi.osasco.sp.gov.br/misc/base_zoneamento/
                     style={
                         "width": "100%",
                         "height": "1000px",

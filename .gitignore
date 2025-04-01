@@ -1,2 +1,3 @@
 /etl*
 /notebooks*
+**/__pycache__

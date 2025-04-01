@@ -38,10 +38,8 @@ def get_pbf_plots(pbf):
         )
     )
     fig_n_favorecidos.update_xaxes(
-        ticktext=[
-            date for date in pbf["mes_referencia"].unique()
-        ],
-        tickvals=pbf["mes_referencia"].unique(),
+        # tickvals=pbf["mes_referencia"].unique(),
+        tickformat="%m/%Y"
     )
     fig_n_favorecidos.update_layout(
         plot_bgcolor="white",
@@ -80,10 +78,7 @@ def get_pbf_plots(pbf):
         )
     )
     fig_total_repasses.update_xaxes(
-        ticktext=[
-            date for date in pbf["mes_referencia"].unique()
-        ],
-        tickvals=pbf["mes_referencia"].unique(),
+        tickformat="%m/%Y"
     )
     fig_total_repasses.update_layout(
         plot_bgcolor="white",
@@ -122,10 +117,7 @@ def get_pbf_plots(pbf):
         )
     )
     fig_media_repasses.update_xaxes(
-        ticktext=[
-            date for date in pbf["mes_referencia"].unique()
-        ],
-        tickvals=pbf["mes_referencia"].unique(),
+        tickformat="%m/%Y"
     )
     fig_media_repasses.update_layout(
         plot_bgcolor="white",
@@ -186,11 +178,11 @@ layout = html.Div(
         ),
         html.Div(
             [
-                html.H4("Número de favorecidos do Programa Bolsa Família"),
+                html.H4("Número de famílias beneficiadas pelo Programa Bolsa Família"),
                 dcc.Graph(figure=fig_n_favorecidos),
             ],
             className="section-container",
-            style={"marginBottom": "1rem"},
+            style={"marginBottom": "3rem"},
         ),
         html.Div(
             [
@@ -198,7 +190,7 @@ layout = html.Div(
                 dcc.Graph(figure=fig_total_repasses),
             ],
             className="section-container",
-            style={"marginBottom": "1rem"},
+            style={"marginBottom": "3rem"},
         ),
         html.Div(
             [
@@ -206,7 +198,7 @@ layout = html.Div(
                 dcc.Graph(figure=fig_media_repasses),
             ],
             className="section-container",
-            style={"marginBottom": "1rem"},
+            style={"marginBottom": "3rem"},
         ),
     ]
 )

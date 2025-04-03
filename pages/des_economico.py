@@ -149,7 +149,7 @@ def get_pib_plots(all_data):
             margin=dict(t=0),
         )
         fig.add_annotation(
-            text="Fonte: IBGE",
+            text="Fonte: <a href='https://www.ibge.gov.br/estatisticas/economicas/contas-nacionais/9088-produto-interno-bruto-dos-municipios.html'>IBGE</a>",
             xref="paper",
             yref="paper",
             x=0.0,
@@ -157,6 +157,7 @@ def get_pib_plots(all_data):
             showarrow=False,
             font=dict(size=12),
             xanchor="center",
+            clicktoshow=False,
         )
     return fig_pib_sp, fig_pib_per_capita, fig_pib_categorias
 

@@ -36,13 +36,14 @@ def init_callbacks(app, all_data):
             color_discrete_sequence=["#75BAFF"],
         )
         fig.add_annotation(
-            text="Fonte: RAIS Estabelecimentos",
+            text="Fonte: <a href='https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/rais/rais-2023'>RAIS Estabelecimentos</a>",
             xref="paper",
             yref="paper",
             x=0,
             y=-0.2,
             showarrow=False,
             font=dict(size=12),
+            clicktoshow=False,
         )
         fig.update_xaxes(tickmode="linear", dtick="M1", tickangle=45)
         fig.update_yaxes(tickformat=",")
@@ -127,7 +128,7 @@ def init_callbacks(app, all_data):
             color_discrete_sequence=["#75BAFF"],
         )
         fig.add_annotation(
-            text="Fonte: CAGED e NOVO CAGED",
+            text="Fonte: <a href='https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/novo-caged/2025/fevereiro/pagina-inicial'>CAGED e NOVO CAGED</a>",
             xref="paper",
             yref="paper",
             x=0,
@@ -225,7 +226,7 @@ def init_callbacks(app, all_data):
             color_discrete_sequence=["#75BAFF"],
         )
         fig.add_annotation(
-            text="Fonte: CAGED e NOVO CAGED",
+            text="Fonte: <a href='https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/novo-caged/2025/fevereiro/pagina-inicial'>CAGED e NOVO CAGED</a>",
             xref="paper",
             yref="paper",
             x=0.0,
@@ -267,7 +268,7 @@ def init_callbacks(app, all_data):
             color_discrete_sequence=["#75BAFF"],
         )
         fig.add_annotation(
-            text="Fonte: CAGED e NOVO CAGED",
+            text="Fonte: <a href='https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/novo-caged/2025/fevereiro/pagina-inicial'>CAGED e NOVO CAGED</a>",
             xref="paper",
             yref="paper",
             x=0.05,
@@ -324,7 +325,7 @@ def init_callbacks(app, all_data):
 
         # Adicionar anotação da fonte
         fig.add_annotation(
-            text="Fonte: CAGED e NOVO CAGED",
+            text="Fonte: <a href='https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/novo-caged/2025/fevereiro/pagina-inicial'>CAGED e NOVO CAGED</a>",
             xref="paper",
             yref="paper",
             x=0.0,
@@ -382,7 +383,7 @@ def init_callbacks(app, all_data):
 
         # Adicionar anotação da fonte
         fig.add_annotation(
-            text="Fonte: CAGED e NOVO CAGED",
+            text="Fonte: <a href='https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/novo-caged/2025/fevereiro/pagina-inicial'>CAGED e NOVO CAGED</a>",
             xref="paper",
             yref="paper",
             x=0.0,

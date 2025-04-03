@@ -63,3 +63,16 @@
     flex: 1 0 auto;
     padding-bottom: 2rem;
 }
+
+.rc-slider-track {
+    background-color: #3670AA !important;
+}
+
+.rc-slider-handle {
+    background-color: #3670AA !important;
+    border-color: #3670AA !important;
+}
+
+.rc-slider-dot-active {
+    border-color: #3670AA !important;
+}

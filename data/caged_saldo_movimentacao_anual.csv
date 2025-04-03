@@ -297,37 +297,37 @@ ano;cnae_2_descricao_secao;saldo_movimentacao;salario_mensal
 2022;Agricultura, Pecuária, Produção Florestal, Pesca E Aquicultura;8;1417.9934615384616
 2022;Alojamento E Alimentação;663;1528.1078983362254
 2022;Artes, Cultura, Esporte E Recreação;131;1979.6745743145743
-2022;Atividades Administrativas E Serviços Complementares;3513;1966.1960667629435
+2022;Atividades Administrativas E Serviços Complementares;3513;1968.1235818489965
 2022;Atividades Financeiras, De Seguros E Serviços Relacionados;-93;3639.5607623982232
 2022;Atividades Imobiliárias;-31;1707.134476190476
-2022;Atividades Profissionais, Científicas E Técnicas;1969;7303.709080630344
-2022;"Comércio; Reparação De Veículos Automotores E Motocicletas";-540;2149.2733030277577
-2022;Construção;136;2152.8264855361995
-2022;Educação;270;30160.95735578862
-2022;Indústrias De Transformação;443;3670.553252512693
+2022;Atividades Profissionais, Científicas E Técnicas;1969;7305.257789086797
+2022;"Comércio; Reparação De Veículos Automotores E Motocicletas";-540;2149.9504385541154
+2022;Construção;136;2154.031393619573
+2022;Educação;270;30179.218278506556
+2022;Indústrias De Transformação;443;3671.6945936981756
 2022;Informação E Comunicação;582;3102.6208670615333
-2022;Outras Atividades De Serviços;12;2076.660035
-2022;Saúde Humana E Serviços Sociais;995;1971.068116162384
-2022;Transporte, Armazenagem E Correio;1596;2799.727611909078
-2022;Água, Esgoto, Atividades De Gestão De Resíduos E Descontaminação;102;2024.9598519736844
-2023;Administração Pública, Defesa E Seguridade Social;10;3078.428247826087
-2023;Agricultura, Pecuária, Produção Florestal, Pesca E Aquicultura;-13;1619.6557142857143
-2023;Alojamento E Alimentação;113;1653.4671106900012
-2023;Artes, Cultura, Esporte E Recreação;61;2090.7712812339932
-2023;Atividades Administrativas E Serviços Complementares;-5097;1711.517649421414
-2023;Atividades Financeiras, De Seguros E Serviços Relacionados;-739;6611.234627064478
-2023;Atividades Imobiliárias;-13;1907.421132650334
-2023;Atividades Profissionais, Científicas E Técnicas;-506;5822.660151976551
-2023;"Comércio; Reparação De Veículos Automotores E Motocicletas";-221;2043.8768905826144
-2023;Construção;763;2361.2288754589777
-2023;Educação;-71;30509.254414401817
-2023;Indústrias De Transformação;-12;2861.3354241202924
-2023;Indústrias Extrativas;-1;1697.86
-2023;Informação E Comunicação;645;4804.684958028566
-2023;Outras Atividades De Serviços;70;2195.022560790934
-2023;Saúde Humana E Serviços Sociais;655;1885.5997381972204
-2023;Transporte, Armazenagem E Correio;4703;2530.538209265562
-2023;Água, Esgoto, Atividades De Gestão De Resíduos E Descontaminação;-17;2136.8779938864627
+2022;Outras Atividades De Serviços;12;2077.6988844422212
+2022;Saúde Humana E Serviços Sociais;995;1971.3678527980535
+2022;Transporte, Armazenagem E Correio;1596;2800.5086769423906
+2022;Água, Esgoto, Atividades De Gestão De Resíduos E Descontaminação;102;2028.2958649093905
+2023;Administração Pública, Defesa E Seguridade Social;10;3085.30725
+2023;Agricultura, Pecuária, Produção Florestal, Pesca E Aquicultura;-13;1640.1080357142857
+2023;Alojamento E Alimentação;113;1644.2458089446345
+2023;Artes, Cultura, Esporte E Recreação;61;2132.4160254596886
+2023;Atividades Administrativas E Serviços Complementares;-5097;1704.8782609557015
+2023;Atividades Financeiras, De Seguros E Serviços Relacionados;-739;6617.066548723898
+2023;Atividades Imobiliárias;-13;1911.9250000000002
+2023;Atividades Profissionais, Científicas E Técnicas;-506;5837.210089061716
+2023;"Comércio; Reparação De Veículos Automotores E Motocicletas";-221;2050.0270732390068
+2023;Construção;763;2369.3561801767914
+2023;Educação;-71;32901.300798158096
+2023;Indústrias De Transformação;-12;2892.8010985061214
+2023;Indústrias Extrativas;-1;
+2023;Informação E Comunicação;645;4830.707798087142
+2023;Outras Atividades De Serviços;70;2218.255780979827
+2023;Saúde Humana E Serviços Sociais;655;1886.0701244545012
+2023;Transporte, Armazenagem E Correio;4703;2510.6737907985066
+2023;Água, Esgoto, Atividades De Gestão De Resíduos E Descontaminação;-17;2129.1426987060995
 2024;Administração Pública, Defesa E Seguridade Social;70;3065.0373728813556
 2024;Agricultura, Pecuária, Produção Florestal, Pesca E Aquicultura;-13;2435.672962962963
 2024;Alojamento E Alimentação;123;1953.685699990985
@@ -345,20 +345,20 @@ ano;cnae_2_descricao_secao;saldo_movimentacao;salario_mensal
 2024;Saúde Humana E Serviços Sociais;427;1890.2107319021468
 2024;Transporte, Armazenagem E Correio;8743;2536.912004941758
 2024;Água, Esgoto, Atividades De Gestão De Resíduos E Descontaminação;-4;2263.131647398844
-2025;Administração Pública, Defesa E Seguridade Social;-1;0.0
-2025;Agricultura, Pecuária, Produção Florestal, Pesca E Aquicultura;-1;0.0
-2025;Alojamento E Alimentação;-5;0.0
-2025;Artes, Cultura, Esporte E Recreação;22;0.0
-2025;Atividades Administrativas E Serviços Complementares;-177;0.0
-2025;Atividades Financeiras, De Seguros E Serviços Relacionados;8;0.0
-2025;Atividades Imobiliárias;2;0.0
-2025;Atividades Profissionais, Científicas E Técnicas;183;0.0
-2025;"Comércio; Reparação De Veículos Automotores E Motocicletas";-337;0.0
-2025;Construção;78;0.0
-2025;Educação;103;0.0
-2025;Indústrias De Transformação;184;0.0
-2025;Informação E Comunicação;-263;0.0
-2025;Outras Atividades De Serviços;19;0.0
-2025;Saúde Humana E Serviços Sociais;33;0.0
-2025;Transporte, Armazenagem E Correio;312;0.0
-2025;Água, Esgoto, Atividades De Gestão De Resíduos E Descontaminação;-15;0.0
+2025;Administração Pública, Defesa E Seguridade Social;-1;2993.29
+2025;Agricultura, Pecuária, Produção Florestal, Pesca E Aquicultura;-1;2431.88
+2025;Alojamento E Alimentação;-5;1869.8244777662876
+2025;Artes, Cultura, Esporte E Recreação;22;1790.377361111111
+2025;Atividades Administrativas E Serviços Complementares;-177;2337.780786106033
+2025;Atividades Financeiras, De Seguros E Serviços Relacionados;8;9797.252343096234
+2025;Atividades Imobiliárias;2;2064.1887500000003
+2025;Atividades Profissionais, Científicas E Técnicas;183;6811.768908594816
+2025;"Comércio; Reparação De Veículos Automotores E Motocicletas";-337;2267.5523039501845
+2025;Construção;78;2420.8399400798935
+2025;Educação;103;33119.27053667263
+2025;Indústrias De Transformação;184;3103.8802372262776
+2025;Informação E Comunicação;-263;2999.4919928825625
+2025;Outras Atividades De Serviços;19;2328.117370517928
+2025;Saúde Humana E Serviços Sociais;33;1941.5205655172413
+2025;Transporte, Armazenagem E Correio;312;2551.9271778676098
+2025;Água, Esgoto, Atividades De Gestão De Resíduos E Descontaminação;-15;2103.4802040816326

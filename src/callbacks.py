@@ -33,6 +33,7 @@ def init_callbacks(app, all_data):
             },
             markers="o",
             template="plotly_white",
+            color_discrete_sequence=["#75BAFF"],
         )
         fig.add_annotation(
             text="Fonte: RAIS Estabelecimentos",
@@ -46,7 +47,6 @@ def init_callbacks(app, all_data):
         fig.update_xaxes(tickmode="linear", dtick="M1", tickangle=45)
         return fig
 
-
     @app.callback(
         [
             Output("card-estoque-atual-value", "children"),
@@ -54,7 +54,7 @@ def init_callbacks(app, all_data):
             Output("card-variacao-arrow", "children"),
             Output("card-variacao-arrow", "style"),
         ],
-        Input("filtro-cnae-rais-saldo", "value")
+        Input("filtro-cnae-rais-saldo", "value"),
     )
     def atualizar_cards_estoque(filtro_cnae):
         if filtro_cnae == "Todos":
@@ -70,27 +70,35 @@ def init_callbacks(app, all_data):
             .agg({"quantidade_vinculos_ativos": "sum"})
             .values[0]
         )
-        estoque_atual_formatted = format_decimal(estoque_atual, format='#,##0', locale='pt_BR')
+        estoque_atual_formatted = format_decimal(
+            estoque_atual, format="#,##0", locale="pt_BR"
+        )
 
         estoque_anterior = (
             df_filtrado.loc[df_filtrado["ano"] == df_filtrado["ano"].max() - 1]
             .agg({"quantidade_vinculos_ativos": "sum"})
             .values[0]
         )
-        variacao_estoque = ((estoque_atual - estoque_anterior) / estoque_anterior)
-        variacao_estoque_formatted = format_percent(variacao_estoque, format='#,##0.0%', locale='pt_BR')
-        
+        variacao_estoque = (estoque_atual - estoque_anterior) / estoque_anterior
+        variacao_estoque_formatted = format_percent(
+            variacao_estoque, format="#,##0.0%", locale="pt_BR"
+        )
+
         # Define arrow properties based on variation
         arrow_symbol = "▲" if variacao_estoque >= 0 else "▼"
         arrow_style = {
             "color": "#28a745" if variacao_estoque >= 0 else "#dc3545",
             "fontSize": "24px",
-            "marginLeft": "8px"
+            "marginLeft": "8px",
         }
-        
-        return estoque_atual_formatted, variacao_estoque_formatted, arrow_symbol, arrow_style
-        
-    
+
+        return (
+            estoque_atual_formatted,
+            variacao_estoque_formatted,
+            arrow_symbol,
+            arrow_style,
+        )
+
     @app.callback(
         Output("fig-saldo-anual", "figure"), Input("filtro-cnae-caged-saldo", "value")
     )
@@ -115,6 +123,7 @@ def init_callbacks(app, all_data):
                 "ano": "Ano",
                 "saldo_movimentacao": "Saldo das movimentações",
             },
+            color_discrete_sequence=["#75BAFF"],
         )
         fig.add_annotation(
             text="Fonte: CAGED e NOVO CAGED",
@@ -128,7 +137,6 @@ def init_callbacks(app, all_data):
         fig.update_xaxes(tickmode="linear", dtick="M1", tickangle=45)
         return fig
 
-
     @app.callback(
         [
             Output("card-saldo-atual-value", "children"),
@@ -136,42 +144,52 @@ def init_callbacks(app, all_data):
             Output("card-variacao-saldo-arrow", "children"),
             Output("card-variacao-saldo-arrow", "style"),
         ],
-        Input("filtro-cnae-caged-saldo", "value")
+        Input("filtro-cnae-caged-saldo", "value"),
     )
     def atualizar_cards_estoque(filtro_cnae):
         if filtro_cnae == "Todos":
-            df_filtrado = all_data['caged_saldo_anual']
+            df_filtrado = all_data["caged_saldo_anual"]
         else:
-            df_filtrado = all_data['caged_saldo_anual'][
-                all_data['caged_saldo_anual']["cnae_2_descricao_secao"] == filtro_cnae
+            df_filtrado = all_data["caged_saldo_anual"][
+                all_data["caged_saldo_anual"]["cnae_2_descricao_secao"] == filtro_cnae
             ]
         saldo_ano_max = (
             df_filtrado.loc[df_filtrado["ano"] == df_filtrado["ano"].max()]
             .agg({"saldo_movimentacao": "sum"})
             .values[0]
         )
-        saldo_ano_max_formatted = format_decimal(saldo_ano_max, format='#,##0', locale='pt_BR')
+        saldo_ano_max_formatted = format_decimal(
+            saldo_ano_max, format="#,##0", locale="pt_BR"
+        )
 
         saldo_ano_max_lag1 = (
             df_filtrado.loc[df_filtrado["ano"] == df_filtrado["ano"].max() - 1]
             .agg({"saldo_movimentacao": "sum"})
             .values[0]
         )
-        variacao_mov = ((saldo_ano_max - saldo_ano_max_lag1) / saldo_ano_max_lag1)
-        variacao_mov_formatted = format_percent(variacao_mov, format='#,##0.0%', locale='pt_BR')
-        
+        variacao_mov = (saldo_ano_max - saldo_ano_max_lag1) / saldo_ano_max_lag1
+        variacao_mov_formatted = format_percent(
+            variacao_mov, format="#,##0.0%", locale="pt_BR"
+        )
+
         # Define arrow properties based on variation
         arrow_symbol = "▲" if variacao_mov >= 0 else "▼"
         arrow_style = {
             "color": "#28a745" if variacao_mov >= 0 else "#dc3545",
             "fontSize": "24px",
-            "marginLeft": "8px"
+            "marginLeft": "8px",
         }
-        
-        return saldo_ano_max_formatted, variacao_mov_formatted, arrow_symbol, arrow_style
+
+        return (
+            saldo_ano_max_formatted,
+            variacao_mov_formatted,
+            arrow_symbol,
+            arrow_style,
+        )
 
     @app.callback(
-        Output("fig-caged-saldo-secao", "figure"), Input("filtro-ano-caged-secao", "value")
+        Output("fig-caged-saldo-secao", "figure"),
+        Input("filtro-ano-caged-secao", "value"),
     )
     def atualizar_grafico_caged_saldo_secao(filtro_ano):
         if filtro_ano == "Todos":
@@ -187,6 +205,10 @@ def init_callbacks(app, all_data):
             .sort_values("saldo_movimentacao")
         )
 
+        caged_saldo_secao_grp["cnae_2_descricao_secao"] = caged_saldo_secao_grp[
+            "cnae_2_descricao_secao"
+        ].str.capitalize()
+
         fig = px.bar(
             caged_saldo_secao_grp,
             x="saldo_movimentacao",
@@ -197,6 +219,7 @@ def init_callbacks(app, all_data):
                 "cnae_2_descricao_secao": "Seção da CNAE",
             },
             template=TEMPLATE,
+            color_discrete_sequence=["#75BAFF"],
         )
         fig.add_annotation(
             text="Fonte: CAGED e NOVO CAGED",
@@ -210,9 +233,9 @@ def init_callbacks(app, all_data):
         )
         return fig
 
-
     @app.callback(
-        Output("fig-caged-saldo-idade", "figure"), Input("filtro-ano-caged-idade", "value")
+        Output("fig-caged-saldo-idade", "figure"),
+        Input("filtro-ano-caged-idade", "value"),
     )
     def atualizar_grafico_caged_saldo_idade(filtro_ano):
         if filtro_ano == "Todos":
@@ -238,6 +261,7 @@ def init_callbacks(app, all_data):
             },
             orientation="h",
             template=TEMPLATE,
+            color_discrete_sequence=["#75BAFF"],
         )
         fig.add_annotation(
             text="Fonte: CAGED e NOVO CAGED",
@@ -251,13 +275,12 @@ def init_callbacks(app, all_data):
         )
         return fig
 
-
     @app.callback(
         Output("fig-caged-salario-medio", "figure"),
         [
             Input("filtro-ano-caged-salario-medio", "value"),
-            Input("salario-stat-type", "value")
-        ]
+            Input("salario-stat-type", "value"),
+        ],
     )
     def atualizar_grafico_caged_media_salario(filtro_cnae, stat_type):
         # Filtrar por CNAE, se aplicável
@@ -270,7 +293,7 @@ def init_callbacks(app, all_data):
         )
 
         # Choose aggregation function based on radio button selection
-        agg_func = 'mean' if stat_type == 'mean' else 'median'
+        agg_func = "mean" if stat_type == "mean" else "median"
         stat_label = "Média" if stat_type == "mean" else "Mediana"
 
         # Agrupar corretamente
@@ -293,6 +316,7 @@ def init_callbacks(app, all_data):
             color="variable",
             markers=True,
             template=TEMPLATE,
+            color_discrete_sequence=["#75BAFF", "#3670AA"],
         )
 
         # Adicionar anotação da fonte
@@ -309,13 +333,12 @@ def init_callbacks(app, all_data):
 
         return fig
 
-
     @app.callback(
         Output("fig-caged-media-idade", "figure"),
         [
             Input("filtro-ano-caged-media-idade", "value"),
-            Input("media-idade-stat-type", "value")
-        ]
+            Input("media-idade-stat-type", "value"),
+        ],
     )
     def atualizar_grafico_caged_media_idade(filtro_cnae, stat_type):
         # Filtrar por CNAE, se aplicável
@@ -328,7 +351,7 @@ def init_callbacks(app, all_data):
         )
 
         # Choose aggregation function based on radio button selection
-        agg_func = 'mean' if stat_type == 'mean' else 'median'
+        agg_func = "mean" if stat_type == "mean" else "median"
         stat_label = "Média" if stat_type == "mean" else "Mediana"
 
         # Agrupar corretamente
@@ -351,6 +374,7 @@ def init_callbacks(app, all_data):
             color="variable",
             markers=True,
             template=TEMPLATE,
+            color_discrete_sequence=["#75BAFF", "#3670AA"],
         )
 
         # Adicionar anotação da fonte

@@ -24,6 +24,7 @@ all_data["caged_saldo_anual"]["cnae_2_descricao_secao"] = all_data["caged_saldo_
     "cnae_2_descricao_secao"
 ].str.capitalize()
 
+
 # LISTAS PARA DROPDOWN
 opcoes_cnae = get_options_dropdown(
     all_data, "caged_saldo_anual", "cnae_2_descricao_secao"
@@ -76,7 +77,7 @@ card_variacao_estoque = html.Div(
     [
         html.Div(
             [
-                html.H5("Variação %", className="card-title"),
+                html.H5("Variação % (2022, 2023)", className="card-title"),
                 html.Div(
                     [
                         html.Div(
@@ -256,6 +257,9 @@ fig_saldo_mov_secao = html.Div(
                     marks={str(year): str(year) for year in all_data["caged_saldo_secao"]["ano"].unique()},
                     step=None,
                     className="mb-3",
+                    updatemode="drag",
+                    included=False,
+                    tooltip={"placement": "bottom", "always_visible": True},
                 ),
                 dcc.Graph(id="fig-caged-saldo-secao"),
             ]
@@ -283,6 +287,9 @@ fig_saldo_mov_idade = html.Div(
                     marks={str(year): str(year) for year in all_data["caged_saldo_idade"]["ano"].unique()},
                     step=None,
                     className="mb-3",
+                    updatemode="drag",
+                    included=False,
+                    tooltip={"placement": "bottom", "always_visible": True},
                 ),
                 dcc.Graph(id="fig-caged-saldo-idade"),
             ]

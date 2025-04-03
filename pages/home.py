@@ -157,7 +157,7 @@ nav_buttons = dbc.Row(
                                         style={"fontSize": "2rem", "color": "#1e6091"},
                                     ),  
                                     html.Span(
-                                        "Desenvolvimento Humano",
+                                        "Desenvolvimento Humano (preview)",
                                         style={
                                             "fontSize": "1rem",
                                             "textAlign": "center",

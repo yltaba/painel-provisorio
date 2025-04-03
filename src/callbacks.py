@@ -45,6 +45,7 @@ def init_callbacks(app, all_data):
             font=dict(size=12),
         )
         fig.update_xaxes(tickmode="linear", dtick="M1", tickangle=45)
+        fig.update_yaxes(tickformat=",")
         return fig
 
     @app.callback(
@@ -135,6 +136,8 @@ def init_callbacks(app, all_data):
             font=dict(size=12),
         )
         fig.update_xaxes(tickmode="linear", dtick="M1", tickangle=45)
+        fig.update_yaxes(tickformat=",")
+
         return fig
 
     @app.callback(

@@ -201,7 +201,16 @@ card_variacao_pib = html.Div(
     [
         html.Div(
             [
-                html.H5("Variação % (2020, 2021)", className="card-title"),
+                html.H5("Variação %", className="card-title"),
+                html.P(
+                    "2020, 2021",
+                    className="card-subtitle",
+                    style={
+                        "fontSize": "12px",
+                        "textAlign": "center",
+                        "color": "#6c757d",
+                    },
+                ),
                 html.Div(
                     [
                         html.Div(

@@ -77,7 +77,16 @@ card_variacao_estoque = html.Div(
     [
         html.Div(
             [
-                html.H5("Variação % (2022, 2023)", className="card-title"),
+                html.H5("Variação %", className="card-title"),
+                html.P(
+                    "2022, 2023",
+                    className="card-subtitle",
+                    style={
+                        "fontSize": "12px",
+                        "textAlign": "center",
+                        "color": "#6c757d",
+                    },
+                ),
                 html.Div(
                     [
                         html.Div(
@@ -177,6 +186,15 @@ card_variacao_saldo = html.Div(
         html.Div(
             [
                 html.H5("Variação %", className="card-title"),
+                html.P(
+                    "2024, 2025",
+                    className="card-subtitle",
+                    style={
+                        "fontSize": "12px",
+                        "textAlign": "center",
+                        "color": "#6c757d",
+                    },
+                ),
                 html.Div(
                     [
                         html.Div(
@@ -236,7 +254,6 @@ cartoes_saldo_ano = html.Div(
 )
 
 
-
 # Gráfico de mov por seção da cnae
 fig_saldo_mov_secao = html.Div(
     [
@@ -245,16 +262,18 @@ fig_saldo_mov_secao = html.Div(
             "info-saldo-secao",
             "O saldo de postos de trabalho por seção da CNAE é uma métrica que mostra o saldo de postos de trabalho por seção da CNAE em um determinado período.",
         ),
-
         html.Div(
             [
                 html.Label("Selecione um ano:", style={"fontWeight": "light"}),
-                dcc.Slider( 
+                dcc.Slider(
                     id="filtro-ano-caged-secao",
                     min=min(all_data["caged_saldo_secao"]["ano"]),
                     max=max(all_data["caged_saldo_secao"]["ano"]),
                     value=2025,
-                    marks={str(year): str(year) for year in all_data["caged_saldo_secao"]["ano"].unique()},
+                    marks={
+                        str(year): str(year)
+                        for year in all_data["caged_saldo_secao"]["ano"].unique()
+                    },
                     step=None,
                     className="mb-3",
                     updatemode="drag",
@@ -284,7 +303,10 @@ fig_saldo_mov_idade = html.Div(
                     min=min(all_data["caged_saldo_idade"]["ano"]),
                     max=max(all_data["caged_saldo_idade"]["ano"]),
                     value=2025,
-                    marks={str(year): str(year) for year in all_data["caged_saldo_idade"]["ano"].unique()},
+                    marks={
+                        str(year): str(year)
+                        for year in all_data["caged_saldo_idade"]["ano"].unique()
+                    },
                     step=None,
                     className="mb-3",
                     updatemode="drag",
@@ -439,7 +461,10 @@ layout = html.Div(
                                 html.Span(
                                     "home",
                                     className="material-icons me-2",
-                                    style={"display": "inline-flex", "verticalAlign": "middle"},
+                                    style={
+                                        "display": "inline-flex",
+                                        "verticalAlign": "middle",
+                                    },
                                 ),
                                 html.Span(
                                     "Voltar para página inicial",

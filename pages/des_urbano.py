@@ -63,6 +63,27 @@ layout = html.Div(
             ],
             className="section-container",
             style={"marginBottom": "3rem"},
+        ),
+        # LOTEAMENTO DE OSASCO
+        html.Div(
+            [
+                html.H4("Loteamento de Osasco"),
+                create_info_popover(
+                    "info-zoneamento",
+                    "",
+                ),
+                html.Iframe(
+                    src="https://ozmundi.osasco.sp.gov.br/misc/base_loteamento/", # https://ozmundi.osasco.sp.gov.br/misc/base_zoneamento/
+                    style={
+                        "width": "100%",
+                        "height": "1000px",
+                        "border": "none",
+                    },
+                ),
+            ],
+            className="section-container",
+            style={"marginBottom": "3rem"},
         )
+
     ]
 )

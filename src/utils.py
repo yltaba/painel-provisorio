@@ -2,9 +2,11 @@ from dash import html
 import dash_bootstrap_components as dbc
 from babel.numbers import format_currency, format_percent, format_compact_currency
 
+
 def get_options_dropdown(all_data, table, column):
     sorted_values = sorted(all_data[table][column].dropna().unique())
     return [{"label": x, "value": x} for x in sorted_values]
+
 
 def calcular_pib_atual(pib_por_categoria):
     ano_max = pib_por_categoria["ano"].max()
@@ -79,15 +81,13 @@ def botao_voltar():
                     [
                         html.Span(
                             "home",
-                            className="material-icons me-2",
+                            className="material-icons",  # Removido me-2 pois não precisamos de margem
                             style={
-                                "display": "inline-flex",
-                                "verticalAlign": "middle",
+                                "display": "flex",  # Mudado para flex
+                                "alignItems": "center",  # Centraliza verticalmente
+                                "justifyContent": "center",  # Centraliza horizontalmente
+                                "height": "100%",  # Garante que ocupa toda altura do botão
                             },
-                        ),
-                        html.Span(
-                            "Voltar para página inicial",
-                            style={"verticalAlign": "middle"},
                         ),
                     ],
                     href="/",
@@ -95,11 +95,12 @@ def botao_voltar():
                     className="mb-3",
                     style={
                         "textDecoration": "none",
-                        "color": "#213953",
-                        "boxShadow": "0px 4px 12px rgba(0, 0, 0, 0.1)",
-                        "display": "inline-flex",
-                        "alignItems": "center",
-                        "textTransform": "none",
+                        "display": "flex",  # Mudado para flex
+                        "alignItems": "center",  # Centraliza verticalmente
+                        "justifyContent": "center",  # Centraliza horizontalmente
+                        "width": "50px",  # Largura fixa para o botão ser quadrado
+                        "height": "35px",  # Altura fixa para o botão ser quadrado
+                        "padding": "0",  # Remove padding interno
                     },
                 ),
                 className="d-flex justify-content-end",

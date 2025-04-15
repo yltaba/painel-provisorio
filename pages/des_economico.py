@@ -7,7 +7,6 @@ from src.utils import (
     calcular_pib_atual,
     calcular_variacao_pib,
     create_info_popover,
-    botao_voltar,
     get_options_dropdown,
 )
 from src.config import TEMPLATE
@@ -378,10 +377,14 @@ fig_empresas_ano = dbc.Col(
     width=9,
 )
 
-saldo_empresas = all_data["abertura_encerramento_empresas_cleaned"].loc[
-    all_data["abertura_encerramento_empresas_cleaned"]["ano"]
-    == all_data["abertura_encerramento_empresas_cleaned"]["ano"].max()
-]["n_empresas_abertas"].sum()
+saldo_empresas = (
+    all_data["abertura_encerramento_empresas_cleaned"]
+    .loc[
+        all_data["abertura_encerramento_empresas_cleaned"]["ano"]
+        == all_data["abertura_encerramento_empresas_cleaned"]["ano"].max()
+    ]["n_empresas_abertas"]
+    .sum()
+)
 
 card_saldo_empresas = html.Div(
     [
@@ -444,9 +447,8 @@ cartoes_abertura_encerramento = dbc.Row(
 # LAYOUT DA PÁGINA
 layout = html.Div(
     [
-        # BOTÃO VOLTAR PARA PÁGINA INICIAL
-        botao_voltar(),
         # PIB CATEGORIAS
+        html.Br(),
         html.Div(
             [
                 html.H4("PIB (em R$ de 2021)"),

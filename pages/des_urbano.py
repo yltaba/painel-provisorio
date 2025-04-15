@@ -1,12 +1,12 @@
 from dash import html, register_page
 import dash_bootstrap_components as dbc
-from src.utils import create_info_popover, botao_voltar
+from src.utils import create_info_popover
 
 register_page(__name__, path="/desenvolvimento_urbano", name="Desenvolvimento Urbano")
 
 layout = html.Div(
     [
-        botao_voltar(),
+        html.Br(),
         # ZONEAMENTO DE OSASCO
         html.Div(
             [

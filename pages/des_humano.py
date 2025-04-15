@@ -1,7 +1,7 @@
 from dash import html, register_page, dcc
 import pandas as pd
 import dash_bootstrap_components as dbc
-from src.utils import create_info_popover, botao_voltar
+from src.utils import create_info_popover
 import plotly.express as px
 
 from src.load_data import load_data
@@ -11,6 +11,7 @@ register_page(__name__, path="/desenvolvimento_humano", name="Desenvolvimento Hu
 all_data = load_data()
 
 pbf = all_data["pbf_munic_selecionados"].copy()
+
 
 def get_pbf_plots(pbf):
 
@@ -77,9 +78,7 @@ def get_pbf_plots(pbf):
             opacity=1 if trace.name == "Osasco (SP)" else 0.7,
         )
     )
-    fig_total_repasses.update_xaxes(
-        tickformat="%m/%Y"
-    )
+    fig_total_repasses.update_xaxes(tickformat="%m/%Y")
     fig_total_repasses.update_layout(
         plot_bgcolor="white",
         paper_bgcolor="white",
@@ -116,9 +115,7 @@ def get_pbf_plots(pbf):
             opacity=1 if trace.name == "Osasco (SP)" else 0.7,
         )
     )
-    fig_media_repasses.update_xaxes(
-        tickformat="%m/%Y"
-    )
+    fig_media_repasses.update_xaxes(tickformat="%m/%Y")
     fig_media_repasses.update_layout(
         plot_bgcolor="white",
         paper_bgcolor="white",
@@ -134,11 +131,12 @@ def get_pbf_plots(pbf):
 
     return fig_n_favorecidos, fig_total_repasses, fig_media_repasses
 
+
 fig_n_favorecidos, fig_total_repasses, fig_media_repasses = get_pbf_plots(pbf)
 
 layout = html.Div(
     [
-        botao_voltar(),
+        html.Br(),
         html.Div(
             [
                 html.H4("Número de famílias beneficiadas pelo Programa Bolsa Família"),

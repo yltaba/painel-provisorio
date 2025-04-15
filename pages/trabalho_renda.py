@@ -2,7 +2,7 @@ from dash import dcc, html, register_page
 import dash_bootstrap_components as dbc
 
 from src.load_data import load_data
-from src.utils import get_options_dropdown, create_info_popover, botao_voltar
+from src.utils import get_options_dropdown, create_info_popover
 
 ################################ TRABALHO E RENDA #################################
 
@@ -449,10 +449,8 @@ fig_media_idade_mov = html.Div(
     style={"marginBottom": "3rem"},
 )
 
-layout = html.Div(
-    # BOTÃO VOLTAR PARA PÁGINA INICIAL
+layout = html.Div(  
     [
-        botao_voltar(),
         # CARTÕES E GRÁFICOS
         cartoes_estoque_ano,
         cartoes_saldo_ano,

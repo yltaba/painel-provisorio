@@ -32,4 +32,16 @@ def load_data():
         "pbf_munic_selecionados": pd.read_csv(
             DATA_PATH / "pbf_munic_selecionados.csv", sep=";", encoding="latin1"
         ),
+        "arrecadacao": pd.read_csv(
+            DATA_PATH / "tb_sigt_arrecadacao.csv", sep=";", encoding="latin1"
+        ),
+        "atraso_tributos": pd.read_csv(
+            DATA_PATH / "tb_sigt_atraso_tributo.csv", sep=";", encoding="latin1"
+        ),
+        "previsao_arrecadacao": pd.read_csv(
+            DATA_PATH / "tb_sigt_previsao_arrecadacao.csv", sep=";", encoding="latin1"
+        ),
+        "abertura_encerramento_empresas_cleaned": pd.read_csv(
+            DATA_PATH / "tb_sigt_abertura_encerramento_empresas_cleaned.csv", sep=";"
+        ),
     }

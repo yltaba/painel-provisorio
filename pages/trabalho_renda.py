@@ -2,7 +2,7 @@ from dash import dcc, html, register_page
 import dash_bootstrap_components as dbc
 
 from src.load_data import load_data
-from src.utils import get_options_dropdown, create_info_popover
+from src.utils import get_options_dropdown, create_info_popover, botao_voltar
 
 ################################ TRABALHO E RENDA #################################
 
@@ -452,42 +452,7 @@ fig_media_idade_mov = html.Div(
 layout = html.Div(
     # BOTÃO VOLTAR PARA PÁGINA INICIAL
     [
-        html.Div(
-            [
-                dbc.Row(
-                    dbc.Col(
-                        dbc.Button(
-                            [
-                                html.Span(
-                                    "home",
-                                    className="material-icons me-2",
-                                    style={
-                                        "display": "inline-flex",
-                                        "verticalAlign": "middle",
-                                    },
-                                ),
-                                html.Span(
-                                    "Voltar para página inicial",
-                                    style={"verticalAlign": "middle"},
-                                ),
-                            ],
-                            href="/",
-                            color="light",
-                            className="mb-3",
-                            style={
-                                "textDecoration": "none",
-                                "color": "#213953",
-                                "boxShadow": "0px 4px 12px rgba(0, 0, 0, 0.1)",
-                                "display": "inline-flex",
-                                "alignItems": "center",
-                                "textTransform": "none",
-                            },
-                        ),
-                        className="d-flex justify-content-end",
-                    )
-                ),
-            ],
-        ),
+        botao_voltar(),
         # CARTÕES E GRÁFICOS
         cartoes_estoque_ano,
         cartoes_saldo_ano,

@@ -68,3 +68,44 @@ def create_info_popover(id_referencia, texto):
         ],
         style={"display": "inline-block"},
     )
+
+
+def botao_voltar():
+    return html.Div(
+        [
+            dbc.Row(
+                dbc.Col(
+                dbc.Button(
+                    [
+                        html.Span(
+                            "home",
+                            className="material-icons me-2",
+                            style={
+                                "display": "inline-flex",
+                                "verticalAlign": "middle",
+                            },
+                        ),
+                        html.Span(
+                            "Voltar para página inicial",
+                            style={"verticalAlign": "middle"},
+                        ),
+                    ],
+                    href="/",
+                    color="light",
+                    className="mb-3",
+                    style={
+                        "textDecoration": "none",
+                        "color": "#213953",
+                        "boxShadow": "0px 4px 12px rgba(0, 0, 0, 0.1)",
+                        "display": "inline-flex",
+                        "alignItems": "center",
+                        "textTransform": "none",
+                    },
+                ),
+                className="d-flex justify-content-end",
+            )
+        ),
+    ],
+    className="section-container",
+    style={"marginBottom": "1rem"},
+)

@@ -1,5 +1,6 @@
 from pathlib import Path
 from dash import html
+import dash_bootstrap_components as dbc
 
 TEMPLATE = "simple_white"
 DATA_PATH = Path().resolve() / "data"

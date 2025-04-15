@@ -1,7 +1,7 @@
 from dash import html, register_page, dcc
 import pandas as pd
 import dash_bootstrap_components as dbc
-from src.utils import create_info_popover
+from src.utils import create_info_popover, botao_voltar
 import plotly.express as px
 
 from src.load_data import load_data
@@ -138,44 +138,7 @@ fig_n_favorecidos, fig_total_repasses, fig_media_repasses = get_pbf_plots(pbf)
 
 layout = html.Div(
     [
-        html.Div(
-            [
-                dbc.Row(
-                    dbc.Col(
-                        dbc.Button(
-                            [
-                                html.Span(
-                                    "home",
-                                    className="material-icons me-2",
-                                    style={
-                                        "display": "inline-flex",
-                                        "verticalAlign": "middle",
-                                    },
-                                ),
-                                html.Span(
-                                    "Voltar para página inicial",
-                                    style={"verticalAlign": "middle"},
-                                ),
-                            ],
-                            href="/",
-                            color="light",
-                            className="mb-3",
-                            style={
-                                "textDecoration": "none",
-                                "color": "#213953",
-                                "boxShadow": "0px 4px 12px rgba(0, 0, 0, 0.1)",
-                                "display": "inline-flex",
-                                "alignItems": "center",
-                                "textTransform": "none",
-                            },
-                        ),
-                        className="d-flex justify-content-end",
-                    )
-                ),
-            ],
-            className="section-container",
-            style={"marginBottom": "1rem"},
-        ),
+        botao_voltar(),
         html.Div(
             [
                 html.H4("Número de famílias beneficiadas pelo Programa Bolsa Família"),

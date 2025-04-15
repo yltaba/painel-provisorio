@@ -1,3 +1,4 @@
 /etl*
 /notebooks*
 **/__pycache__
+/doc*

@@ -86,7 +86,6 @@ def init_callbacks(app, all_data):
             variacao_estoque, format="#,##0.0%", locale="pt_BR"
         )
 
-        # Define arrow properties based on variation
         arrow_symbol = "▲" if variacao_estoque >= 0 else "▼"
         arrow_style = {
             "color": "#28a745" if variacao_estoque >= 0 else "#dc3545",
@@ -176,7 +175,6 @@ def init_callbacks(app, all_data):
             variacao_mov, format="#,##0.0%", locale="pt_BR"
         )
 
-        # Define arrow properties based on variation
         arrow_symbol = "▲" if variacao_mov >= 0 else "▼"
         arrow_style = {
             "color": "#28a745" if variacao_mov >= 0 else "#dc3545",
@@ -394,3 +392,95 @@ def init_callbacks(app, all_data):
         )
 
         return fig
+
+    @app.callback(
+        Output("fig-abertura-encerramento", "figure"),
+        Input("filtro-des-atividade", "value"),
+    )
+    def atualizar_grafico_abertura_encerramento_empresas(filtro_atividade):
+        if filtro_atividade == "Todos":
+            df_filtrado = all_data["abertura_encerramento_empresas_cleaned"]
+        else:
+            df_filtrado = all_data["abertura_encerramento_empresas_cleaned"][
+                all_data["abertura_encerramento_empresas_cleaned"]["des_atividade"]
+                == filtro_atividade
+            ]
+
+        abertura_encerramento_ano = df_filtrado.groupby("ano", as_index=False).agg(
+            {"n_empresas_encerradas": "sum", "n_empresas_abertas": "sum"}
+        )
+        abertura_encerramento_ano["ano"] = abertura_encerramento_ano["ano"].astype(str)
+
+        fig_abertura_encerramento = px.bar(
+            abertura_encerramento_ano,
+            x="ano",
+            y=["n_empresas_encerradas", "n_empresas_abertas"],
+            barmode="group",
+            template=TEMPLATE,
+            color_discrete_map={
+                "n_empresas_encerradas": "#1666ba",
+                "n_empresas_abertas": "#52b69a",
+            },
+            labels={"value": "Número de Empresas", "ano": "Ano", "variable": "Status"},
+        )
+        fig_abertura_encerramento.update_traces(
+            name="Empresas encerradas", selector=dict(name="n_empresas_encerradas")
+        )
+        fig_abertura_encerramento.update_traces(
+            name="Empresas abertas", selector=dict(name="n_empresas_abertas")
+        )
+        fig_abertura_encerramento.update_layout(
+            legend=dict(
+                orientation="v", yanchor="top", y=0.99, xanchor="center", x=0.13
+            )
+        )
+        fig_abertura_encerramento.update_yaxes(tickformat=",")
+
+        return fig_abertura_encerramento
+
+
+    @app.callback(
+        [
+            Output("card-saldo-empresas-value", "children"),
+            Output("card-variacao-saldo-empresas-arrow", "children"),
+            Output("card-variacao-saldo-empresas-arrow", "style"),
+        ],
+        Input("filtro-des-atividade", "value"),
+    )
+    def atualizar_cards_abertura_empresas(filtro_atividade):
+        if filtro_atividade == "Todos":
+            df_filtrado = all_data["abertura_encerramento_empresas_cleaned"]
+        else:
+            df_filtrado = all_data["abertura_encerramento_empresas_cleaned"][
+                all_data["abertura_encerramento_empresas_cleaned"]["des_atividade"]
+                == filtro_atividade
+            ]
+
+        abertura_atual = (
+            df_filtrado.loc[df_filtrado["ano"] == df_filtrado["ano"].max()]
+            .agg({"n_empresas_abertas": "sum"})
+            .values[0]
+        )
+
+        encerramento_atual = (
+            df_filtrado.loc[df_filtrado["ano"] == df_filtrado["ano"].max()]
+            .agg({"n_empresas_encerradas": "sum"})
+            .values[0]
+        )
+        variacao_abertura = abertura_atual - encerramento_atual
+        variacao_abertura_formatted = format_decimal(
+            variacao_abertura, format="#,##0", locale="pt_BR"
+        )
+
+        arrow_symbol = "▲" if variacao_abertura >= 0 else "▼"
+        arrow_style = {
+            "color": "#28a745" if variacao_abertura >= 0 else "#dc3545",
+            "fontSize": "24px",
+            "marginLeft": "8px",
+        }
+
+        return (
+            variacao_abertura_formatted,
+            arrow_symbol,
+            arrow_style,
+        )

@@ -3,7 +3,13 @@ import dash_bootstrap_components as dbc
 import plotly.express as px
 from babel.numbers import format_decimal, format_currency
 
-from src.utils import calcular_pib_atual, calcular_variacao_pib, create_info_popover
+from src.utils import (
+    calcular_pib_atual,
+    calcular_variacao_pib,
+    create_info_popover,
+    botao_voltar,
+    get_options_dropdown,
+)
 from src.config import TEMPLATE
 from src.load_data import load_data
 
@@ -37,7 +43,7 @@ def get_pib_plots(all_data):
             "#7ab3ef",
             "#bedaf7",
             "#deecfb",
-        ],  # escalas de verde-azul ['#C7F9CC', '#80ED99', '#57CC99', '#38A3A5', '#22577A']
+        ],
         labels={
             "ano": "Ano",
             "pib_deflacionado": "PIB (deflacionado)",
@@ -348,48 +354,98 @@ cartoes_pib_per_capita = dbc.Row(
     className="main-content-row",
 )
 
+
+# ABERTURA E ENCERRAMENTO DE EMPRESAS
+opcoes_des_atividade = get_options_dropdown(
+    all_data, "abertura_encerramento_empresas_cleaned", "des_atividade"
+)
+
+dropdown_des_atividade = dcc.Dropdown(
+    id="filtro-des-atividade",
+    options=[{"label": "Todos", "value": "Todos"}] + opcoes_des_atividade,
+    value="Todos",
+    clearable=False,
+    className="mb-3",
+)
+
+fig_empresas_ano = dbc.Col(
+    html.Div(
+        [
+            dropdown_des_atividade,
+            dcc.Graph(id="fig-abertura-encerramento", config={"displayModeBar": False}),
+        ]
+    ),
+    width=9,
+)
+
+saldo_empresas = all_data["abertura_encerramento_empresas_cleaned"].loc[
+    all_data["abertura_encerramento_empresas_cleaned"]["ano"]
+    == all_data["abertura_encerramento_empresas_cleaned"]["ano"].max()
+]["n_empresas_abertas"].sum()
+
+card_saldo_empresas = html.Div(
+    [
+        html.Div(
+            [
+                html.H5(
+                    f"Saldo de empresas",
+                    className="card-title",
+                ),
+                html.P(
+                    f"{all_data['abertura_encerramento_empresas_cleaned']['ano'].max()}",
+                    className="card-subtitle",
+                    style={
+                        "fontSize": "12px",
+                        "textAlign": "center",
+                        "color": "#6c757d",
+                    },
+                ),
+                html.Div(
+                    [
+                        html.Div(
+                            id="card-saldo-empresas-value", className="card-value"
+                        ),
+                        html.Span(
+                            id="card-variacao-saldo-empresas-arrow",
+                            style={"fontSize": "24px", "marginLeft": "8px"},
+                        ),
+                    ],
+                    style={
+                        "display": "flex",
+                        "alignItems": "center",
+                        "justifyContent": "center",
+                    },
+                    className="card-value-container",
+                ),
+            ],
+            className="card-content",
+        )
+    ],
+    className="custom-card",
+)
+
+coluna_cartao_saldo_empresas = dbc.Col(
+    [
+        card_saldo_empresas,
+        html.Div(style={"height": "20px"}),
+    ],
+    width=3,
+    className="cards-container",
+)
+
+cartoes_abertura_encerramento = dbc.Row(
+    [
+        coluna_cartao_saldo_empresas,
+        fig_empresas_ano,
+    ],
+    className="main-content-row",
+)
+
 # LAYOUT DA PÁGINA
 layout = html.Div(
     [
         # BOTÃO VOLTAR PARA PÁGINA INICIAL
-        html.Div(
-            [
-                dbc.Row(
-                    dbc.Col(
-                        dbc.Button(
-                            [
-                                html.Span(
-                                    "home",
-                                    className="material-icons me-2",
-                                    style={
-                                        "display": "inline-flex",
-                                        "verticalAlign": "middle",
-                                    },
-                                ),
-                                html.Span(
-                                    "Voltar para página inicial",
-                                    style={"verticalAlign": "middle"},
-                                ),
-                            ],
-                            href="/",
-                            color="light",
-                            className="mb-3",
-                            style={
-                                "textDecoration": "none",
-                                "color": "#213953",
-                                "boxShadow": "0px 4px 12px rgba(0, 0, 0, 0.1)",
-                                "display": "inline-flex",
-                                "alignItems": "center",
-                                "textTransform": "none",
-                            },
-                        ),
-                        className="d-flex justify-content-end",
-                    )
-                )
-            ],
-            className="section-container",
-            style={"marginBottom": "1rem"},
-        ),
+        botao_voltar(),
         # PIB CATEGORIAS
         html.Div(
             [
@@ -430,6 +486,19 @@ layout = html.Div(
             ],
             className="section-container",
             style={"marginBottom": "3rem"},
-        )
+        ),
+        # ABERTURA E ENCERRAMENTO DE EMPRESAS
+        html.Div(
+            [
+                html.H4("Abertura e encerramento de empresas"),
+                create_info_popover(
+                    "info-abertura-encerramento",
+                    "Abertura e encerramento de empresas do SIGT.",
+                ),
+                cartoes_abertura_encerramento,
+            ],
+            className="section-container",
+            style={"marginBottom": "3rem"},
+        ),
     ]
 )

@@ -2,7 +2,7 @@ from dash import Dash, dcc, html, Input, Output, State
 import dash_bootstrap_components as dbc
 import dash
 
-from src.utils import botao_voltar
+from src.utils import create_breadcrumb
 from src.config import DATA_PATH
 from src.load_data import load_data
 from src.callbacks import init_callbacks
@@ -27,9 +27,9 @@ all_data = load_data()
 
 
 imagem_cabecalho = html.Img(
-    src="https://osasco.sp.gov.br/wp-content/uploads/2024/12/logo-pmo-2025-2028-horizontal.png",
+    src="/assets/Marca-Osasco-Digital-COLOR-ALTA-02.svg",
     style={
-        "width": "250px",
+        "width": "350px",
         "height": "auto",
         "display": "block",
         "margin": "10px 20px",  # Remove a margem lateral, mantém só topo e base
@@ -72,57 +72,6 @@ login_layout = dbc.Container(
 )
 
 # Main app layout
-# main_layout = dbc.Container(
-#     [
-#         # Barra azul fina superior
-#         html.Div(
-#             style={
-#                 "backgroundColor": "#0B3B7F",
-#                 "width": "100%",
-#                 "position": "relative",
-#                 "left": "0",
-#                 "right": "0",
-#                 "height": "20px",
-#                 "marginLeft": "-24px",  # Compensa o padding do Container
-#                 "marginRight": "-24px",
-#                 "width": "calc(100% + 48px)",  # Ajusta a largura considerando as margens
-#             }
-#         ),
-#         imagem_cabecalho,
-#         # Barra azul marinho com botão voltar condicional
-#         html.Div(
-#             [
-#                 dbc.Container(
-#                     id="back-button-container",
-#                     fluid=True,
-#                     style={
-#                         "padding": "8px 20px",
-#                     }
-#                 )
-#             ],
-#             style={
-#                 "backgroundColor": "#0B3B7F",
-#                 "position": "relative",
-#                 "left": "0",
-#                 "right": "0",
-#                 "height": "55px",
-#                 "marginLeft": "-24px",  # Compensa o padding do Container
-#                 "marginRight": "-24px",
-#                 "width": "calc(100% + 48px)",  # Ajusta a largura considerando as margens
-#             }
-#         ),
-#         html.Br(),
-#         dash.page_container,
-#     ],
-#     fluid=True,
-#     style={
-#         "overflow-x": "hidden"  # Mantém a prevenção de rolagem horizontal
-#     }
-# )
-
-
-
-# Main app layout
 main_layout = dbc.Container(
     [
         # Container fixo para o cabeçalho
@@ -133,10 +82,12 @@ main_layout = dbc.Container(
                     style={
                         "backgroundColor": "#0B3B7F",
                         "width": "100%",
-                        "height": "30px",
+                        "height": "35px",
+                        "marginLeft": "-24px",
+                        "marginRight": "-24px",
+                        "width": "calc(100% + 48px)",
                     }
                 ),
-                # Logo
                 imagem_cabecalho,
                 # Barra azul marinho com botão voltar condicional
                 html.Div(
@@ -145,64 +96,58 @@ main_layout = dbc.Container(
                             id="back-button-container",
                             fluid=True,
                             style={
-                                "padding": "8px 20px",
+                                "height": "75px",
+                                "display": "flex",
+                                "alignItems": "center",
+                                "padding": "0",
+                                "justifyContent": "flex-end",
+                                "width": "100%",
                             }
                         )
                     ],
                     style={
                         "backgroundColor": "#0B3B7F",
-                        "width": "100%",
-                        "height": "50px",
+                        "height": "60px",
+                        "marginLeft": "-24px",
+                        "marginRight": "-24px",
+                        "width": "calc(100% + 48px)",
                     }
                 ),
             ],
             style={
-                "position": "fixed",
-                "top": 0,
-                "left": 0,
-                "right": 0,
-                "backgroundColor": "white",
-                "zIndex": 1000,
+                "position": "fixed",  # Fixa o cabeçalho
+                "top": 0,  # Alinha ao topo
+                "left": 0,  # Alinha à esquerda
+                "right": 0,  # Alinha à direita
+                "backgroundColor": "white",  # Fundo branco para o cabeçalho
+                "zIndex": 1000,  # Garante que fique acima de outros elementos
                 "width": "100%",
+                "paddingLeft": "24px",  # Adiciona padding para alinhar com o container
+                "paddingRight": "24px",
             }
         ),
-        # Div para compensar o espaço do cabeçalho fixo
-        html.Div(
-            style={
-                "height": "calc(20px + 50px + 80px)",
-                "width": "100%",
-            }
-        ),
-        # Container para o conteúdo principal com margens
-        dbc.Container(
-            dash.page_container,
-            fluid=True,
-            style={
-                "paddingLeft": "40px",  # Margem lateral esquerda
-                "paddingRight": "40px",  # Margem lateral direita
-                "maxWidth": "1400px",    # Largura máxima do conteúdo
-                "margin": "0 auto",      # Centraliza o conteúdo
-            }
-        ),
+        # Div para criar espaço para o conteúdo não ficar embaixo do cabeçalho fixo
+        html.Div(style={"height": "205px"}),  # Ajuste este valor conforme a altura total do seu cabeçalho
+        # Conteúdo da página
+        dash.page_container,
     ],
     fluid=True,
     style={
-        "padding": "0",
-        "overflow-x": "hidden"
+        "overflow-x": "hidden",
+        "padding-top": "0",  # Remove o padding top do container principal
     }
 )
 
-
-
-# Callback para controlar a visibilidade do botão voltar
+# Callback para controlar a visibilidade do breadcrumb
 @app.callback(
     Output("back-button-container", "children"),
     Input("url", "pathname")
 )
-def toggle_back_button(pathname):
+def toggle_navigation(pathname):
     if pathname == "/" or pathname == "":  # Se estiver na página inicial
-        return None  # Não mostra o botão
-    return botao_voltar()  # Mostra o botão em todas as outras páginas
+        return None  # Não mostra o breadcrumb
+    return create_breadcrumb(pathname)  # Mostra o breadcrumb em todas as outras páginas
+
 
 
 # Layout + autenticação

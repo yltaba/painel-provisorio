@@ -19,7 +19,9 @@ def calcular_pib_atual(pib_por_categoria):
         .round()
         .astype(int)
     )
-    pib_corrente = format_compact_currency(pib_corrente_int, 'BRL', locale='pt_BR', fraction_digits=2)
+    pib_corrente = format_compact_currency(
+        pib_corrente_int, "BRL", locale="pt_BR", fraction_digits=2
+    )
     return pib_corrente
 
 
@@ -44,8 +46,8 @@ def calcular_variacao_pib(pib_por_categoria):
         .astype(int)
     )
 
-    variacao_pib = ((pib_ano - pib_ano_anterior) / pib_ano_anterior)
-    variacao_pib = format_percent(variacao_pib, format='#,##0.0%', locale='pt_BR')
+    variacao_pib = (pib_ano - pib_ano_anterior) / pib_ano_anterior
+    variacao_pib = format_percent(variacao_pib, format="#,##0.0%", locale="pt_BR")
 
     return variacao_pib
 
@@ -77,36 +79,104 @@ def botao_voltar():
         [
             dbc.Row(
                 dbc.Col(
-                dbc.Button(
-                    [
-                        html.Span(
-                            "home",
-                            className="material-icons",  # Removido me-2 pois não precisamos de margem
-                            style={
-                                "display": "flex",  # Mudado para flex
-                                "alignItems": "center",  # Centraliza verticalmente
-                                "justifyContent": "center",  # Centraliza horizontalmente
-                                "height": "100%",  # Garante que ocupa toda altura do botão
-                            },
-                        ),
-                    ],
-                    href="/",
-                    color="light",
-                    className="mb-3",
-                    style={
-                        "textDecoration": "none",
-                        "display": "flex",  # Mudado para flex
-                        "alignItems": "center",  # Centraliza verticalmente
-                        "justifyContent": "center",  # Centraliza horizontalmente
-                        "width": "50px",  # Largura fixa para o botão ser quadrado
-                        "height": "35px",  # Altura fixa para o botão ser quadrado
-                        "padding": "0",  # Remove padding interno
-                    },
-                ),
-                className="d-flex justify-content-end",
-            )
+                    dbc.Button(
+                        [
+                            html.Span(
+                                "home",
+                                className="material-icons",  # Removido me-2 pois não precisamos de margem
+                                style={
+                                    "display": "flex",
+                                    "alignItems": "center",
+                                    "justifyContent": "center",
+                                    "height": "100%",
+                                },
+                            ),
+                        ],
+                        href="/",
+                        color="light",
+                        className="mb-3",
+                        style={
+                            "textDecoration": "none",
+                            "display": "flex",
+                            "alignItems": "center",
+                            "justifyContent": "center",
+                            "width": "50px",
+                            "height": "35px",
+                            "padding": "0",
+                        },
+                    ),
+                    className="d-flex justify-content-end",
+                )
+            ),
+        ],
+        className="section-container",
+        style={"marginBottom": "1rem"},
+    )
+
+
+
+# def create_breadcrumb(pathname):
+#     """
+#     Creates a breadcrumb navigation component based on the current pathname.
+#     """
+#     if pathname == "/" or pathname == "":
+#         return None
+    
+#     # Remove leading slash and replace underscores with spaces
+#     path_parts = pathname.strip('/').split('/')
+#     current_page = path_parts[-1].replace('_', ' ').title()
+    
+#     return html.Div(
+#         dbc.Breadcrumb(
+#             items=[
+#                 {"label": "Início", "href": "/", "external_link": True},
+#                 {"label": current_page, "active": True},
+#             ],
+#             style={
+#                 "backgroundColor": "transparent",
+#                 "padding": "0",
+#                 "marginBottom": "0",
+#             }
+#         ),
+#         style={
+#             "display": "flex",
+#             "alignItems": "center",
+#             "height": "100%",
+#             "color": "white",
+#         }
+#     )
+
+
+def create_breadcrumb(pathname):
+    """
+    Creates a breadcrumb navigation component based on the current pathname.
+    """
+    if pathname == "/" or pathname == "":
+        return None
+    
+    # Remove leading slash and replace underscores with spaces
+    path_parts = pathname.strip('/').split('/')
+    current_page = path_parts[-1].replace('_', ' ').title()
+    
+    return html.Div(
+        dbc.Breadcrumb(
+            items=[
+                {"label": "Início", "href": "/", "external_link": True},
+                {"label": current_page, "active": True},
+            ],
+            style={
+                "backgroundColor": "transparent",
+                "padding": "0",
+                "marginBottom": "0",
+                "marginRight": "40px",  # Add right margin here
+            }
         ),
-    ],
-    className="section-container",
-    style={"marginBottom": "1rem"},
-)
+        style={
+            "display": "flex",
+            "alignItems": "center",
+            "height": "100%",
+            "color": "white",
+            "width": "100%",  # Add this
+            "justifyContent": "flex-end",  # Add this
+        }
+    )

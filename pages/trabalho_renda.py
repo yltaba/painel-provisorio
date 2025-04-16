@@ -6,7 +6,7 @@ from src.utils import get_options_dropdown, create_info_popover
 
 ################################ TRABALHO E RENDA #################################
 
-register_page(__name__, path="/trabalho_renda", name="Trabalho e Renda")
+register_page(__name__, path="/trabalho_e_renda", name="Trabalho e Renda")
 
 # CARREGAR DADOS
 all_data = load_data()

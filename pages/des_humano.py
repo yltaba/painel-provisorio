@@ -24,7 +24,7 @@ def get_pbf_plots(pbf):
         line_shape="spline",
         labels={
             "mes_referencia": "Mês",
-            "n_favorecidos": "Contagem de favorecidos no município",
+            "n_favorecidos": "Contagem de famílias beneficiadas",
             "nome_municipio": "Município",
         },
         template="none",
@@ -39,9 +39,9 @@ def get_pbf_plots(pbf):
         )
     )
     fig_n_favorecidos.update_xaxes(
-        # tickvals=pbf["mes_referencia"].unique(),
         tickformat="%m/%Y"
     )
+    fig_n_favorecidos.update_yaxes(tickformat=",")
     fig_n_favorecidos.update_layout(
         plot_bgcolor="white",
         paper_bgcolor="white",
@@ -64,7 +64,7 @@ def get_pbf_plots(pbf):
         line_shape="spline",
         labels={
             "mes_referencia": "Mês",
-            "n_favorecidos": "Contagem de favorecidos no município",
+            "total_repasses": "Valor total de repasses PBF em reais",
             "nome_municipio": "Município",
         },
         template="none",
@@ -101,7 +101,7 @@ def get_pbf_plots(pbf):
         line_shape="spline",
         labels={
             "mes_referencia": "Mês",
-            "n_favorecidos": "Contagem de favorecidos no município",
+            "media_repasses": "Média do valor dos repasses PBF em reais",
             "nome_municipio": "Município",
         },
         template="none",

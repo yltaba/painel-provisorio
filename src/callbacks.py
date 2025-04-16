@@ -1,6 +1,9 @@
-from dash import Input, Output, html
+from dash import Input, Output, html, State, no_update
 import plotly.express as px
 from babel.numbers import format_decimal, format_percent
+import dash
+import dash_bootstrap_components as dbc
+
 
 from src.config import TEMPLATE
 

@@ -88,7 +88,7 @@ NAV_BUTTONS = [
         "icon": "work",
         "text": "Trabalho e Renda",
         "color": "#34a0a4",
-        "href": "/trabalho_renda",
+        "href": "/trabalho_e_renda",
     },
     {
         "icon": "location_city",

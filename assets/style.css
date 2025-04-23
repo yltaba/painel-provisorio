@@ -3,9 +3,9 @@
     border-radius: 5px;
     border: 1px solid #ccc;
     background-color: #ffffff;
-    padding: 2px;
+    /* padding: 2px; */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-bottom: 1px;
+    /* margin-bottom: 1px; */
     height: 110px;
     display: flex;
     align-items: center;
@@ -75,4 +75,19 @@
 
 .rc-slider-dot-active {
     border-color: #3670AA !important;
+}
+
+.section-container {
+    width: 100%;
+    overflow-x: hidden;  /* Prevent horizontal scroll */
+}
+
+/* Make sure plots respect container width */
+.js-plotly-plot {
+    width: 100% !important;
+}
+
+/* Ensure responsive behavior for plot containers */
+.plot-container {
+    width: 100% !important;
 }

@@ -54,14 +54,14 @@ fig_estoque_ano = dbc.Col(
             dcc.Graph(id="fig-rais-anual", config={"displayModeBar": False}),
         ]
     ),
-    width=9,
+    width=10,
 )
 
 card_estoque_atual = html.Div(
     [
         html.Div(
             [
-                html.H5("Total de postos de trabalho", className="card-title"),
+                html.H5("Postos de trabalho", className="card-title"),
                 html.Div(
                     [html.Div(id="card-estoque-atual-value", className="card-value")],
                     className="card-value-container",
@@ -77,16 +77,7 @@ card_variacao_estoque = html.Div(
     [
         html.Div(
             [
-                html.H5("Variação %", className="card-title"),
-                html.P(
-                    "2022, 2023",
-                    className="card-subtitle",
-                    style={
-                        "fontSize": "12px",
-                        "textAlign": "center",
-                        "color": "#6c757d",
-                    },
-                ),
+                html.H5("Variação", className="card-title"),
                 html.Div(
                     [
                         html.Div(
@@ -109,6 +100,15 @@ card_variacao_estoque = html.Div(
                     ],
                     className="card-value-container",
                 ),
+                html.P(
+                    "2022, 2023",
+                    className="card-subtitle",
+                    style={
+                        "fontSize": "12px",
+                        "textAlign": "center",
+                        "color": "#6c757d",
+                    },
+                ),
             ],
             className="card-content",
         )
@@ -123,9 +123,10 @@ coluna_fig_estoque_ano = dbc.Col(
         html.Div(style={"height": "20px"}),
         card_variacao_estoque,
     ],
-    width=3,
+    width=2,
     className="cards-container",
 )
+
 cartoes_estoque_ano = html.Div(
     [
         dbc.Row(
@@ -161,7 +162,7 @@ fig_saldo_mov_ano = dbc.Col(
             dcc.Graph(id="fig-saldo-anual", config={"displayModeBar": False}),
         ]
     ),
-    width=9,
+    width=10,
 )
 
 # cards de movimentações por ano
@@ -169,14 +170,23 @@ card_saldo_atual = html.Div(
     [
         html.Div(
             [
-                html.H5("Saldo de movimentações", className="card-title"),
+                html.H5("Saldo movimentações", className="card-title"),
                 html.Div(
                     [html.Div(id="card-saldo-atual-value", className="card-value")],
                     className="card-value-container",
                 ),
+                html.P(
+                    "2025",
+                    className="card-subtitle",
+                    style={
+                        "fontSize": "12px",
+                        "textAlign": "center",
+                        "color": "#6c757d",
+                    },
+                ),
             ],
             className="card-content",
-        )
+        ),
     ],
     className="custom-card",
 )
@@ -185,16 +195,7 @@ card_variacao_saldo = html.Div(
     [
         html.Div(
             [
-                html.H5("Variação %", className="card-title"),
-                html.P(
-                    "2024, 2025",
-                    className="card-subtitle",
-                    style={
-                        "fontSize": "12px",
-                        "textAlign": "center",
-                        "color": "#6c757d",
-                    },
-                ),
+                html.H5("Variação", className="card-title"),
                 html.Div(
                     [
                         html.Div(
@@ -217,6 +218,15 @@ card_variacao_saldo = html.Div(
                     ],
                     className="card-value-container",
                 ),
+                html.P(
+                    "2024, 2025",
+                    className="card-subtitle",
+                    style={
+                        "fontSize": "12px",
+                        "textAlign": "center",
+                        "color": "#6c757d",
+                    },
+                ),
             ],
             className="card-content",
         )
@@ -231,7 +241,7 @@ coluna_fig_saldo_ano = dbc.Col(
         html.Div(style={"height": "20px"}),
         card_variacao_saldo,
     ],
-    width=3,
+    width=2,
     className="cards-container",
 )
 cartoes_saldo_ano = html.Div(
@@ -449,7 +459,7 @@ fig_media_idade_mov = html.Div(
     style={"marginBottom": "3rem"},
 )
 
-layout = html.Div(  
+layout = html.Div(
     [
         # CARTÕES E GRÁFICOS
         cartoes_estoque_ano,

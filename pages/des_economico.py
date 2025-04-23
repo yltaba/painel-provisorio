@@ -178,12 +178,21 @@ card_pib_corrente = html.Div(
         html.Div(
             [
                 html.H5(
-                    f"PIB {all_data['pib_por_categoria']['ano'].max()}",
+                    "PIB",
                     className="card-title",
                 ),
                 html.Div(
                     [html.Div(pib_corrente, className="card-value")],
                     className="card-value-container",
+                ),
+                html.P(
+                    f"{all_data['pib_por_categoria']['ano'].max()}",
+                    className="card-subtitle",
+                    style={
+                        "fontSize": "12px",
+                        "textAlign": "center",
+                        "color": "#6c757d",
+                    },
                 ),
             ],
             className="card-content",
@@ -207,16 +216,7 @@ card_variacao_pib = html.Div(
     [
         html.Div(
             [
-                html.H5("Variação %", className="card-title"),
-                html.P(
-                    "2020, 2021",
-                    className="card-subtitle",
-                    style={
-                        "fontSize": "12px",
-                        "textAlign": "center",
-                        "color": "#6c757d",
-                    },
-                ),
+                html.H5("Variação", className="card-title"),
                 html.Div(
                     [
                         html.Div(
@@ -232,6 +232,15 @@ card_variacao_pib = html.Div(
                         )
                     ],
                     className="card-value-container",
+                ), 
+                html.P(
+                    "2020, 2021",
+                    className="card-subtitle",
+                    style={
+                        "fontSize": "12px",
+                        "textAlign": "center",
+                        "color": "#6c757d",
+                    },
                 ),
             ],
             className="card-content",
@@ -247,7 +256,7 @@ coluna_cartao_pib_categorias = dbc.Col(
         html.Div(style={"height": "20px"}),  # Spacer between cards
         card_variacao_pib,
     ],
-    width=3,
+    width=2,
     className="cards-container",
 )
 
@@ -260,7 +269,7 @@ cartoes_pib_categorias = dbc.Row(
                 figure=fig_pib_categorias,
                 config={"displayModeBar": False},
             ),
-            width=9,
+            width=10,
         ),
     ],
     className="main-content-row",
@@ -284,12 +293,21 @@ card_pib_per_capita = html.Div(
         html.Div(
             [
                 html.H5(
-                    f"PIB per capita {all_data['pib_por_categoria']['ano'].max()}",
+                    "PIB per capita",
                     className="card-title",
                 ),
                 html.Div(
                     [html.Div(vl_pib_per_capita, className="card-value")],
                     className="card-value-container",
+                ),
+                html.P(
+                    f"{all_data['pib_per_capita']['ano'].max()}",
+                    className="card-subtitle",
+                    style={
+                        "fontSize": "12px",
+                        "textAlign": "center",
+                        "color": "#6c757d",
+                    },
                 ),
             ],
             className="card-content",
@@ -314,12 +332,21 @@ card_populacao = html.Div(
         html.Div(
             [
                 html.H5(
-                    f"População {all_data['pib_per_capita']['ano'].max()}",
+                    "População",
                     className="card-title",
                 ),
                 html.Div(
                     [html.Div(vl_populacao, className="card-value")],
                     className="card-value-container",
+                ),
+                html.P(
+                    f"{all_data['pib_per_capita']['ano'].max()}",
+                    className="card-subtitle",
+                    style={
+                        "fontSize": "12px",
+                        "textAlign": "center",
+                        "color": "#6c757d",
+                    },
                 ),
             ],
             className="card-content",
@@ -334,7 +361,7 @@ coluna_cartao_pib_per_capita = dbc.Col(
         html.Div(style={"height": "20px"}),
         card_populacao,
     ],
-    width=3,
+    width=2,
     className="cards-container",
 )
 
@@ -347,7 +374,7 @@ cartoes_pib_per_capita = dbc.Row(
                 figure=fig_pib_per_capita,
                 config={"displayModeBar": False},
             ),
-            width=9,
+            width=10,
         ),
     ],
     className="main-content-row",
@@ -374,7 +401,7 @@ fig_empresas_ano = dbc.Col(
             dcc.Graph(id="fig-abertura-encerramento", config={"displayModeBar": False}),
         ]
     ),
-    width=9,
+    width=10,
 )
 
 saldo_empresas = (
@@ -391,17 +418,8 @@ card_saldo_empresas = html.Div(
         html.Div(
             [
                 html.H5(
-                    f"Saldo de empresas",
+                    "Saldo de empresas",
                     className="card-title",
-                ),
-                html.P(
-                    f"{all_data['abertura_encerramento_empresas_cleaned']['ano'].max()}",
-                    className="card-subtitle",
-                    style={
-                        "fontSize": "12px",
-                        "textAlign": "center",
-                        "color": "#6c757d",
-                    },
                 ),
                 html.Div(
                     [
@@ -420,6 +438,15 @@ card_saldo_empresas = html.Div(
                     },
                     className="card-value-container",
                 ),
+                html.P(
+                    f"{all_data['abertura_encerramento_empresas_cleaned']['ano'].max()}",
+                    className="card-subtitle",
+                    style={
+                        "fontSize": "12px",
+                        "textAlign": "center",
+                        "color": "#6c757d",
+                    },
+                ),
             ],
             className="card-content",
         )
@@ -432,7 +459,7 @@ coluna_cartao_saldo_empresas = dbc.Col(
         card_saldo_empresas,
         html.Div(style={"height": "20px"}),
     ],
-    width=3,
+    width=2,
     className="cards-container",
 )
 

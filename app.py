@@ -88,7 +88,16 @@ main_layout = dbc.Container(
                         "width": "calc(100% + 48px)",
                     }
                 ),
-                imagem_cabecalho,
+                html.Div(
+                    [
+                        imagem_cabecalho,
+                    ],
+                    style={
+                        "maxWidth": "1400px",  # Add max-width
+                        "margin": "0 auto",    # Center the content
+                        "width": "100%",
+                    }
+                ),
                 # Barra azul marinho com botão voltar condicional
                 html.Div(
                     [
@@ -129,7 +138,15 @@ main_layout = dbc.Container(
         # Div para criar espaço para o conteúdo não ficar embaixo do cabeçalho fixo
         html.Div(style={"height": "205px"}),  # Ajuste este valor conforme a altura total do seu cabeçalho
         # Conteúdo da página
-        dash.page_container,
+        html.Div(
+            dash.page_container,
+            style={
+                "maxWidth": "1400px",  # Match header max-width
+                "margin": "0 auto",    # Center the content
+                "width": "100%",
+                "padding": "0 20px",   # Add some padding on the sides
+            }
+        ),
     ],
     fluid=True,
     style={

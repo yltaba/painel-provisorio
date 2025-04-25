@@ -18,7 +18,7 @@ app = Dash(
     use_pages=True,
     external_stylesheets=external_stylesheets,
     suppress_callback_exceptions=True,
-    debug=False,
+    # debug=False,
 )
 app.title = "Painel de Governo PMO"
 

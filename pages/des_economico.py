@@ -1,7 +1,7 @@
 from dash import dcc, html, register_page
 import dash_bootstrap_components as dbc
 import plotly.express as px
-from babel.numbers import format_decimal, format_currency
+from babel.numbers import format_decimal, format_currency, format_percent
 
 from src.utils import (
     calcular_pib_atual,
@@ -380,6 +380,66 @@ cartoes_pib_per_capita = dbc.Row(
     className="main-content-row",
 )
 
+# CARTÕES PARTICIPAÇÃO NO PIB SP
+
+vl_participacao = (
+    all_data["pib_participacao_sp"]
+    .loc[
+        all_data["pib_participacao_sp"]['ano'] == all_data['pib_participacao_sp']['ano'].max()
+    ]['participacao_pib_sp'].values[0]
+)
+vl_participacao = format_percent(vl_participacao, locale="pt_BR", format="#.00%")
+
+card_participacao = html.Div(
+    [
+        html.Div(
+            [
+                html.H5(
+                    "PIB de Osasco / PIB SP",
+                    className="card-title",
+                ),
+                html.Div(
+                    [html.Div(vl_participacao, className="card-value")],
+                    className="card-value-container",
+                ),
+                html.P(
+                    f"{all_data['pib_participacao_sp']['ano'].max()}",
+                    className="card-subtitle",
+                    style={
+                        "fontSize": "12px",
+                        "textAlign": "center",
+                        "color": "#6c757d",
+                    },
+                ),
+            ],
+            className="card-content",
+        )
+    ],
+    className="custom-card",
+)
+coluna_card_participacao = dbc.Col(
+    [
+        card_participacao,
+        html.Div(style={"height": "20px"})
+    ],
+    width=2,
+    className="cards-container",
+)
+
+cartoes_participacao = dbc.Row(
+    [
+        coluna_card_participacao,
+        dbc.Col(
+            dcc.Graph(
+                id="fig-pib-sp",
+                figure=fig_pib_sp,
+                config={"displayModeBar": False},
+            ),
+            width=10,
+        ),
+    ],
+    className="main-content-row",
+)
 
 # ABERTURA E ENCERRAMENTO DE EMPRESAS
 opcoes_des_atividade = get_options_dropdown(
@@ -509,9 +569,7 @@ layout = html.Div(
                     "info-pib-sp",
                     "A participação do PIB de Osasco no Estado de São Paulo é uma medida da proporção do PIB de Osasco em relação ao PIB total do Estado de São Paulo. Ela é calculada dividindo o PIB de Osasco pelo PIB total do Estado de São Paulo.",
                 ),
-                dcc.Graph(
-                    id="fig-pib-sp", figure=fig_pib_sp, config={"displayModeBar": False}
-                ),
+                cartoes_participacao,
             ],
             className="section-container",
             style={"marginBottom": "3rem"},

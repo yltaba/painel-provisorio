@@ -134,7 +134,7 @@ cartoes_estoque_ano = html.Div(
                 html.H4("Estoque de postos de trabalho por ano"),
                 create_info_popover(
                     "info-estoque-ano",
-                    "O estoque de postos de trabalho por ano é uma métrica que mostra o estoque de postos de trabalho por ano em um determinado período.",
+                    "O estoque de postos de trabalho é computado pelo Relatório Anual de Informações Sociais (RAIS). Considera o total de vínculos empregatícios no município.",
                 ),
                 coluna_fig_estoque_ano,
                 fig_estoque_ano,
@@ -251,7 +251,7 @@ cartoes_saldo_ano = html.Div(
                 html.H4("Saldo de movimentações por ano"),
                 create_info_popover(
                     "info-saldo-ano",
-                    "O saldo de movimentações por ano é uma métrica que mostra o saldo de movimentações por ano em um determinado período.",
+                    "Dados do NOVO CAGED (Cadastro Geral de Empregados e Desempregados) registram a movimentação de empregados e desempregados. O saldo das movimentações é a soma destes valores. Caso positivo, há mais admissões que demissões.",
                 ),
                 coluna_fig_saldo_ano,
                 fig_saldo_mov_ano,
@@ -270,7 +270,7 @@ fig_saldo_mov_secao = html.Div(
         html.H4("Saldo de postos de trabalho por Seção da CNAE"),
         create_info_popover(
             "info-saldo-secao",
-            "O saldo de postos de trabalho por seção da CNAE é uma métrica que mostra o saldo de postos de trabalho por seção da CNAE em um determinado período.",
+            "CNAE (Classificação Nacional de Atividades Econômicas).",
         ),
         html.Div(
             [
@@ -303,7 +303,7 @@ fig_saldo_mov_idade = html.Div(
         html.H4("Saldo de postos de trabalho por idade"),
         create_info_popover(
             "info-saldo-idade",
-            "O saldo de postos de trabalho por idade é uma métrica que mostra o saldo de postos de trabalho por idade em um determinado período.",
+            "Saldo de postos de trabalho por idade.",
         ),
         html.Div(
             [
@@ -336,7 +336,7 @@ fig_media_salario_mov = html.Div(
         html.H4("Evolução da média salarial de admissões e demissões"),
         create_info_popover(
             "info-media-salario",
-            "A média salarial de admissões e demissões é uma métrica que mostra a média salarial dos funcionários que foram admitidos e demitidos.",
+            "Média salarial das admissões e demissões registradas pelas movimentações do CAGED.",
         ),
         dbc.Row(
             [
@@ -400,7 +400,7 @@ fig_media_idade_mov = html.Div(
         html.H4("Evolução da média de idade das admissões e demissões"),
         create_info_popover(
             "info-media-idade",
-            "A média de idade das admissões e demissões é uma métrica que mostra a idade média dos funcionários que foram admitidos e demitidos.",
+            "Média de idade das admissões e demissões registradas pelas movimentações do CAGED.",
         ),
         dbc.Row(
             [

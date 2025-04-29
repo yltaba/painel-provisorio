@@ -44,4 +44,43 @@ def load_data():
         "abertura_encerramento_empresas_cleaned": pd.read_csv(
             DATA_PATH / "tb_sigt_abertura_encerramento_empresas_cleaned.csv", sep=";"
         ),
+        "cod_familiar_fam": pd.read_csv(
+            DATA_PATH / "cod_familiar_fam.csv", sep=";"
+        ),
+        "cad_unico_painel": pd.read_csv(
+            DATA_PATH / "cad_unico_painel.csv", sep=";"
+        ),
+        "cod_familiar_fam_2025": pd.read_csv(
+            DATA_PATH / "cod_familiar_fam_2025.csv", sep=";"
+        ),
+        "renda_per_capita_fam": pd.read_csv(
+            DATA_PATH / "renda_per_capita_fam.csv", sep=";"
+        ),
+        "n_pessoas_fam": pd.read_csv(
+            DATA_PATH / "n_pessoas_fam.csv", sep=";"
+        ),
+        "escoa_sanitario_fam": pd.read_csv(
+            DATA_PATH / "escoa_sanitario_fam.csv", sep=";"
+        ),
+        "agua_canalizada_fam": pd.read_csv(
+            DATA_PATH / "agua_canalizada_fam.csv", sep=";"
+        ),
+        "qtd_comodos_domic_fam": pd.read_csv(
+            DATA_PATH / "qtd_comodos_domic_fam.csv", sep=";"
+        ),
+        "sabe_ler_escrever_memb": pd.read_csv(
+            DATA_PATH / "sabe_ler_escrever_memb.csv", sep=";"
+        ),
+        "sexo_pessoa": pd.read_csv(
+            DATA_PATH / "sexo_pessoa.csv", sep=";"
+        ),
+        "forma_coleta": pd.read_csv(
+            DATA_PATH / "forma_coleta.csv", sep=";"
+        ),
+        "parentesco": pd.read_csv(
+            DATA_PATH / "parentesco.csv", sep=";"
+        ),
+        "indicadores_bairros": pd.read_csv(
+            DATA_PATH / "indicadores_bairros.csv", sep=";"
+        ),
     }

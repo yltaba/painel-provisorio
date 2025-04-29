@@ -18,7 +18,6 @@ app = Dash(
     use_pages=True,
     external_stylesheets=external_stylesheets,
     suppress_callback_exceptions=True,
-    # debug=False,
 )
 app.title = "Painel de Governo PMO"
 
@@ -205,4 +204,4 @@ init_callbacks(app, all_data)
 
 server = app.server
 if __name__ == "__main__":
-    app.run_server(debug=False)
+    app.run_server(debug=True)

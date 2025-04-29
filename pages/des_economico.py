@@ -541,7 +541,7 @@ layout = html.Div(
                 html.H4("PIB (em R$ de 2021)"),
                 create_info_popover(
                     "info-pib",
-                    "O PIB é o valor total de todos os bens e serviços produzidos em um determinado período de tempo, geralmente um ano. Ele é uma das principais medidas da atividade econômica de um país ou região.",
+                    "O PIB - Produto Interno Bruto - é o valor total de todos os bens e serviços produzidos em um determinado período de tempo.",
                 ),
                 cartoes_pib_categorias,
             ],
@@ -567,7 +567,7 @@ layout = html.Div(
                 html.H4("Participação do PIB municipal no Estado de São Paulo"),
                 create_info_popover(
                     "info-pib-sp",
-                    "A participação do PIB de Osasco no Estado de São Paulo é uma medida da proporção do PIB de Osasco em relação ao PIB total do Estado de São Paulo. Ela é calculada dividindo o PIB de Osasco pelo PIB total do Estado de São Paulo.",
+                    "Proporção do PIB do Estado de São Paulo referente ao PIB do município de Osasco",
                 ),
                 cartoes_participacao,
             ],

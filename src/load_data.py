@@ -47,9 +47,6 @@ def load_data():
         "cod_familiar_fam": pd.read_csv(
             DATA_PATH / "cod_familiar_fam.csv", sep=";"
         ),
-        "cad_unico_painel": pd.read_csv(
-            DATA_PATH / "cad_unico_painel.csv", sep=";"
-        ),
         "cod_familiar_fam_2025": pd.read_csv(
             DATA_PATH / "cod_familiar_fam_2025.csv", sep=";"
         ),

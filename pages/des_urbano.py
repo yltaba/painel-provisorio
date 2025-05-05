@@ -11,12 +11,16 @@ layout = html.Div(
         html.Div(
             [
                 html.H4("Zoneamento de Osasco"),
+                html.P([
+                    "Fonte: ",
+                    html.A("OzMundi", href="https://ozmundi.osasco.sp.gov.br/forms/login.php", target="_blank")
+                ]),
                 create_info_popover(
                     "info-zoneamento",
                     "O zoneamento de Osasco é um plano de uso do solo que define as áreas destinadas a diferentes atividades econômicas e de ocupação do solo.",
                 ),
                 html.Iframe(
-                    src="https://ozmundi.osasco.sp.gov.br/misc/base_zoneamento_2024/", # https://ozmundi.osasco.sp.gov.br/misc/base_zoneamento/
+                    src="https://ozmundi.osasco.sp.gov.br/misc/base_zoneamento_2024_v2/",
                     style={
                         "width": "100%",
                         "height": "1000px",
@@ -31,6 +35,10 @@ layout = html.Div(
         html.Div(
             [
                 html.H4("Loteamento de Osasco"),
+                html.P([
+                    "Fonte: ",
+                    html.A("OzMundi", href="https://ozmundi.osasco.sp.gov.br/forms/login.php", target="_blank")
+                ]),
                 create_info_popover(
                     "info-zoneamento",
                     "",

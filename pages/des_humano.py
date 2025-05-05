@@ -597,6 +597,20 @@ def get_pbf_plots(pbf):
         hovertemplate="<b>%{fullData.name}</b><br>Mês/Ano: %{x}<br>Média do valor dos repasses PBF: %{y:,.0f}<extra></extra>"
     )
 
+    for fig in [fig_n_favorecidos, fig_total_repasses, fig_media_repasses]:
+
+        fig.add_annotation(
+            text="Fonte: <a href='https://portaldatransparencia.gov.br/download-de-dados/novo-bolsa-familia'>Portal da Transparência: CGU</a>",
+            xref="paper",
+            yref="paper",
+            x=0.0,
+            y=-0.35,
+            showarrow=False,
+            font=dict(size=12),
+            # xanchor="center",
+            clicktoshow=False,
+        )
+
     return fig_n_favorecidos, fig_total_repasses, fig_media_repasses
 
 
@@ -608,11 +622,15 @@ layout = html.Div(
     [
         html.Br(),
         html.H3("Cadastro Único para Programas Sociais"),
+        create_info_popover(
+            "info-cadastro-unico",
+            "O Cadastro Único proporciona uma visão abrangente da parcela mais vulnerável da população brasileira, permitindo que os governos em todos os níveis saibam quem são essas famílias, onde vivem, suas condições de vida e suas necessidades.",
+        ),
         html.Br(),
         # LINHA CARDS COM INFORMAÇÕES GERAIS
         html.Div(
             [
-                html.H4("Cadastros"),
+                html.H4("Famílias"),
                 html.Br(),
                 cards_cadastro,
             ],

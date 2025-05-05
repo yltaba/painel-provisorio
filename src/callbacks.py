@@ -426,6 +426,15 @@ def init_callbacks(app, all_data):
             },
             labels={"value": "Número de Empresas", "ano": "Ano", "variable": "Status"},
         )
+        fig_abertura_encerramento.add_annotation(
+            text="Fonte: <a href='https://sigt.osasco.sp.gov.br/iTRIB2/index.jsp'>SIGT</a>",
+            xref="paper",
+            yref="paper",
+            x=0,
+            y=-0.2,
+            showarrow=False,
+            font=dict(size=12),
+        )
         fig_abertura_encerramento.update_traces(
             name="Empresas encerradas", selector=dict(name="n_empresas_encerradas")
         )
@@ -438,6 +447,18 @@ def init_callbacks(app, all_data):
             )
         )
         fig_abertura_encerramento.update_yaxes(tickformat=",")
+
+        fig_abertura_encerramento.add_annotation(
+            text="Fonte: <a href='https://sigt.osasco.sp.gov.br/iTRIB2/index.jsp'>SIGT</a>",
+            xref="paper",
+            yref="paper",
+            x=0.0,
+            y=-0.5,
+            showarrow=False,
+            font=dict(size=12),
+            xanchor="center",
+            clicktoshow=False,
+        )
 
         return fig_abertura_encerramento
 

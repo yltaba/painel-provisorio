@@ -331,14 +331,20 @@ row_graficos_cadastro_sexo = dbc.Row(
     [
         dbc.Col(
             [
-                html.H4("Evolução de cadastros por ano e forma de coleta"),
+                html.H4(
+                    "Evolução de cadastros por ano e forma de coleta",
+                    id="evolucao_cadastros",
+                ),
                 dcc.Graph(figure=fig_cadastro_forma_coleta),
             ],
             width=8,
         ),
         dbc.Col(
             [
-                html.H4("Pessoas cadastradas por sexo biológico:"),
+                html.H4(
+                    "Pessoas cadastradas por sexo biológico:",
+                    id="sexo_biologico",
+                ),
                 dcc.Graph(figure=fig_sexo_biologico),
             ],
             width=4,

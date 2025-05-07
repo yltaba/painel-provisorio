@@ -1,0 +1,21 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  dockerRegistryServiceConnection: 'acrcidadeinteligente'
+  imageRepository: 'back-portalgoverno-v1'
+  containerRegistry: 'acrcidadeinteligente.azurecr.io'
+  imageTag: '$(Build.BuildId)'
+
+steps:
+- task: Docker@2
+  inputs:
+    command: 'buildAndPush'
+    repository: '$(imageRepository)'
+    dockerfile: '**/Dockerfile'
+    tags: |
+      $(imageTag)
+    containerRegistry: '$(dockerRegistryServiceConnection)'

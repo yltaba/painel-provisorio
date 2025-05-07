@@ -74,79 +74,6 @@ def create_info_popover(id_referencia, texto):
     )
 
 
-def botao_voltar():
-    return html.Div(
-        [
-            dbc.Row(
-                dbc.Col(
-                    dbc.Button(
-                        [
-                            html.Span(
-                                "home",
-                                className="material-icons",  # Removido me-2 pois não precisamos de margem
-                                style={
-                                    "display": "flex",
-                                    "alignItems": "center",
-                                    "justifyContent": "center",
-                                    "height": "100%",
-                                },
-                            ),
-                        ],
-                        href="/",
-                        color="light",
-                        className="mb-3",
-                        style={
-                            "textDecoration": "none",
-                            "display": "flex",
-                            "alignItems": "center",
-                            "justifyContent": "center",
-                            "width": "50px",
-                            "height": "35px",
-                            "padding": "0",
-                        },
-                    ),
-                    className="d-flex justify-content-end",
-                )
-            ),
-        ],
-        className="section-container",
-        style={"marginBottom": "1rem"},
-    )
-
-
-
-# def create_breadcrumb(pathname):
-#     """
-#     Creates a breadcrumb navigation component based on the current pathname.
-#     """
-#     if pathname == "/" or pathname == "":
-#         return None
-    
-#     # Remove leading slash and replace underscores with spaces
-#     path_parts = pathname.strip('/').split('/')
-#     current_page = path_parts[-1].replace('_', ' ').title()
-    
-#     return html.Div(
-#         dbc.Breadcrumb(
-#             items=[
-#                 {"label": "Início", "href": "/", "external_link": True},
-#                 {"label": current_page, "active": True},
-#             ],
-#             style={
-#                 "backgroundColor": "transparent",
-#                 "padding": "0",
-#                 "marginBottom": "0",
-#             }
-#         ),
-#         style={
-#             "display": "flex",
-#             "alignItems": "center",
-#             "height": "100%",
-#             "color": "white",
-#         }
-#     )
-
-
 def create_breadcrumb(pathname):
     """
     Creates a breadcrumb navigation component based on the current pathname.
@@ -168,7 +95,7 @@ def create_breadcrumb(pathname):
                 "backgroundColor": "transparent",
                 "padding": "0",
                 "marginBottom": "0",
-                "marginRight": "40px",  # Add right margin here
+                # "marginRight": "40px",
             }
         ),
         style={
@@ -176,7 +103,7 @@ def create_breadcrumb(pathname):
             "alignItems": "center",
             "height": "100%",
             "color": "white",
-            "width": "100%",  # Add this
-            "justifyContent": "flex-end",  # Add this
+            # "width": "100%",
+            "justifyContent": "flex-start",
         }
     )

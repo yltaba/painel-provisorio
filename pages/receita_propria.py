@@ -7,7 +7,6 @@ from src.utils import (
     calcular_pib_atual,
     calcular_variacao_pib,
     create_info_popover,
-    botao_voltar,
     get_options_dropdown,
 )
 from src.config import TEMPLATE
@@ -23,6 +22,6 @@ all_data = load_data()
 
 layout = html.Div(
     [
-        botao_voltar()
+        html.P("teste")
     ]
 )

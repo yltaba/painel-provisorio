@@ -91,3 +91,18 @@
 .plot-container {
     width: 100% !important;
 }
+
+.breadcrumb {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    height: 32px !important;      /* Altura mais fina, igual ou próxima ao input */
+    min-height: 0 !important;
+    display: flex;
+    align-items: center;
+    font-size: 12px !important;   /* Fonte um pouco menor, se quiser */
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}

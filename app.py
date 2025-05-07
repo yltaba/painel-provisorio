@@ -6,6 +6,7 @@ from src.utils import create_breadcrumb
 from src.config import DATA_PATH
 from src.load_data import load_data
 from src.callbacks import init_callbacks
+from src.titulos_index import TITULOS
 
 VALID_PASSWORD = "Oz1962"
 
@@ -105,12 +106,13 @@ main_layout = dbc.Container(
                             id="back-button-container",
                             fluid=True,
                             style={
-                                "height": "75px",
+                                "height": "60px",
                                 "display": "flex",
                                 "alignItems": "center",
                                 "padding": "0",
-                                "justifyContent": "flex-end",
+                                "justifyContent": "flex-start",
                                 "width": "100%",
+                                "marginLeft": "75px",
                             }
                         )
                     ],
@@ -136,36 +138,24 @@ main_layout = dbc.Container(
             }
         ),
         # Div para criar espaço para o conteúdo não ficar embaixo do cabeçalho fixo
-        html.Div(style={"height": "205px"}),  # Ajuste este valor conforme a altura total do seu cabeçalho
+        html.Div(style={"height": "205px"}),
         # Conteúdo da página
         html.Div(
             dash.page_container,
             style={
-                "maxWidth": "1400px",  # Match header max-width
-                "margin": "0 auto",    # Center the content
+                "maxWidth": "1400px",
+                "margin": "0 auto",
                 "width": "100%",
-                "padding": "0 20px",   # Add some padding on the sides
+                "padding": "0 20px",
             }
         ),
     ],
     fluid=True,
     style={
         "overflow-x": "hidden",
-        "padding-top": "0",  # Remove o padding top do container principal
+        "padding-top": "0",
     }
 )
-
-# Callback para controlar a visibilidade do breadcrumb
-@app.callback(
-    Output("back-button-container", "children"),
-    Input("url", "pathname")
-)
-def toggle_navigation(pathname):
-    if pathname == "/" or pathname == "":  # Se estiver na página inicial
-        return None  # Não mostra o breadcrumb
-    return create_breadcrumb(pathname)  # Mostra o breadcrumb em todas as outras páginas
-
-
 
 # Layout + autenticação
 app.layout = html.Div(
@@ -192,6 +182,52 @@ def authenticate(n_clicks, password):
     return False, "Senha incorreta"
 
 
+@app.callback(
+    Output('resultados-busca', 'children'),
+    Input('input-busca', 'value')
+)
+def buscar_titulos(termo):
+    if not termo:
+        return ""
+    resultados = [t for t in TITULOS if termo.lower() in t["titulo"].lower()]
+    if not resultados:
+        return html.Div("Nenhum resultado encontrado.", style={"padding": "8px", "color": "#888"})
+    return html.Ul(
+        [
+            html.Li(
+                html.A(
+                    [
+                        html.I(className="material-icons", children="search", style={"fontSize": "18px", "verticalAlign": "middle", "marginRight": "8px"}),
+                        t["titulo"],
+                        # html.Span(f" ({t['pagina']})", style={"color": "#888", "fontSize": "13px", "marginLeft": "8px"})
+                    ],
+                    href=f"/{t['pagina']}#{t['ancora']}",
+                    style={"textDecoration": "none", "color": "#0B3B7F"}
+                ),
+                style={
+                    "padding": "6px 12px",
+                    "borderBottom": "1px solid #eee",
+                    "listStyle": "none",
+                    "cursor": "pointer"
+                }
+            )
+            for t in resultados
+        ],
+        style={
+            "background": "#fff",
+            "boxShadow": "0 2px 8px rgba(0,0,0,0.08)",
+            "borderRadius": "6px",
+            "margin": "8px 0 0 0",
+            "padding": "0",
+            "maxHeight": "260px",
+            "overflowY": "auto",
+            "minWidth": "320px",
+            "position": "absolute",
+            "zIndex": 2000
+        }
+    )
+
+
 # Callback de conteúdo da página
 @app.callback(Output("page-content", "children"), [Input("authenticated", "data")])
 def display_page(authenticated):
@@ -200,8 +236,50 @@ def display_page(authenticated):
     return main_layout
 
 
+@app.callback(
+    Output("back-button-container", "children"),
+    Input("url", "pathname")
+)
+def toggle_navigation(pathname):
+    if pathname == "/" or pathname == "":
+        return html.Div(
+            [
+                dcc.Input(
+                    id='input-busca',
+                    type='text',
+                    placeholder='Buscar gráfico ou indicador...',
+                    style={
+                        "width": "320px",
+                        "height": "32px",  # Próximo da altura da barra azul
+                        "fontSize": "16px",
+                        "borderRadius": "6px",
+                        "padding": "0 12px",
+                        "border": "1px solid #ccc",
+                        "boxSizing": "border-box",
+                        "margin": "0"
+                    }
+                ),
+                html.Div(id='resultados-busca')
+            ],
+            style={
+                "position":"relative",
+                "width":"320px",
+            }
+        )
+    elif pathname and pathname != "/login":
+        return html.Div(
+            create_breadcrumb(pathname),
+            style={
+                "display": "flex",
+                "alignItems": "center",
+                "height": "100%",
+                "paddingLeft": "24px"
+            }
+        )
+    return None
+
 init_callbacks(app, all_data)
 
 server = app.server
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run_server(host="0.0.0.0", debug=False) 

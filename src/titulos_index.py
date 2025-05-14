@@ -1,12 +1,12 @@
 TITULOS = [
     # DESENVOLVIMENTO HUMANO
     {
-        "titulo": "Evolução de cadastros por ano e forma de coleta",
+        "titulo": "Evolução de cadastros no CadÚnico por ano e forma de coleta",
         "pagina": "desenvolvimento_humano",
         "ancora": "evolucao_cadastros",
     },
     {
-        "titulo": "Pessoas cadastradas por sexo biológico",
+        "titulo": "Pessoas cadastradas no CadÚnico por sexo biológico",
         "pagina": "desenvolvimento_humano",
         "ancora": "sexo_biologico",
     },
@@ -51,12 +51,12 @@ TITULOS = [
         "ancora": "card_esgoto",
     },
     {
-        "titulo": "Pessoas cadastradas por parentesco",
+        "titulo": "Pessoas cadastradas no CadÚnico por parentesco",
         "pagina": "desenvolvimento_humano",
         "ancora": "graf_parentesco",
     },
     {
-        "titulo": "Visão geral dos bairros de Osasco",
+        "titulo": "Visão geral dos bairros de Osasco no CadÚnico",
         "pagina": "desenvolvimento_humano",
         "ancora": "graf_bairros",
     },

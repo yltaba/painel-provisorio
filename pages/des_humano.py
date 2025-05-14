@@ -332,7 +332,7 @@ row_graficos_cadastro_sexo = dbc.Row(
         dbc.Col(
             [
                 html.H4(
-                    "Evolução de cadastros por ano e forma de coleta",
+                    "Evolução de cadastros no CadÚnico por ano e forma de coleta",
                     id="evolucao_cadastros",
                 ),
                 dcc.Graph(figure=fig_cadastro_forma_coleta),
@@ -342,7 +342,7 @@ row_graficos_cadastro_sexo = dbc.Row(
         dbc.Col(
             [
                 html.H4(
-                    "Pessoas cadastradas por sexo biológico:",
+                    "Pessoas cadastradas no CadÚnico por sexo biológico:",
                     id="sexo_biologico",
                 ),
                 dcc.Graph(figure=fig_sexo_biologico),
@@ -410,10 +410,11 @@ table = dash_table.DataTable(
     filter_action="native",
     sort_action="native",
     sort_mode="multi",
-    page_size=5,
-    # Styling
+    fixed_rows={"headers": True},
     style_table={
         "overflowX": "auto",
+        "overflowY": "auto",
+        "maxHeight": "500px",
         "border": "thin lightgrey solid",
         "borderRadius": "8px",
         "boxShadow": "0 4px 6px rgba(0, 0, 0, 0.1)",
@@ -662,7 +663,7 @@ layout = html.Div(
         # GRÁFICO DE PARENTESCO DAS PESSOAS CADASTRADAS
         html.Div(
             [
-                html.H4("Pessoas cadastradas por parentesco"),
+                html.H4("Pessoas cadastradas no CadÚnico por parentesco", id="graf_parentesco"),
                 dcc.Graph(figure=fig_parentesco),
             ],
             className="section-container",
@@ -671,7 +672,7 @@ layout = html.Div(
         # TABELA COM VISÃO GERAL DOS BAIRROS DE OSASCO
         html.Div(
             [
-                html.H4("Visão geral dos bairros de Osasco"),
+                html.H4("Visão geral dos bairros de Osasco no CadÚnico", id="graf_bairros"),
                 table_container,
             ],
             className="section-container",
@@ -684,7 +685,7 @@ layout = html.Div(
                 html.Div(
                     [
                         html.H4(
-                            "Número de famílias beneficiadas pelo Programa Bolsa Família"
+                            "Número de famílias beneficiadas pelo Programa Bolsa Família", id="graf_familias_bolsa_familia"
                         ),
                         dcc.Graph(figure=fig_n_favorecidos),
                     ],
@@ -693,7 +694,7 @@ layout = html.Div(
                 ),
                 html.Div(
                     [
-                        html.H4("Valor total dos repasses do Programa Bolsa Família"),
+                        html.H4("Valor total dos repasses do Programa Bolsa Família", id="graf_repasses_bolsa_familia"),
                         dcc.Graph(figure=fig_total_repasses),
                     ],
                     className="section-container",
@@ -702,7 +703,7 @@ layout = html.Div(
                 html.Div(
                     [
                         html.H4(
-                            "Média do valor dos repasses do Programa Bolsa Família"
+                            "Média do valor dos repasses do Programa Bolsa Família", id="graf_valor_repasses"
                         ),
                         dcc.Graph(figure=fig_media_repasses),
                     ],
